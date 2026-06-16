@@ -1,6 +1,10 @@
 package com.example.ui.whiteboard
 
-class CalculatorEngine {
+enum class AngleMode {
+    DEG, RAD, GRA
+}
+
+class CalculatorEngine(var angleMode: AngleMode = AngleMode.RAD) {
     fun evaluate(expression: String): String {
         return try {
             var formattedExp = expression
@@ -8,6 +12,13 @@ class CalculatorEngine {
                 .replace("÷", "/")
                 .replace("π", Math.PI.toString())
                 .replace("e", Math.E.toString())
+                .replace("sin⁻¹", "asin")
+                .replace("cos⁻¹", "acos")
+                .replace("tan⁻¹", "atan")
+                .replace("²", "^2")
+                .replace("³", "^3")
+                .replace("⁻¹", "^(-1)")
+                .replace("√", "sqrt")
 
             // Auto-close open parentheses
             val openParens = formattedExp.count { it == '(' }
@@ -95,15 +106,16 @@ class CalculatorEngine {
                     } else {
                         val arg = parseFactor()
                         when (func) {
-                            "sin" -> Math.sin(Math.toRadians(arg))
-                            "cos" -> Math.cos(Math.toRadians(arg))
-                            "tan" -> Math.tan(Math.toRadians(arg))
-                            "asin" -> Math.toDegrees(Math.asin(arg))
-                            "acos" -> Math.toDegrees(Math.acos(arg))
-                            "atan" -> Math.toDegrees(Math.atan(arg))
+                            "sin" -> Math.sin(convertToRadian(arg))
+                            "cos" -> Math.cos(convertToRadian(arg))
+                            "tan" -> Math.tan(convertToRadian(arg))
+                            "asin" -> convertFromRadian(Math.asin(arg))
+                            "acos" -> convertFromRadian(Math.acos(arg))
+                            "atan" -> convertFromRadian(Math.atan(arg))
                             "ln" -> Math.log(arg)
                             "log" -> Math.log10(arg)
                             "sqrt", "√" -> Math.sqrt(arg)
+                            "abs" -> Math.abs(arg)
                             else -> throw RuntimeException("Unknown function: $func")
                         }
                     }
@@ -113,7 +125,36 @@ class CalculatorEngine {
 
                 if (eat('^'.toInt())) x = Math.pow(x, parseFactor()) // exponentiation
 
+                while (eat('!'.toInt())) {
+                    x = factorial(x)
+                }
+
                 return x
+            }
+            
+            private fun convertToRadian(angle: Double): Double {
+                return when (angleMode) {
+                    AngleMode.DEG -> Math.toRadians(angle)
+                    AngleMode.RAD -> angle
+                    AngleMode.GRA -> angle * Math.PI / 200.0
+                }
+            }
+            
+            private fun convertFromRadian(rad: Double): Double {
+                 return when (angleMode) {
+                    AngleMode.DEG -> Math.toDegrees(rad)
+                    AngleMode.RAD -> rad
+                    AngleMode.GRA -> rad * 200.0 / Math.PI
+                }
+            }
+
+            private fun factorial(n: Double): Double {
+                if (n < 0 || n != Math.floor(n)) throw RuntimeException("Factorial only defined for non-negative integers")
+                var res = 1.0
+                for (i in 2..n.toInt()) {
+                    res *= i
+                }
+                return res
             }
         }.parse()
     }
