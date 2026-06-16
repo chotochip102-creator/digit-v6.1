@@ -1,0 +1,8 @@
+{
+  "name": "Digit V6.1",
+  "description": "An interactive digital learning platform interface for students and teachers",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
