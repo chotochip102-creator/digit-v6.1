@@ -481,40 +481,25 @@ fun SubjectProgressRow(subject: String, progress: Float, label: String, barColor
     val textColor = if (isDark) Color.White else Color.Black
     val bgTrack = if (isDark) Color(0xFF1E1E1E) else TeacherBgColor
 
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(subject, fontSize = 14.sp, color = textColor, modifier = Modifier.weight(1.5f), fontWeight = FontWeight.Medium)
-        
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text(subject, fontWeight = FontWeight.Medium, fontSize = 16.sp, color = textColor)
+            Text(label, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = barColor)
+        }
+        Spacer(modifier = Modifier.height(8.dp))
         Box(
             modifier = Modifier
-                .weight(2f)
-                .height(8.dp)
+                .fillMaxWidth()
+                .height(12.dp)
                 .clip(RoundedCornerShape(50))
                 .background(bgTrack)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(progress)
+                    .fillMaxWidth(progress.coerceIn(0f, 1f))
                     .clip(RoundedCornerShape(50))
                     .background(barColor)
-            )
-        }
-        
-        Spacer(modifier = Modifier.width(12.dp))
-        
-        Surface(
-            color = barColor.copy(alpha = 0.1f),
-            shape = RoundedCornerShape(50)
-        ) {
-            Text(
-                text = label,
-                fontSize = 12.sp,
-                color = barColor,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
             )
         }
     }

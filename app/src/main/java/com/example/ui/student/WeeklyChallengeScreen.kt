@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,33 +39,6 @@ private val secondary = Color(0xFF1a5f7a)
 private val onSecondary = Color(0xFFffffff)
 private val error = Color(0xFFba1a1a)
 private val onError = Color(0xFFffffff)
-
-val HindSiliguriTypography = Typography(
-    headlineLarge = androidx.compose.ui.text.TextStyle(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Bold,
-        fontSize = 32.sp,
-        lineHeight = 40.sp,
-    ),
-    titleMedium = androidx.compose.ui.text.TextStyle(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-    ),
-    bodyMedium = androidx.compose.ui.text.TextStyle(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        lineHeight = 20.sp,
-    ),
-    labelSmall = androidx.compose.ui.text.TextStyle(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-    )
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,7 +70,7 @@ fun WeeklyChallengeScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "Weekly Challenge",
-                            style = HindSiliguriTypography.titleMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp),
                             color = primary
                         )
                     }
@@ -126,12 +98,12 @@ fun WeeklyChallengeScreen(
                 Column {
                     Text(
                         text = "$timeLeft",
-                        style = HindSiliguriTypography.headlineLarge.copy(fontSize = 48.sp, lineHeight = 48.sp),
+                        style = MaterialTheme.typography.headlineLarge.copy(fontSize = 48.sp, lineHeight = 48.sp),
                         color = error
                     )
                     Text(
                         text = "SECONDS REMAINING",
-                        style = HindSiliguriTypography.labelSmall.copy(letterSpacing = 1.sp),
+                        style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 1.sp),
                         color = onSurfaceVariant
                     )
                 }
@@ -179,12 +151,12 @@ fun WeeklyChallengeScreen(
                 ) {
                     Text(
                         text = "What is the SI unit of electric current?",
-                        style = HindSiliguriTypography.bodyMedium.copy(fontSize = 16.sp, color = onSurface)
+                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp, color = onSurface)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = "বিদ্যুৎ প্রবাহের SI একক কী?",
-                        style = HindSiliguriTypography.bodyMedium.copy(
+                        style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
                             color = primary
@@ -221,7 +193,7 @@ fun WeeklyChallengeScreen(
                     ) {
                         Text(
                             text = option,
-                            style = HindSiliguriTypography.titleMedium.copy(
+                            style = MaterialTheme.typography.titleMedium.copy(
                                 color = if (isSelected) primary else onSurface,
                                 fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
                             )

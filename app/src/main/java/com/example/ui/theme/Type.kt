@@ -33,7 +33,19 @@ val HindSiliguriFontFamily = FontFamily(
     Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Bold)
 )
 
-val AppFontFamily = PoppinsFontFamily
+val AppFontFamily = FontFamily(
+    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.Normal),
+    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Normal),
+    
+    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.Medium),
+    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Medium),
+    
+    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.SemiBold),
+    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.SemiBold),
+    
+    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.Bold),
+    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Bold)
+)
 
 val Typography = Typography(
     displayLarge = TextStyle(fontFamily = AppFontFamily, fontWeight = FontWeight.Normal, fontSize = 57.sp, lineHeight = 64.sp, letterSpacing = (-0.25).sp),

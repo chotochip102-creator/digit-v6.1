@@ -98,7 +98,6 @@ fun RoleSelectionScreen(
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
                         color = brandIndigo,
-                        fontFamily = androidx.compose.ui.text.font.FontFamily.SansSerif,
                         letterSpacing = (-0.5).sp
                     )
                 }
