@@ -760,9 +760,10 @@ fun WhiteboardScreen(
         }
         
         if (showCalculator) {
-            CalculatorWidget(
-                onClose = { showCalculator = false },
-                modifier = Modifier
+            val calcModifier = if (isMobile) {
+                Modifier.align(Alignment.BottomCenter).fillMaxWidth().navigationBarsPadding()
+            } else {
+                Modifier
                     .offset { androidx.compose.ui.unit.IntOffset(calcOffset.x.toInt(), calcOffset.y.toInt()) }
                     .pointerInput(Unit) {
                         detectDragGestures { change, dragAmount ->
@@ -770,6 +771,10 @@ fun WhiteboardScreen(
                             calcOffset += dragAmount
                         }
                     }
+            }
+            CalculatorWidget(
+                onClose = { showCalculator = false },
+                modifier = calcModifier
             )
         }
     }
@@ -958,69 +963,471 @@ fun PencilSettingsContent(
     }
 }
 
+enum class CalculatorMode {
+    STANDARD, SCIENTIFIC
+}
+
+data class SciKeyData(
+    val text: String,
+    val shift: String = "",
+    val alpha: String = "",
+    val bg: Color? = null,
+    val fg: Color? = null,
+    val action: String = text
+)
+
 @Composable
 fun CalculatorWidget(
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Surface(
-        modifier = modifier.padding(16.dp),
-        shape = RoundedCornerShape(24.dp),
-        color = Color(0xFFF9FAFB),
-        shadowElevation = 16.dp
+    var mode by remember { mutableStateOf(CalculatorMode.SCIENTIFIC) }
+    var currentInput by remember { mutableStateOf("") }
+    var result by remember { mutableStateOf("") }
+    var selectedBottomTab by remember { mutableIntStateOf(0) }
+    
+    val engine = remember { CalculatorEngine() }
+    
+    val onAction: (String) -> Unit = { action ->
+        when (action) {
+            "AC", "C" -> { 
+                currentInput = "" 
+                result = "" 
+            }
+            "DEL", "⌫" -> { 
+                if (currentInput.isNotEmpty()) currentInput = currentInput.dropLast(1) 
+            }
+            "=" -> { 
+                if (currentInput.isNotEmpty()) {
+                    result = engine.evaluate(currentInput) 
+                }
+            }
+            "(-)" -> currentInput += "-"
+            "sin", "cos", "tan", "ln", "log", "√", "sin⁻¹", "cos⁻¹", "tan⁻¹", "asin", "acos", "atan" -> {
+                val func = action.replace("⁻¹", "a") // wait, asin, acos, atan
+                if (action.contains("⁻¹")) {
+                    currentInput += "a" + action.replace("⁻¹", "") + "("
+                } else {
+                    currentInput += "$action("
+                }
+            }
+            "x²" -> currentInput += "^2"
+            "x³" -> currentInput += "^3"
+            "x⁻¹" -> currentInput += "^(-1)"
+            "10ˣ" -> currentInput += "10^("
+            "eˣ" -> currentInput += "e^("
+            "xⁿ" -> currentInput += "^("
+            else -> {
+                currentInput += action
+            }
+        }
+    }
+    
+    BoxWithConstraints(modifier = modifier) {
+        val isTabletBox = maxWidth > 500.dp
+        
+        Surface(
+            modifier = if (isTabletBox) Modifier.width(580.dp).padding(16.dp) else Modifier.fillMaxWidth(),
+            shape = if (isTabletBox) RoundedCornerShape(24.dp) else RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+            color = Color(0xFFF8F9FA),
+            shadowElevation = if (isTabletBox) 16.dp else 24.dp
+        ) {
+            Column(modifier = Modifier.fillMaxWidth().padding(horizontal = if (isTabletBox) 24.dp else 16.dp, vertical = if(isTabletBox) 24.dp else 16.dp)) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Surface(
+                        shape = RoundedCornerShape(20.dp),
+                        color = Color(0xFFE5E7EB)
+                    ) {
+                        Row {
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(20.dp))
+                                    .background(if (mode == CalculatorMode.STANDARD) PrimaryIndigo else Color.Transparent)
+                                    .clickable { mode = CalculatorMode.STANDARD }
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                            ) {
+                                Text("Standard", color = if (mode == CalculatorMode.STANDARD) Color.White else Color.DarkGray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                            }
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(20.dp))
+                                    .background(if (mode == CalculatorMode.SCIENTIFIC) PrimaryIndigo else Color.Transparent)
+                                    .clickable { mode = CalculatorMode.SCIENTIFIC }
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                            ) {
+                                Text("Scientific", color = if (mode == CalculatorMode.SCIENTIFIC) Color.White else Color.DarkGray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                            }
+                        }
+                    }
+                    
+                    IconButton(onClick = onClose, modifier = Modifier.size(32.dp)) {
+                        Icon(Icons.Default.Close, contentDescription = "Close", tint = Color.Gray, modifier = Modifier.size(20.dp))
+                    }
+                }
+
+                // Main Content Area
+                Box(modifier = Modifier.weight(1f, fill = false)) {
+                    when (selectedBottomTab) {
+                        0 -> {
+                            if (mode == CalculatorMode.STANDARD) {
+                                StandardCalculatorLayout(currentInput, result, onAction)
+                            } else {
+                                if (isTabletBox) {
+                                    Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+                                        SciCalcHistorySidebar(modifier = Modifier.weight(1f))
+                                        Box(modifier = Modifier.weight(2f)) {
+                                            ScientificCalculatorLayout(currentInput, result, onAction)
+                                        }
+                                    }
+                                } else {
+                                    ScientificCalculatorLayout(currentInput, result, onAction)
+                                }
+                            }
+                        }
+                        1 -> CalculatorHistoryView()
+                        2 -> CalculatorVariablesView()
+                        3 -> CalculatorConstantsView()
+                    }
+                }
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
+                // Bottom Navigation
+                CalculatorBottomNav(
+                    selectedIdx = selectedBottomTab, 
+                    onTabSelected = { selectedBottomTab = it }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun CalculatorBottomNav(selectedIdx: Int, onTabSelected: (Int) -> Unit) {
+    val items = listOf("Calculate", "History", "Variables", "Constants")
+    
+    // Using icons mimicking the layout described
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(modifier = Modifier.padding(24.dp).width(260.dp)) {
-            // Display
+        items.forEachIndexed { idx, title ->
+            val isSelected = selectedIdx == idx
+            
             Column(
-                modifier = Modifier.fillMaxWidth().clickable(onClick = onClose),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { onTabSelected(idx) }
+                    .padding(8.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(if (isSelected) PrimaryIndigo else Color.Transparent),
+                    contentAlignment = Alignment.Center
+                ) {
+                    when (idx) {
+                        0 -> Icon(Icons.Outlined.Calculate, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(24.dp))
+                        1 -> Icon(Icons.Outlined.History, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(24.dp))
+                        2 -> Text("fx", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray)
+                        3 -> Text("{ }", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray)
+                    }
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(title, fontSize = 12.sp, color = if (isSelected) PrimaryIndigo else Color.DarkGray, fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium)
+            }
+        }
+    }
+}
+
+@Composable
+fun CalculatorHistoryView() {
+    Column(modifier = Modifier.fillMaxWidth().height(400.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Icon(Icons.Outlined.History, contentDescription = null, tint = Color.LightGray, modifier = Modifier.size(64.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("No History Yet", color = Color.Gray, fontSize = 18.sp)
+    }
+}
+
+@Composable
+fun CalculatorVariablesView() {
+    Column(modifier = Modifier.fillMaxWidth().height(400.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Text("fx", color = Color.LightGray, fontSize = 64.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("No Variables Defined", color = Color.Gray, fontSize = 18.sp)
+    }
+}
+
+@Composable
+fun CalculatorConstantsView() {
+    Column(modifier = Modifier.fillMaxWidth().height(400.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Text("{ }", color = Color.LightGray, fontSize = 64.sp, fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.height(16.dp))
+        Text("No Constants Available", color = Color.Gray, fontSize = 18.sp)
+    }
+}
+
+@Composable
+fun StdKey(
+    text: String,
+    bg: Color = Color.White,
+    fg: Color = Color(0xFF1F2937),
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Surface(
+        modifier = modifier.height(64.dp),
+        shape = RoundedCornerShape(12.dp),
+        color = bg,
+        shadowElevation = 2.dp
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize().clickable { onClick() },
+            contentAlignment = Alignment.Center
+        ) {
+            Text(text, color = fg, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        }
+    }
+}
+
+@Composable
+fun StandardCalculatorLayout(
+    currentInput: String,
+    result: String,
+    onAction: (String) -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Display Area
+        Surface(
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+            shape = RoundedCornerShape(16.dp),
+            color = Color.White,
+            shadowElevation = 2.dp
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
                 horizontalAlignment = Alignment.End
             ) {
-                Text("4,840 + 120 / 30", fontSize = 18.sp, color = Color.Gray, fontWeight = FontWeight.Normal)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text("= 4,844", fontSize = 36.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1F2937))
+                Text(currentInput.ifEmpty { "0" }, fontSize = 18.sp, color = Color.Gray, fontWeight = FontWeight.Normal)
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(result.ifEmpty { " " }, fontSize = 42.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, maxLines = 1)
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Buttons
-            val greenAction = Color(0xFF1EA34B) // Tailwind green 600
-
-            Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                // Left 3 columns
-                Column(modifier = Modifier.weight(3f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        CalcBtn("C", Modifier.weight(1f))
-                        CalcBtnIcon(Icons.AutoMirrored.Filled.ArrowBack, Modifier.weight(1f))
-                        CalcBtn("/", Modifier.weight(1f), bg = greenAction, fg = Color.White)
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        CalcBtn("7", Modifier.weight(1f))
-                        CalcBtn("8", Modifier.weight(1f))
-                        CalcBtn("9", Modifier.weight(1f))
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        CalcBtn("4", Modifier.weight(1f))
-                        CalcBtn("5", Modifier.weight(1f))
-                        CalcBtn("6", Modifier.weight(1f))
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        CalcBtn("1", Modifier.weight(1f))
-                        CalcBtn("2", Modifier.weight(1f))
-                        CalcBtn("3", Modifier.weight(1f))
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        CalcBtnIcon(Icons.Default.SyncAlt, Modifier.weight(1f), fg = greenAction) // swap icon
-                        CalcBtn("0", Modifier.weight(1f))
-                        CalcBtn(".", Modifier.weight(1f))
+        }
+        
+        val numKeys = listOf(
+            listOf(SciKeyData("C", fg = Color(0xFF9B1C1C), bg = Color.White), SciKeyData("( )", bg = Color.White), SciKeyData("%", bg = Color.White), SciKeyData("÷", fg = PrimaryIndigo, bg = Color.White)),
+            listOf(SciKeyData("7"), SciKeyData("8"), SciKeyData("9"), SciKeyData("×", fg = PrimaryIndigo, bg = Color.White)),
+            listOf(SciKeyData("4"), SciKeyData("5"), SciKeyData("6"), SciKeyData("-", fg = PrimaryIndigo, bg = Color.White)),
+            listOf(SciKeyData("1"), SciKeyData("2"), SciKeyData("3"), SciKeyData("+", fg = PrimaryIndigo, bg = Color.White)),
+            listOf(SciKeyData("0", bg = Color.White), SciKeyData(".", bg = Color.White), SciKeyData("⌫", fg = Color(0xFF9B1C1C), bg = Color.White), SciKeyData("=", bg = PrimaryIndigo, fg = Color.White))
+        )
+        
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            numKeys.forEach { rowVals ->
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    rowVals.forEach { key ->
+                        StdKey(
+                            text = key.text,
+                            bg = key.bg ?: Color.White,
+                            fg = key.fg ?: Color(0xFF1F2937),
+                            modifier = Modifier.weight(1f),
+                            onClick = { onAction(key.action) }
+                        )
                     }
                 }
-                // Right column
-                Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    CalcBtn("*", Modifier.fillMaxWidth().aspectRatio(1f), bg = greenAction, fg = Color.White)
-                    CalcBtn("-", Modifier.fillMaxWidth().aspectRatio(1f), bg = greenAction, fg = Color.White)
-                    CalcBtn("+", Modifier.fillMaxWidth().aspectRatio(1f), bg = greenAction, fg = Color.White)
-                    CalcBtn("=", Modifier.fillMaxWidth().weight(1f), bg = greenAction, fg = Color.White, isTall = true)
+            }
+        }
+    }
+}
+
+@Composable
+fun SciCalcHistorySidebar(modifier: Modifier = Modifier) {
+    Column(modifier = modifier
+        .fillMaxHeight()
+        .background(Color(0xFFF1F3F4), RoundedCornerShape(12.dp))
+        .padding(16.dp)
+    ) {
+        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+            Text("History", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF1F2937))
+            Icon(Icons.Default.DeleteOutline, contentDescription = "Clear", tint = Color(0xFF9B1C1C), modifier = Modifier.size(18.dp))
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        val history = listOf(
+            "∫(0→π) sin(x) dx" to "2",
+            "d/dx (x³ + 2x) @ x=2" to "14",
+            "log₂(1024)" to "10",
+            "√(144) + 5²" to "37"
+        )
+        
+        history.forEach { (eq, res) ->
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp), horizontalAlignment = Alignment.End) {
+                Text(eq, fontSize = 13.sp, color = Color.Gray)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(res, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo)
+            }
+            HorizontalDivider(color = Color(0xFFE5E7EB))
+        }
+    }
+}
+
+@Composable
+fun ScientificCalculatorLayout(
+    currentInput: String,
+    result: String,
+    onAction: (String) -> Unit
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Display Area
+        Surface(
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+            shape = RoundedCornerShape(16.dp),
+            color = Color.White,
+            shadowElevation = 2.dp
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(16.dp)
+            ) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                        Text("SHIFT", color = Color(0xFFD97706), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("ALPHA", color = Color(0xFF0D9488), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("RAD", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    }
                 }
+                Spacer(modifier = Modifier.height(24.dp))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                    Text(currentInput.ifEmpty { "0" }, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium, modifier = Modifier.padding(start = 8.dp, top = 16.dp))
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(result.ifEmpty { " " }, fontSize = 42.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1)
+            }
+        }
+        
+        // grids
+        val funcKeys = listOf(
+            listOf(SciKeyData("SHIFT", fg = Color(0xFFD97706)), SciKeyData("ALPHA", fg = Color(0xFF0D9488)), SciKeyData("◀"), SciKeyData("▲"), SciKeyData("▼"), SciKeyData("▶")),
+            listOf(SciKeyData("CALC", "SOLVE", "="), SciKeyData("∫", "d/dx", ":"), SciKeyData("x⁻¹", "x!"), SciKeyData("logₐb", "Σ"), SciKeyData("MODE"), SciKeyData("ON")),
+            listOf(SciKeyData("a/b", "d/c"), SciKeyData("√", "³√"), SciKeyData("x²", "x³"), SciKeyData("xⁿ", "ˣ√"), SciKeyData("log", "10ˣ"), SciKeyData("ln", "eˣ")),
+            listOf(SciKeyData("(-)", "∠", "A"), SciKeyData("° ' \"", "←", "B"), SciKeyData("hyp", alpha = "C"), SciKeyData("sin", "sin⁻¹", "D"), SciKeyData("cos", "cos⁻¹", "E"), SciKeyData("tan", "tan⁻¹", "F")),
+            listOf(SciKeyData("RCL", "STO"), SciKeyData("ENG", "←", "i"), SciKeyData("(", "%"), SciKeyData(")", ",", "X"), SciKeyData("S⇔D", "a b/c", "Y"), SciKeyData("M+", "M-", "M"))
+        )
+        
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            funcKeys.forEach { rowVals ->
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    rowVals.forEach { key ->
+                        SciFunctionKey(
+                            text = key.text,
+                            shift = key.shift,
+                            alpha = key.alpha,
+                            fg = key.fg ?: Color(0xFF1F2937),
+                            modifier = Modifier.weight(1f),
+                            onClick = { onAction(key.action) }
+                        )
+                    }
+                }
+            }
+        }
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        val numKeys = listOf(
+            listOf(SciKeyData("7", "CONST"), SciKeyData("8", "CONV"), SciKeyData("9", "CLR"), SciKeyData("DEL", "INS", "", Color(0xFFF1F3F4), Color(0xFF9B1C1C)), SciKeyData("AC", "OFF", "", Color(0xFFF1F3F4), Color(0xFF9B1C1C))),
+            listOf(SciKeyData("4", "MATRIX"), SciKeyData("5", "VECTOR"), SciKeyData("6", "STAT"), SciKeyData("×", "nPr"), SciKeyData("÷", "nCr")),
+            listOf(SciKeyData("1", "CMPLX"), SciKeyData("2", "BASE"), SciKeyData("3"), SciKeyData("+", "Pol"), SciKeyData("-", "Rec")),
+            listOf(SciKeyData("0", "Rnd"), SciKeyData(".", "Ran#", "RanInt"), SciKeyData("×10ˣ", "π", "e", action = "×10^("), SciKeyData("Ans", "DRG>"), SciKeyData("=", bg = PrimaryIndigo, fg = Color.White))
+        )
+        
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            numKeys.forEach { rowVals ->
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    rowVals.forEach { key ->
+                        SciNumKey(
+                            text = key.text,
+                            shift = key.shift,
+                            alpha = key.alpha,
+                            bg = key.bg ?: Color.White,
+                            fg = key.fg ?: Color(0xFF1F2937),
+                            modifier = Modifier.weight(1f),
+                            onClick = { onAction(key.action) }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SciFunctionKey(
+    text: String,
+    shift: String = "",
+    alpha: String = "",
+    fg: Color = Color(0xFF1F2937),
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Surface(
+        modifier = modifier.aspectRatio(1.5f),
+        shape = RoundedCornerShape(8.dp),
+        color = Color(0xFFF1F3F4), // Light Grey
+        shadowElevation = 1.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(4.dp).fillMaxSize().clickable { onClick() },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(shift, color = Color(0xFFD97706), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Amber
+                Text(alpha, color = Color(0xFF0D9488), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Teal
+            }
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(2f)) {
+                Text(text, color = fg, fontSize = 13.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+            }
+        }
+    }
+}
+
+@Composable
+fun SciNumKey(
+    text: String,
+    shift: String = "",
+    alpha: String = "",
+    bg: Color = Color.White,
+    fg: Color = Color(0xFF1F2937),
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {}
+) {
+    Surface(
+        modifier = modifier.aspectRatio(1.2f),
+        shape = RoundedCornerShape(8.dp),
+        color = bg,
+        shadowElevation = 2.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(6.dp).fillMaxSize().clickable { onClick() },
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(modifier = Modifier.fillMaxWidth().weight(0.8f), horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(shift, color = Color(0xFFD97706), fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                Text(alpha, color = Color(0xFF0D9488), fontSize = 8.sp, fontWeight = FontWeight.Bold)
+            }
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(2f)) {
+                Text(text, color = fg, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
     }
