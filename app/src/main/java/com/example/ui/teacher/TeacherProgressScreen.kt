@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -80,7 +81,7 @@ fun TeacherProgressScreen(
                         }
                     },
                     title = {
-                        Text("Student Progress", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = textColor)
+                        SmartText("Student Progress", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = textColor) // FIXED
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = bgColor,
@@ -127,13 +128,13 @@ fun StudentSelectionLayout(modifier: Modifier = Modifier, students: List<Student
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(24.dp))
-        Text(
+        SmartText( // FIXED
             text = "Select Student",
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
             color = if (isDark) Color.White else DarkIndigo
         )
-        Text(
+        SmartText( // FIXED
             text = "শিক্ষার্থী নির্বাচন করুন",
             fontSize = 22.sp,
             color = if (isDark) Color.LightGray else DarkIndigo.copy(alpha = 0.8f)
@@ -193,13 +194,13 @@ fun StudentItemCard(student: StudentRecord, onClick: () -> Unit) {
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(
+                SmartText( // FIXED
                     text = student.infoNameBen,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     color = textColor
                 )
-                Text(
+                SmartText( // FIXED
                     text = student.grade,
                     fontSize = 16.sp,
                     color = subTextColor
@@ -264,13 +265,13 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
                         )
                     }
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text(
+                    SmartText( // FIXED
                         text = "রাহুল দাশ",
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp,
                         color = Color.White
                     )
-                    Text(
+                    SmartText( // FIXED
                         text = "${student.grade} • Science Track",
                         fontSize = 14.sp,
                         color = Color.White.copy(alpha = 0.8f)
@@ -286,7 +287,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
                         ) {
                             Icon(Icons.Default.Star, contentDescription = null, tint = OrangeAccent, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(
+                            SmartText( // FIXED
                                 "LEVEL 12 EXPLORER   2,450 XP",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
@@ -351,7 +352,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.PieChartOutline, contentDescription = null, tint = DarkIndigo)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Subject Mastery", fontSize = 18.sp, color = textColor)
+                        SmartText("Subject Mastery", fontSize = 18.sp, color = textColor) // FIXED
                     }
                     Spacer(modifier = Modifier.height(24.dp))
                     
@@ -378,7 +379,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(Icons.Default.EditNote, contentDescription = null, tint = DarkIndigo)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Teacher's Feedback", fontSize = 18.sp, color = textColor)
+                        SmartText("Teacher's Feedback", fontSize = 18.sp, color = textColor) // FIXED
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedTextField(
@@ -387,7 +388,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(120.dp),
-                        placeholder = { Text("Write encouraging feedback for the student here...", color = Color.Gray) },
+                        placeholder = { SmartText("Write encouraging feedback for the student here...", color = Color.Gray) }, // FIXED
                         shape = RoundedCornerShape(16.dp),
                         colors = TextFieldDefaults.colors(
                             unfocusedContainerColor = inputBg,
@@ -407,7 +408,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
                     ) {
                         Icon(Icons.Default.Save, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("SAVE FEEDBACK")
+                        SmartText("SAVE FEEDBACK") // FIXED
                     }
                 }
             }
@@ -425,7 +426,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
             ) {
                 Icon(Icons.Outlined.FileDownload, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("DOWNLOAD PDF")
+                SmartText("DOWNLOAD PDF") // FIXED
             }
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedButton(
@@ -437,7 +438,7 @@ fun StudentReportLayout(modifier: Modifier = Modifier, student: StudentRecord) {
             ) {
                 Icon(Icons.Outlined.Send, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("SEND TO PARENT")
+                SmartText("SEND TO PARENT") // FIXED
             }
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -463,12 +464,12 @@ fun MetricCard(modifier: Modifier = Modifier, icon: ImageVector, metric: String,
         ) {
             Icon(icon, contentDescription = null, tint = tint)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(label, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = labelColor)
+            SmartText(label, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = labelColor) // FIXED
             Spacer(modifier = Modifier.height(4.dp))
             Row(verticalAlignment = Alignment.Bottom) {
-                Text(metric, fontSize = 42.sp, fontWeight = FontWeight.Bold, color = tint, lineHeight = 42.sp)
+                SmartText(metric, fontSize = 42.sp, fontWeight = FontWeight.Bold, color = tint, lineHeight = 42.sp) // FIXED
                 if (suffix.isNotEmpty()) {
-                    Text(suffix, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = tint, modifier = Modifier.padding(bottom=4.dp))
+                    SmartText(suffix, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = tint, modifier = Modifier.padding(bottom=4.dp)) // FIXED
                 }
             }
         }
@@ -483,8 +484,8 @@ fun SubjectProgressRow(subject: String, progress: Float, label: String, barColor
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(subject, fontWeight = FontWeight.Medium, fontSize = 16.sp, color = textColor)
-            Text(label, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = barColor)
+            SmartText(subject, fontWeight = FontWeight.Medium, fontSize = 16.sp, color = textColor) // FIXED
+            SmartText(label, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = barColor) // FIXED
         }
         Spacer(modifier = Modifier.height(8.dp))
         Box(

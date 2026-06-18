@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -64,7 +65,7 @@ fun StudentProfileScreen(
             TopAppBar(
                 title = { 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        Text("প্রোফাইল", fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.padding(end = 48.dp))
+                        SmartText("প্রোফাইল", fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.padding(end = 48.dp)) // FIXED
                     }
                 },
                 navigationIcon = {
@@ -104,8 +105,8 @@ fun StudentProfileScreen(
                             }
                             Spacer(modifier = Modifier.width(16.dp))
                             Column {
-                                Text("তানভীর আহমেদ", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textPrimary)
-                                Text("শ্রেণী: ৬", fontSize = 14.sp, color = textSecondary)
+                                SmartText("তানভীর আহমেদ", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textPrimary) // FIXED
+                                SmartText("শ্রেণী: ৬", fontSize = 14.sp, color = textSecondary) // FIXED
                             }
                         }
                         
@@ -121,7 +122,7 @@ fun StudentProfileScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text("অর্জিত ব্যাজ:", fontSize = 12.sp, color = textSecondary)
+                                SmartText("অর্জিত ব্যাজ:", fontSize = 12.sp, color = textSecondary) // FIXED
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                     Icon(Icons.Default.Stars, contentDescription = null, tint = Color(0xFFD4AF37), modifier = Modifier.size(20.dp))
@@ -130,7 +131,7 @@ fun StudentProfileScreen(
                             }
                             
                             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable { showBadgesDialog = true }) {
-                                Text("সবগুলো দেখুন", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.Medium)
+                                SmartText("সবগুলো দেখুন", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.Medium) // FIXED
                                 Icon(Icons.Default.ChevronRight, contentDescription = null, tint = PrimaryIndigo, modifier = Modifier.size(16.dp))
                             }
                         }
@@ -159,16 +160,16 @@ fun StudentProfileScreen(
                                     modifier = Modifier.size(48.dp)
                                 ) {
                                     Box(contentAlignment = Alignment.Center) {
-                                        Text("৭", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                                        SmartText("৭", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold) // FIXED
                                     }
                                 }
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Column(verticalArrangement = Arrangement.Center) {
-                                    Text("বর্তমান লেভেল", fontSize = 14.sp, color = PrimaryIndigo, fontWeight = FontWeight.Bold)
-                                    Text("লেভেল ৭", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textPrimary)
+                                    SmartText("বর্তমান লেভেল", fontSize = 14.sp, color = PrimaryIndigo, fontWeight = FontWeight.Bold) // FIXED
+                                    SmartText("লেভেল ৭", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textPrimary) // FIXED
                                 }
                             }
-                            Text("১,১৯০ / ১,৫০০ XP", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.SemiBold)
+                            SmartText("১,১৯০ / ১,৫০০ XP", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.SemiBold) // FIXED
                         }
                         
                         Spacer(modifier = Modifier.height(16.dp))
@@ -194,8 +195,8 @@ fun StudentProfileScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("৭৯% সম্পন্ন", fontSize = 12.sp, color = textSecondary)
-                            Text("পরবর্তী লেভেল: ৩১০ XP প্রয়োজন", fontSize = 12.sp, color = SecondaryTeal)
+                            SmartText("৭৯% সম্পন্ন", fontSize = 12.sp, color = textSecondary) // FIXED
+                            SmartText("পরবর্তী লেভেল: ৩১০ XP প্রয়োজন", fontSize = 12.sp, color = SecondaryTeal) // FIXED
                         }
                     }
                 }
@@ -259,29 +260,29 @@ fun StudentProfileScreen(
     if (showThemeDialog) {
         AlertDialog(
             onDismissRequest = { showThemeDialog = false },
-            title = { Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "থিম নির্বাচন করুন" else "Select Theme") },
+            title = { SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "থিম নির্বাচন করুন" else "Select Theme") }, // FIXED
             text = {
                 Column {
                     Row(modifier = Modifier.fillMaxWidth().clickable { AppSettings.themeMode = ThemeMode.LIGHT; showThemeDialog = false }.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(selected = AppSettings.themeMode == ThemeMode.LIGHT, onClick = { AppSettings.themeMode = ThemeMode.LIGHT; showThemeDialog = false })
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "লাইট মোড" else "Light Mode", color = textPrimary)
+                        SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "লাইট মোড" else "Light Mode", color = textPrimary) // FIXED
                     }
                     Row(modifier = Modifier.fillMaxWidth().clickable { AppSettings.themeMode = ThemeMode.DARK; showThemeDialog = false }.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(selected = AppSettings.themeMode == ThemeMode.DARK, onClick = { AppSettings.themeMode = ThemeMode.DARK; showThemeDialog = false })
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "ডার্ক মোড" else "Dark Mode", color = textPrimary)
+                        SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "ডার্ক মোড" else "Dark Mode", color = textPrimary) // FIXED
                     }
                     Row(modifier = Modifier.fillMaxWidth().clickable { AppSettings.themeMode = ThemeMode.SYSTEM; showThemeDialog = false }.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(selected = AppSettings.themeMode == ThemeMode.SYSTEM, onClick = { AppSettings.themeMode = ThemeMode.SYSTEM; showThemeDialog = false })
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "সিস্টেম ডিফল্ট" else "System Default", color = textPrimary)
+                        SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "সিস্টেম ডিফল্ট" else "System Default", color = textPrimary) // FIXED
                     }
                 }
             },
             confirmButton = {
                 TextButton(onClick = { showThemeDialog = false }) {
-                    Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "বাতিল" else "Cancel")
+                    SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "বাতিল" else "Cancel") // FIXED
                 }
             }
         )
@@ -290,24 +291,24 @@ fun StudentProfileScreen(
     if (showLanguageDialog) {
         AlertDialog(
             onDismissRequest = { showLanguageDialog = false },
-            title = { Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "ভাষা নির্বাচন করুন" else "Select Language") },
+            title = { SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "ভাষা নির্বাচন করুন" else "Select Language") }, // FIXED
             text = {
                 Column {
                     Row(modifier = Modifier.fillMaxWidth().clickable { AppSettings.appLanguage = AppLanguage.ENGLISH; showLanguageDialog = false }.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(selected = AppSettings.appLanguage == AppLanguage.ENGLISH, onClick = { AppSettings.appLanguage = AppLanguage.ENGLISH; showLanguageDialog = false })
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("English", color = textPrimary)
+                        SmartText("English", color = textPrimary) // FIXED
                     }
                     Row(modifier = Modifier.fillMaxWidth().clickable { AppSettings.appLanguage = AppLanguage.BENGALI; showLanguageDialog = false }.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(selected = AppSettings.appLanguage == AppLanguage.BENGALI, onClick = { AppSettings.appLanguage = AppLanguage.BENGALI; showLanguageDialog = false })
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("বাংলা", color = textPrimary)
+                        SmartText("বাংলা", color = textPrimary) // FIXED
                     }
                 }
             },
             confirmButton = {
                 TextButton(onClick = { showLanguageDialog = false }) {
-                    Text(if (AppSettings.appLanguage == AppLanguage.BENGALI) "বাতিল" else "Cancel")
+                    SmartText(if (AppSettings.appLanguage == AppLanguage.BENGALI) "বাতিল" else "Cancel") // FIXED
                 }
             }
         )
@@ -339,7 +340,7 @@ fun ProfileMenuItem(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.size(24.dp))
             Spacer(modifier = Modifier.width(16.dp))
-            Text(
+            SmartText( // FIXED
                 text = text,
                 fontSize = 16.sp,
                 color = textColor,

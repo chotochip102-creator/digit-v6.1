@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,7 +27,7 @@ fun QuizCreatorScreen(onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("কুইজ তৈরি", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp) },
+                title = { SmartText("কুইজ তৈরি", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp) }, // FIXED
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") }
                 },
@@ -39,7 +40,7 @@ fun QuizCreatorScreen(onNavigateBack: () -> Unit) {
                 OutlinedTextField(
                     value = quizTitle,
                     onValueChange = { quizTitle = it },
-                    label = { Text("Quiz Title") },
+                    label = { SmartText("Quiz Title") }, // FIXED
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -50,40 +51,40 @@ fun QuizCreatorScreen(onNavigateBack: () -> Unit) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        Text("Add Question", fontWeight = FontWeight.Bold)
+                        SmartText("Add Question", fontWeight = FontWeight.Bold) // FIXED
                         Spacer(modifier = Modifier.height(8.dp))
                         OutlinedTextField(
                             value = questionText,
                             onValueChange = { questionText = it },
-                            label = { Text("Question") },
+                            label = { SmartText("Question") }, // FIXED
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         OutlinedTextField(
                             value = optionA,
                             onValueChange = { optionA = it },
-                            label = { Text("Option A") },
+                            label = { SmartText("Option A") }, // FIXED
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         OutlinedTextField(
                             value = optionB,
                             onValueChange = { optionB = it },
-                            label = { Text("Option B") },
+                            label = { SmartText("Option B") }, // FIXED
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         OutlinedTextField(
                             value = optionC,
                             onValueChange = { optionC = it },
-                            label = { Text("Option C") },
+                            label = { SmartText("Option C") }, // FIXED
                             modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         OutlinedButton(onClick = { questionText=""; optionA=""; optionB=""; optionC="" }, modifier = Modifier.fillMaxWidth()) {
                             Icon(Icons.Default.Add, null)
                             Spacer(Modifier.width(8.dp))
-                            Text("Add Another Question")
+                            SmartText("Add Another Question") // FIXED
                         }
                     }
                 }
@@ -96,7 +97,7 @@ fun QuizCreatorScreen(onNavigateBack: () -> Unit) {
                 ) {
                     Icon(Icons.Default.Save, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Save Quiz", fontWeight = FontWeight.Bold)
+                    SmartText("Save Quiz", fontWeight = FontWeight.Bold) // FIXED
                 }
             }
         }

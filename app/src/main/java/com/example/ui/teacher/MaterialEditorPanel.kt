@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -65,7 +66,7 @@ fun MaterialEditorPanel(
             TopAppBar(
                 title = { 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        Text(
+                        SmartText( // FIXED
                             text = "সম্পাদনা: $bnTitle", 
                             fontWeight = FontWeight.Bold, 
                             color = primaryIndigo, 
@@ -154,7 +155,7 @@ fun MaterialEditorPanel(
                                         .width(col.weight.dp)
                                         .padding(16.dp)
                                 ) {
-                                    Text(
+                                    SmartText( // FIXED
                                         text = col.title,
                                         fontWeight = FontWeight.Bold,
                                         color = tableHeaderFg,
@@ -163,7 +164,7 @@ fun MaterialEditorPanel(
                                 }
                             }
                             Box(modifier = Modifier.width(100.dp).padding(16.dp), contentAlignment = Alignment.Center) {
-                                Text("Actions", fontWeight = FontWeight.Bold, color = tableHeaderFg, fontSize = 15.sp)
+                                SmartText("Actions", fontWeight = FontWeight.Bold, color = tableHeaderFg, fontSize = 15.sp) // FIXED
                             }
                         }
 

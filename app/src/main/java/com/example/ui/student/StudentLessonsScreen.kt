@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -80,13 +81,13 @@ fun StudentLessonsScreen(
         ) {
             item {
                 Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    Text(
+                    SmartText( // FIXED
                         text = "Lessons",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = LessonBlueText
                     )
-                    Text(
+                    SmartText( // FIXED
                         text = "পাঠসমূহ",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
@@ -99,7 +100,7 @@ fun StudentLessonsScreen(
             
             item {
                 Column {
-                    Text("Recently Viewed", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = LessonBlueText, modifier = Modifier.padding(horizontal = 16.dp))
+                    SmartText("Recently Viewed", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = LessonBlueText, modifier = Modifier.padding(horizontal = 16.dp)) // FIXED
                     Spacer(modifier = Modifier.height(16.dp))
                     androidx.compose.foundation.lazy.LazyRow(contentPadding = PaddingValues(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         item {
@@ -114,9 +115,9 @@ fun StudentLessonsScreen(
 
             item {
                 androidx.compose.foundation.lazy.LazyRow(contentPadding = PaddingValues(horizontal = 16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    item { FilterChip(selected = true, onClick = {}, label = { Text("All Subjects", color = Color.White) }, colors = FilterChipDefaults.filterChipColors(selectedContainerColor = LessonBlueText, selectedLabelColor = Color.White), shape = CircleShape, border = null) }
-                    item { FilterChip(selected = false, onClick = {}, label = { Text("Mathematics", color = LessonBlueText) }, shape = CircleShape, border = null, colors = FilterChipDefaults.filterChipColors(containerColor = Color(0xFFEEEEEE))) }
-                    item { FilterChip(selected = false, onClick = {}, label = { Text("Science", color = LessonBlueText) }, shape = CircleShape, border = null, colors = FilterChipDefaults.filterChipColors(containerColor = Color(0xFFEEEEEE))) }
+                    item { FilterChip(selected = true, onClick = {}, label = { SmartText("All Subjects", color = Color.White) }, colors = FilterChipDefaults.filterChipColors(selectedContainerColor = LessonBlueText, selectedLabelColor = Color.White), shape = CircleShape, border = null) } // FIXED
+                    item { FilterChip(selected = false, onClick = {}, label = { SmartText("Mathematics", color = LessonBlueText) }, shape = CircleShape, border = null, colors = FilterChipDefaults.filterChipColors(containerColor = Color(0xFFEEEEEE))) } // FIXED
+                    item { FilterChip(selected = false, onClick = {}, label = { SmartText("Science", color = LessonBlueText) }, shape = CircleShape, border = null, colors = FilterChipDefaults.filterChipColors(containerColor = Color(0xFFEEEEEE))) } // FIXED
                 }
             }
 
@@ -149,7 +150,7 @@ fun LessonsHeroSection() {
                 color = Color.White.copy(alpha = 0.15f),
                 shape = CircleShape
             ) {
-                Text(
+                SmartText( // FIXED
                     "CURRENT LESSON",
                     color = Color.White.copy(alpha = 0.9f),
                     fontSize = 10.sp,
@@ -159,7 +160,7 @@ fun LessonsHeroSection() {
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Text(
+            SmartText( // FIXED
                 "জ্যামিতি: ত্রিভুজের\nবৈশিষ্ট্য",
                 color = Color.White,
                 fontSize = 24.sp,
@@ -167,7 +168,7 @@ fun LessonsHeroSection() {
                 lineHeight = 32.sp
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
+            SmartText( // FIXED
                 "Geometry: Properties of Triangles",
                 color = Color.White.copy(alpha = 0.8f),
                 fontSize = 14.sp
@@ -178,7 +179,7 @@ fun LessonsHeroSection() {
                 colors = ButtonDefaults.buttonColors(containerColor = LessonTeal, contentColor = Color.White),
                 contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
             ) {
-                Text("Read Now", fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                SmartText("Read Now", fontWeight = FontWeight.Bold, fontSize = 14.sp) // FIXED
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, modifier = Modifier.size(16.dp))
             }
@@ -203,9 +204,9 @@ fun RecentlyViewedItem(titleBn: String, titleEn: String, icon: androidx.compose.
                 Icon(icon, contentDescription = null, tint = LessonBlueText, modifier = Modifier.size(20.dp))
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Text(titleBn, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = LessonPrimaryText, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            SmartText(titleBn, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = LessonPrimaryText, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) // FIXED
             Spacer(modifier = Modifier.height(4.dp))
-            Text(titleEn, fontSize = 12.sp, color = LessonSecondaryText, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            SmartText(titleEn, fontSize = 12.sp, color = LessonSecondaryText, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) // FIXED
             Spacer(modifier = Modifier.weight(1f))
             LinearProgressIndicator(
                 progress = { progress },
@@ -242,9 +243,9 @@ fun LessonItem(titleBn: String, titleEn: String, iconBgColor: Color, iconColor: 
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(titleBn, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = LessonPrimaryText)
+                SmartText(titleBn, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = LessonPrimaryText) // FIXED
                 Spacer(modifier = Modifier.height(2.dp))
-                Text(titleEn, fontSize = 14.sp, color = LessonSecondaryText, fontWeight = FontWeight.Medium)
+                SmartText(titleEn, fontSize = 14.sp, color = LessonSecondaryText, fontWeight = FontWeight.Medium) // FIXED
             }
             Spacer(modifier = Modifier.width(12.dp))
             Box(

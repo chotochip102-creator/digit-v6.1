@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import com.example.ui.theme.isAppInDarkTheme as isSystemInDarkTheme
@@ -57,7 +58,7 @@ fun TeacherQuizzesScreen(
                     containerColor = Primary,
                     contentColor = OnPrimary,
                     icon = { Icon(Icons.Default.Add, contentDescription = "Create Quiz") },
-                    text = { Text("নতুন কুইজ", fontWeight = FontWeight.Bold) }
+                    text = { SmartText("নতুন কুইজ", fontWeight = FontWeight.Bold) } // FIXED
                 )
             },
             bottomBar = {
@@ -82,8 +83,8 @@ fun TeacherQuizzesScreen(
             ) {
                 item {
                     Column {
-                        Text("কুইজ ম্যানেজমেন্ট", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Primary)
-                        Text("Manage Quizzes", fontSize = 14.sp, color = OnSurfaceVariant)
+                        SmartText("কুইজ ম্যানেজমেন্ট", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Primary) // FIXED
+                        SmartText("Manage Quizzes", fontSize = 14.sp, color = OnSurfaceVariant) // FIXED
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                 }
@@ -208,8 +209,8 @@ fun EditableQuizCard(
                     }
                     Spacer(modifier = Modifier.width(16.dp))
                     Column(modifier = Modifier.weight(1f)) {
-                        Text(titleBn, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color.White else Color(0xFF191C1D))
-                        Text(titleEn, fontSize = 14.sp, color = if (isDark) Color.LightGray else Color(0xFF46464F))
+                        SmartText(titleBn, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color.White else Color(0xFF191C1D)) // FIXED
+                        SmartText(titleEn, fontSize = 14.sp, color = if (isDark) Color.LightGray else Color(0xFF46464F)) // FIXED
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))
@@ -224,7 +225,7 @@ fun EditableQuizCard(
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                                 Icon(Icons.Outlined.Edit, contentDescription = null, tint = OnSurfaceVariant, modifier = Modifier.size(20.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("এডিট (Edit)", color = OnSurfaceVariant, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                SmartText("এডিট (Edit)", color = OnSurfaceVariant, fontSize = 14.sp, fontWeight = FontWeight.Bold) // FIXED
                             }
                         }
                     } else {

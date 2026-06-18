@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -34,7 +35,7 @@ fun TeacherHeader(
             ) {
                 Icon(Icons.Default.People, contentDescription = null, tint = AchievementOrange, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(4.dp))
-                Text("25", fontWeight = FontWeight.Bold, color = AchievementOrange, fontSize = 14.sp)
+                SmartText("25", fontWeight = FontWeight.Bold, color = AchievementOrange, fontSize = 14.sp) // FIXED
             }
             Spacer(modifier = Modifier.width(16.dp))
             Box(contentAlignment = Alignment.TopEnd) {

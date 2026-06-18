@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -53,7 +54,7 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
         containerColor = LessonSurface,
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("আলোর প্রতিফলন", color = LessonPrimary, fontWeight = FontWeight.Bold) },
+                title = { SmartText("আলোর প্রতিফলন", color = LessonPrimary, fontWeight = FontWeight.Bold) }, // FIXED
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back", tint = LessonPrimary)
@@ -78,14 +79,14 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
             item { Spacer(modifier = Modifier.height(4.dp)) }
 
             item {
-                Text(
+                SmartText( // FIXED
                     text = "আলোর প্রতিফলন |",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = LessonPrimary,
                     lineHeight = 36.sp
                 )
-                Text(
+                SmartText( // FIXED
                     text = "Reflection of Light",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Medium,
@@ -98,13 +99,13 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                         color = InfoChipBg,
                         shape = RoundedCornerShape(16.dp)
                     ) {
-                        Text("বিজ্ঞান", color = InfoChipText, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        SmartText("বিজ্ঞান", color = InfoChipText, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp), fontSize = 12.sp, fontWeight = FontWeight.SemiBold) // FIXED
                     }
                     Surface(
                         color = InfoChipBg,
                         shape = RoundedCornerShape(16.dp)
                     ) {
-                        Text("অধ্যায় ৪", color = InfoChipText, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        SmartText("অধ্যায় ৪", color = InfoChipText, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp), fontSize = 12.sp, fontWeight = FontWeight.SemiBold) // FIXED
                     }
                 }
             }
@@ -121,10 +122,10 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.AutoMirrored.Filled.Notes, contentDescription = null, tint = LessonPrimary)
                             Spacer(modifier = Modifier.width(12.dp))
-                            Text("শিক্ষকের নোট | Teacher's Notes", fontWeight = FontWeight.Medium, fontSize = 18.sp, color = LessonPrimary)
+                            SmartText("শিক্ষকের নোট | Teacher's Notes", fontWeight = FontWeight.Medium, fontSize = 18.sp, color = LessonPrimary) // FIXED
                         }
                         Spacer(modifier = Modifier.height(16.dp))
-                        Text(
+                        SmartText( // FIXED
                             "আজকের পাঠে আমরা দেখব কীভাবে আলো বিভিন্ন পৃষ্ঠ থেকে প্রতিফলিত হয়। মনে রেখো, আপতন কোণ সবসময় প্রতিফলন কোণের সমান হয় (∠i = ∠r)।",
                             color = LessonTextPrimary,
                             lineHeight = 24.sp,
@@ -132,13 +133,13 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         Row(verticalAlignment = Alignment.Top) {
-                            Text("■", color = LessonSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp, end = 8.dp))
-                            Text("নিয়মিত প্রতিফলন (Regular Reflection) - মসৃণ পৃষ্ঠে ঘটে।", color = InfoChipText, fontSize = 14.sp)
+                            SmartText("■", color = LessonSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp, end = 8.dp)) // FIXED
+                            SmartText("নিয়মিত প্রতিফলন (Regular Reflection) - মসৃণ পৃষ্ঠে ঘটে।", color = InfoChipText, fontSize = 14.sp) // FIXED
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         Row(verticalAlignment = Alignment.Top) {
-                            Text("■", color = LessonSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp, end = 8.dp))
-                            Text("ব্যাপ্ত প্রতিফলন (Diffuse Reflection) - অমসৃণ পৃষ্ঠে ঘটে।", color = InfoChipText, fontSize = 14.sp)
+                            SmartText("■", color = LessonSecondary, fontSize = 12.sp, modifier = Modifier.padding(top = 2.dp, end = 8.dp)) // FIXED
+                            SmartText("ব্যাপ্ত প্রতিফলন (Diffuse Reflection) - অমসৃণ পৃষ্ঠে ঘটে।", color = InfoChipText, fontSize = 14.sp) // FIXED
                         }
                         Spacer(modifier = Modifier.height(24.dp))
                         Surface(
@@ -149,9 +150,9 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                             Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
                                 Box(modifier = Modifier.width(4.dp).fillMaxHeight().background(LessonPrimary))
                                 Column(modifier = Modifier.padding(16.dp)) {
-                                    Text("গুরুত্বপূর্ণ সূত্র:", fontWeight = FontWeight.Bold, color = LessonPrimary, fontSize = 14.sp)
+                                    SmartText("গুরুত্বপূর্ণ সূত্র:", fontWeight = FontWeight.Bold, color = LessonPrimary, fontSize = 14.sp) // FIXED
                                     Spacer(modifier = Modifier.height(8.dp))
-                                    Text("আলোর প্রতিফলনের প্রথম সূত্র: আপতিত রশ্মি, প্রতিফলিত রশ্মি এবং আপতন বিন্দুতে অঙ্কিত অভিলম্ব একই সমতলে থাকে।", color = LessonPrimary, fontSize = 14.sp, lineHeight = 20.sp)
+                                    SmartText("আলোর প্রতিফলনের প্রথম সূত্র: আপতিত রশ্মি, প্রতিফলিত রশ্মি এবং আপতন বিন্দুতে অঙ্কিত অভিলম্ব একই সমতলে থাকে।", color = LessonPrimary, fontSize = 14.sp, lineHeight = 20.sp) // FIXED
                                 }
                             }
                         }
@@ -181,13 +182,13 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                         }
                         Spacer(modifier = Modifier.width(12.dp))
                         Column(modifier = Modifier.weight(1f)) {
-                            Text("পিডিএফ নোটস | PDF Notes", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = LessonTextPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                            SmartText("পিডিএফ নোটস | PDF Notes", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = LessonTextPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) // FIXED
                             Spacer(modifier = Modifier.height(2.dp))
-                            Text("গুগল ড্রাইভ লিংক | Google Drive Link", fontSize = 10.sp, color = LessonNeutral, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                            SmartText("গুগল ড্রাইভ লিংক | Google Drive Link", fontSize = 10.sp, color = LessonNeutral, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) // FIXED
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("READ NOW", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = LessonPrimary, letterSpacing = 0.5.sp)
+                            SmartText("READ NOW", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = LessonPrimary, letterSpacing = 0.5.sp) // FIXED
                             Spacer(modifier = Modifier.width(2.dp))
                             Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, tint = LessonPrimary, modifier = Modifier.size(14.dp))
                         }
@@ -217,13 +218,13 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                         }
                         Spacer(modifier = Modifier.width(12.dp))
                         Column(modifier = Modifier.weight(1f)) {
-                            Text("হোয়াইটবোর্ড | Whiteboard", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = LessonTextPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                            SmartText("হোয়াইটবোর্ড | Whiteboard", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = LessonTextPrimary, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) // FIXED
                             Spacer(modifier = Modifier.height(2.dp))
-                            Text("রাফ করা অথবা নোট নেওয়ার জন্য | For drafting", fontSize = 10.sp, color = LessonNeutral, lineHeight = 14.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+                            SmartText("রাফ করা অথবা নোট নেওয়ার জন্য | For drafting", fontSize = 10.sp, color = LessonNeutral, lineHeight = 14.sp, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis) // FIXED
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("OPEN BOARD", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = LessonPrimary, letterSpacing = 0.5.sp)
+                            SmartText("OPEN BOARD", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = LessonPrimary, letterSpacing = 0.5.sp) // FIXED
                             Spacer(modifier = Modifier.width(2.dp))
                             Icon(Icons.Outlined.OpenInNew, contentDescription = null, tint = LessonPrimary, modifier = Modifier.size(14.dp))
                         }
@@ -247,10 +248,10 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.SportsEsports, contentDescription = null, tint = Color.White)
                                 Spacer(modifier = Modifier.width(12.dp))
-                                Text("পাঠের কুইজ | Lesson Quiz", fontWeight = FontWeight.Medium, fontSize = 18.sp, color = Color.White)
+                                SmartText("পাঠের কুইজ | Lesson Quiz", fontWeight = FontWeight.Medium, fontSize = 18.sp, color = Color.White) // FIXED
                             }
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text("এই পাঠের উপর তোমার জ্ঞান যাচাই করো। | Test your knowledge on this lesson.", color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp, lineHeight = 20.sp)
+                            SmartText("এই পাঠের উপর তোমার জ্ঞান যাচাই করো। | Test your knowledge on this lesson.", color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp, lineHeight = 20.sp) // FIXED
                             Spacer(modifier = Modifier.height(24.dp))
                             Button(
                                 onClick = onNavigateToQuiz,
@@ -263,7 +264,7 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                             ) {
                                 Icon(Icons.Outlined.PlayCircle, contentDescription = null, modifier = Modifier.size(20.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("কুইজ শুরু করো | Start Quiz", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                SmartText("কুইজ শুরু করো | Start Quiz", fontSize = 14.sp, fontWeight = FontWeight.Bold) // FIXED
                             }
                         }
                     }
@@ -276,7 +277,7 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 16.dp)) {
                         Icon(Icons.Outlined.PlayCircle, contentDescription = null, tint = RedIcon, modifier = Modifier.size(24.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("সহায়ক ভিডিও | Supplemental Video", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = LessonPrimary)
+                        SmartText("সহায়ক ভিডিও | Supplemental Video", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = LessonPrimary) // FIXED
                     }
                     
                     Surface(
@@ -307,9 +308,9 @@ fun LessonDetailScreen(onNavigateBack: () -> Unit, onNavigateToQuiz: () -> Unit,
                                 
                                 // Text overlay
                                 Column(modifier = Modifier.align(Alignment.BottomStart)) {
-                                    Text("Introduction to Optics", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                                    SmartText("Introduction to Optics", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
                                     Spacer(modifier = Modifier.height(4.dp))
-                                    Text("Duration: 08:45", color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp)
+                                    SmartText("Duration: 08:45", color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp) // FIXED
                                 }
                             }
                         }

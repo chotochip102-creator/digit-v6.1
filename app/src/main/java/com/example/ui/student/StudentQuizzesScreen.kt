@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -213,14 +214,14 @@ fun HeroGoalSection() {
                 modifier = Modifier.padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-            Text(
+            SmartText( // FIXED
                 "আজকের কুইজ টার্গেট",
                 color = Color.White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(
+            SmartText( // FIXED
                 "Complete 3 quizzes today to\nmaintain your streak!",
                 color = Color.White.copy(alpha = 0.8f),
                 fontSize = 14.sp,
@@ -233,8 +234,8 @@ fun HeroGoalSection() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("DAILY PROGRESS", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp)
-                Text("1/3 Quizzes", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                SmartText("DAILY PROGRESS", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.sp) // FIXED
+                SmartText("1/3 Quizzes", color = Color.White, fontSize = 14.sp, fontWeight = FontWeight.Bold) // FIXED
             }
             Spacer(modifier = Modifier.height(8.dp))
             
@@ -334,11 +335,11 @@ fun GameCard(
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(titleBn, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = NavyBlue)
-                    Text(titleEn, fontSize = 14.sp, color = NavyBlue.copy(alpha = 0.7f))
+                    SmartText(titleBn, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = NavyBlue) // FIXED
+                    SmartText(titleEn, fontSize = 14.sp, color = NavyBlue.copy(alpha = 0.7f)) // FIXED
                 }
                 if (level != null && !isLocked) {
-                    Text(level, fontSize = 14.sp, color = NavyBlue, fontWeight = FontWeight.Medium)
+                    SmartText(level, fontSize = 14.sp, color = NavyBlue, fontWeight = FontWeight.Medium) // FIXED
                 } else if (isLocked) {
                     Icon(Icons.Outlined.Lock, contentDescription = "Locked", tint = NavyBlue, modifier = Modifier.size(20.dp))
                 }
@@ -355,7 +356,7 @@ fun GameCard(
                     contentColor = if (isLocked) NavyBlue.copy(alpha = 0.5f) else buttonTextColor
                 )
             ) {
-                Text(if (isLocked) "Locked" else buttonText, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                SmartText(if (isLocked) "Locked" else buttonText, fontSize = 16.sp, fontWeight = FontWeight.SemiBold) // FIXED
             }
         }
         }
@@ -400,7 +401,7 @@ fun WeeklyChallengeCard(onClick: () -> Unit) {
                             color = Color.White.copy(alpha = 0.2f),
                             shape = CircleShape
                         ) {
-                            Text(
+                            SmartText( // FIXED
                                 "Weekly Challenge",
                                 color = Color.White,
                                 fontSize = 11.sp,
@@ -409,7 +410,7 @@ fun WeeklyChallengeCard(onClick: () -> Unit) {
                             )
                         }
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(
+                        SmartText( // FIXED
                             "সাপ্তাহিক চ্যালেঞ্জ",
                             color = Color.White,
                             fontSize = 24.sp,
@@ -426,7 +427,7 @@ fun WeeklyChallengeCard(onClick: () -> Unit) {
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(containerColor = SoftYellow, contentColor = Color.Black)
                 ) {
-                    Text("Join Challenge", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                    SmartText("Join Challenge", fontSize = 16.sp, fontWeight = FontWeight.Bold) // FIXED
                 }
             }
         }

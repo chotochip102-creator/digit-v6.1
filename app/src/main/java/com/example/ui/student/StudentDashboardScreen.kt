@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -61,7 +62,7 @@ fun SharedStudentHeaderActions(onNavigateToProfile: () -> Unit) {
     ) {
         Icon(Icons.Default.LocalFireDepartment, contentDescription = null, tint = AchievementOrange, modifier = Modifier.size(18.dp))
         Spacer(modifier = Modifier.width(4.dp))
-        Text("৫", fontWeight = FontWeight.Bold, color = AchievementOrange, fontSize = 14.sp)
+        SmartText("৫", fontWeight = FontWeight.Bold, color = AchievementOrange, fontSize = 14.sp) // FIXED
     }
     Spacer(modifier = Modifier.width(16.dp))
     Box(contentAlignment = Alignment.TopEnd) {
@@ -154,9 +155,9 @@ fun StudentDashboardScreen(
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.GpsFixed, contentDescription = null, tint = PrimaryContainer, modifier = Modifier.size(24.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text("Daily goals", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OnSurface)
+                                SmartText("Daily goals", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OnSurface) // FIXED
                             }
-                            Text("2 of 4 done", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = OnSurfaceVariant)
+                            SmartText("2 of 4 done", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = OnSurfaceVariant) // FIXED
                         }
 
                         DailyGoalItem(title = "Complete 1 lesson", xp = 10, isCompleted = true)
@@ -171,8 +172,8 @@ fun StudentDashboardScreen(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Today's XP earned", color = OnSurface, fontSize = 16.sp, fontWeight = FontWeight.Medium)
-                            Text("25 / 50 XP", color = Color(0xFFFB8500), fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                            SmartText("Today's XP earned", color = OnSurface, fontSize = 16.sp, fontWeight = FontWeight.Medium) // FIXED
+                            SmartText("25 / 50 XP", color = Color(0xFFFB8500), fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
                         }
                     }
                 }
@@ -191,9 +192,9 @@ fun StudentDashboardScreen(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(Icons.Default.Grade, contentDescription = null, tint = PrimaryContainer, modifier = Modifier.size(24.dp))
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Recommended for you", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OnSurface)
+                            SmartText("Recommended for you", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = OnSurface) // FIXED
                         }
-                        Text("See all", fontWeight = FontWeight.Medium, fontSize = 16.sp, color = PrimaryContainer, modifier = Modifier.clickable { /* see all */ })
+                        SmartText("See all", fontWeight = FontWeight.Medium, fontSize = 16.sp, color = PrimaryContainer, modifier = Modifier.clickable { /* see all */ }) // FIXED
                     }
                     
                     Surface(
@@ -250,7 +251,7 @@ fun StudentDashboardScreen(
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("My subjects", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Primary)
+                    SmartText("My subjects", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Primary) // FIXED
                 }
             }
 
@@ -338,8 +339,8 @@ fun SubjectCard(
             }
             Spacer(modifier = Modifier.height(16.dp))
             Column(modifier = Modifier.padding(bottom = 8.dp)) {
-                Text(subjectEn, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OnSurface)
-                Text(subjectBn, fontSize = 12.sp, color = OnSurfaceVariant)
+                SmartText(subjectEn, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = OnSurface) // FIXED
+                SmartText(subjectBn, fontSize = 12.sp, color = OnSurfaceVariant) // FIXED
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 CustomProgressBar(
@@ -352,7 +353,7 @@ fun SubjectCard(
                     color = SurfaceContainer,
                     shape = RoundedCornerShape(percent = 50)
                 ) {
-                    Text(
+                    SmartText( // FIXED
                         "${(progress * 100).toInt()}%",
                         color = progressColor,
                         fontWeight = FontWeight.Bold,
@@ -384,9 +385,9 @@ fun DailyGoalItem(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(icon, contentDescription = null, tint = iconColor, modifier = Modifier.size(28.dp))
             Spacer(modifier = Modifier.width(16.dp))
-            Text(title, style = textStyle, color = textColor, fontSize = 16.sp, fontWeight = FontWeight.Medium)
+            SmartText(title, style = textStyle, color = textColor, fontSize = 16.sp, fontWeight = FontWeight.Medium) // FIXED
         }
-        Text("+$xp XP", color = Color(0xFFFB8500), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        SmartText("+$xp XP", color = Color(0xFFFB8500), fontWeight = FontWeight.Bold, fontSize = 16.sp) // FIXED
     }
 }
 
@@ -429,8 +430,8 @@ fun RecommendedItem(
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column {
-                Text(title, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = OnSurface)
-                Text(subtitle, fontSize = 14.sp, color = OnSurfaceVariant)
+                SmartText(title, fontWeight = FontWeight.SemiBold, fontSize = 16.sp, color = OnSurface) // FIXED
+                SmartText(subtitle, fontSize = 14.sp, color = OnSurfaceVariant) // FIXED
             }
         }
         
@@ -438,7 +439,7 @@ fun RecommendedItem(
             shape = RoundedCornerShape(percent = 50),
             color = adjustedBadgeBg
         ) {
-            Text(
+            SmartText( // FIXED
                 text = badgeText.uppercase(),
                 color = adjustedContentColor,
                 fontWeight = FontWeight.Bold,

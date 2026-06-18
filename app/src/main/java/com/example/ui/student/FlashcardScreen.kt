@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -29,7 +30,7 @@ fun FlashcardScreen(onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("ফ্ল্যাশকার্ড", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold) },
+                title = { SmartText("ফ্ল্যাশকার্ড", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold) }, // FIXED
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -46,7 +47,7 @@ fun FlashcardScreen(onNavigateBack: () -> Unit) {
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("মহাকাশ (Subject: Science)", color = MaterialTheme.colorScheme.onSurfaceVariant)
+            SmartText("মহাকাশ (Subject: Science)", color = MaterialTheme.colorScheme.onSurfaceVariant) // FIXED
             Spacer(modifier = Modifier.height(32.dp))
 
             Surface(
@@ -66,9 +67,9 @@ fun FlashcardScreen(onNavigateBack: () -> Unit) {
                     if (rotation <= 90f) {
                         // Front side
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("প্রশ্ন", fontSize = 14.sp, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f))
+                            SmartText("প্রশ্ন", fontSize = 14.sp, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f)) // FIXED
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text("সৌরজগৎ কাকে বলে?", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary, textAlign = TextAlign.Center, lineHeight = 36.sp)
+                            SmartText("সৌরজগৎ কাকে বলে?", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary, textAlign = TextAlign.Center, lineHeight = 36.sp) // FIXED
                         }
                     } else {
                         // Back side
@@ -76,9 +77,9 @@ fun FlashcardScreen(onNavigateBack: () -> Unit) {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier.graphicsLayer { rotationY = 180f } // Un-flip text
                         ) {
-                            Text("উত্তর", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f))
+                            SmartText("উত্তর", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.7f)) // FIXED
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text("সূর্য এবং এর চারপাশে ঘূর্নায়মান গ্রহ, উপগ্রহ, গ্রহাণু এবং ধূমকেতু নিয়ে যে জগৎ তৈরি তাকে সৌরজগৎ বলে।", fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondaryContainer, textAlign = TextAlign.Center, lineHeight = 28.sp)
+                            SmartText("সূর্য এবং এর চারপাশে ঘূর্নায়মান গ্রহ, উপগ্রহ, গ্রহাণু এবং ধূমকেতু নিয়ে যে জগৎ তৈরি তাকে সৌরজগৎ বলে।", fontSize = 20.sp, color = MaterialTheme.colorScheme.onSecondaryContainer, textAlign = TextAlign.Center, lineHeight = 28.sp) // FIXED
                         }
                     }
                 }
@@ -95,20 +96,20 @@ fun FlashcardScreen(onNavigateBack: () -> Unit) {
             ) {
                 Icon(Icons.Default.Refresh, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Flip Card (উল্টে দেখুন)")
+                SmartText("Flip Card (উল্টে দেখুন)") // FIXED
             }
             
             Spacer(modifier = Modifier.weight(1f))
             
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                 TextButton(onClick = { /* Mark hard */ }, colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.error)) {
-                    Text("Hard")
+                    SmartText("Hard") // FIXED
                 }
                 TextButton(onClick = { /* Mark Good */ }, colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.primary)) {
-                    Text("Good")
+                    SmartText("Good") // FIXED
                 }
                 TextButton(onClick = { /* Mark Easy */ }, colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.secondary)) {
-                    Text("Easy")
+                    SmartText("Easy") // FIXED
                 }
             }
         }

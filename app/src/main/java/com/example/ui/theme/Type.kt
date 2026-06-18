@@ -8,6 +8,10 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.Font
 import com.example.R
 
+val poppins = FontFamily(
+    Font(R.font.poppins) // FIXED
+)
+
 val hindSiliguri = FontFamily(
     Font(R.font.hind_siliguri) // FIXED
 )

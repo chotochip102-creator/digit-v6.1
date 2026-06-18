@@ -1,4 +1,5 @@
 package com.example.ui.quiz.timestable
+import com.example.ui.components.SmartText
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
@@ -87,7 +88,7 @@ fun TimesTableBlitzApp(onNavigateBack: () -> Unit) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
+                    SmartText( // FIXED
                         "Math Tables",
                         color = PrimaryIndigo,
                         fontWeight = FontWeight.Bold,
@@ -105,7 +106,7 @@ fun TimesTableBlitzApp(onNavigateBack: () -> Unit) {
                 },
                 actions = {
                     TextButton(onClick = { }) {
-                        Text("HELP", color = PrimaryIndigo, fontSize = 12.sp, fontWeight = FontWeight.Medium)
+                        SmartText("HELP", color = PrimaryIndigo, fontSize = 12.sp, fontWeight = FontWeight.Medium) // FIXED
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = SurfaceOffWhite)
@@ -171,7 +172,7 @@ fun ModeSelectScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(32.dp)
             ) {
-                Text(
+                SmartText( // FIXED
                     text = "Times Table Blitz",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
@@ -179,7 +180,7 @@ fun ModeSelectScreen(
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
+                SmartText( // FIXED
                     text = "Master your multiplication skills\nwith timed challenges",
                     fontSize = 16.sp,
                     color = NeutralMuted,
@@ -210,7 +211,7 @@ fun ModeSelectScreen(
             shape = RoundedCornerShape(percent = 50),
             colors = ButtonDefaults.buttonColors(containerColor = SecondaryTeal)
         ) {
-            Text("Start Challenge", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            SmartText("Start Challenge", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
             Spacer(modifier = Modifier.width(8.dp))
             Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
         }
@@ -241,9 +242,9 @@ fun DifficultyCard(difficulty: Difficulty, icon: ImageVector, isSelected: Boolea
             }
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text(difficulty.title, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = PrimaryIndigo)
+                SmartText(difficulty.title, fontSize = 20.sp, fontWeight = FontWeight.SemiBold, color = PrimaryIndigo) // FIXED
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(difficulty.desc, fontSize = 14.sp, color = NeutralMuted)
+                SmartText(difficulty.desc, fontSize = 14.sp, color = NeutralMuted) // FIXED
             }
             Box(
                 modifier = Modifier
@@ -286,12 +287,12 @@ fun ActiveGameScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text("SCORE", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = NeutralMuted, letterSpacing = 1.sp)
-                Text("%,d".format(score), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo)
+                SmartText("SCORE", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = NeutralMuted, letterSpacing = 1.sp) // FIXED
+                SmartText("%,d".format(score), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo) // FIXED
             }
             Column(horizontalAlignment = Alignment.End) {
-                Text("STREAK", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = NeutralMuted, letterSpacing = 1.sp)
-                Text("$streak", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFe88b4a))
+                SmartText("STREAK", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = NeutralMuted, letterSpacing = 1.sp) // FIXED
+                SmartText("$streak", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFFe88b4a)) // FIXED
             }
         }
 
@@ -338,7 +339,7 @@ fun ActiveGameScreen(
                 modifier = Modifier.padding(vertical = 40.dp, horizontal = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
+                SmartText( // FIXED
                     "TIMES TABLE BLITZ", 
                     fontSize = 12.sp, 
                     fontWeight = FontWeight.Bold, 
@@ -346,11 +347,11 @@ fun ActiveGameScreen(
                     letterSpacing = 1.sp
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Question ${currentIndex + 1} of ${questions.size}", fontSize = 18.sp, color = PrimaryIndigo)
+                SmartText("Question ${currentIndex + 1} of ${questions.size}", fontSize = 18.sp, color = PrimaryIndigo) // FIXED
                 
                 Spacer(modifier = Modifier.height(48.dp))
                 
-                Text(
+                SmartText( // FIXED
                     text = "${currentQuestion.a} × ${currentQuestion.b} = ?",
                     fontSize = 64.sp,
                     fontWeight = FontWeight.Bold,
@@ -376,8 +377,8 @@ fun ActiveGameScreen(
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent
                         ),
-                        placeholder = { Text("?", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
-                        leadingIcon = { Text("=", fontSize = 24.sp, color = NeutralMuted, modifier = Modifier.padding(start = 24.dp)) },
+                        placeholder = { SmartText("?", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) }, // FIXED
+                        leadingIcon = { SmartText("=", fontSize = 24.sp, color = NeutralMuted, modifier = Modifier.padding(start = 24.dp)) }, // FIXED
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         textStyle = androidx.compose.ui.text.TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, textAlign = TextAlign.Center),
                         singleLine = true
@@ -402,7 +403,7 @@ fun ActiveGameScreen(
                         shape = RoundedCornerShape(percent = 40),
                         colors = ButtonDefaults.buttonColors(containerColor = SecondaryTeal)
                     ) {
-                        Text("OK", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        SmartText("OK", fontSize = 20.sp, fontWeight = FontWeight.Bold) // FIXED
                     }
                 }
             }
@@ -457,7 +458,7 @@ fun ResultsScreen(
                         modifier = Modifier.padding(48.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Text(
+                        SmartText( // FIXED
                             text = scoreText,
                             fontSize = 96.sp,
                             fontWeight = FontWeight.Bold,
@@ -465,7 +466,7 @@ fun ResultsScreen(
                             style = androidx.compose.ui.text.TextStyle(letterSpacing = (-2).sp)
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Points Scored", fontSize = 20.sp, color = NeutralMuted, fontWeight = FontWeight.Medium)
+                        SmartText("Points Scored", fontSize = 20.sp, color = NeutralMuted, fontWeight = FontWeight.Medium) // FIXED
                     }
                 }
             }
@@ -501,7 +502,7 @@ fun ResultsScreen(
                             modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)
                         ) {
                             Column(modifier = Modifier.padding(24.dp)) {
-                                Text("Review these:", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.padding(bottom = 16.dp))
+                                SmartText("Review these:", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.padding(bottom = 16.dp)) // FIXED
                                 
                                 missedQuestions.forEach { mq ->
                                     Surface(
@@ -513,9 +514,9 @@ fun ResultsScreen(
                                             modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp),
                                             verticalAlignment = Alignment.CenterVertically
                                         ) {
-                                            Text("${mq.a} × ${mq.b} = ", fontSize = 18.sp, color = PrimaryIndigo, fontWeight = FontWeight.Medium)
-                                            Text("${mq.correctAnswer}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = ErrorRed)
-                                            Text(" (you: ${mq.userAnswer ?: "skip"})", fontSize = 14.sp, color = NeutralMuted, modifier = Modifier.padding(start = 8.dp))
+                                            SmartText("${mq.a} × ${mq.b} = ", fontSize = 18.sp, color = PrimaryIndigo, fontWeight = FontWeight.Medium) // FIXED
+                                            SmartText("${mq.correctAnswer}", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = ErrorRed) // FIXED
+                                            SmartText(" (you: ${mq.userAnswer ?: "skip"})", fontSize = 14.sp, color = NeutralMuted, modifier = Modifier.padding(start = 8.dp)) // FIXED
                                         }
                                     }
                                 }
@@ -534,8 +535,8 @@ fun ResultsScreen(
                             ) {
                                 Icon(Icons.Default.Check, contentDescription = null, tint = SecondaryTeal, modifier = Modifier.size(48.dp))
                                 Spacer(modifier = Modifier.height(16.dp))
-                                Text("Perfect Score!", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo)
-                                Text("You didn't miss any questions.", fontSize = 16.sp, color = NeutralMuted, textAlign = TextAlign.Center)
+                                SmartText("Perfect Score!", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo) // FIXED
+                                SmartText("You didn't miss any questions.", fontSize = 16.sp, color = NeutralMuted, textAlign = TextAlign.Center) // FIXED
                             }
                         }
                     }
@@ -550,7 +551,7 @@ fun ResultsScreen(
                     ) {
                         Icon(Icons.Outlined.Refresh, contentDescription = null, tint = Color.White)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Play Again", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        SmartText("Play Again", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     OutlinedButton(
@@ -561,7 +562,7 @@ fun ResultsScreen(
                     ) {
                         Icon(Icons.Outlined.Tune, contentDescription = null, tint = PrimaryIndigo)
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Change Mode", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo)
+                        SmartText("Change Mode", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo) // FIXED
                     }
                     Spacer(modifier = Modifier.height(48.dp))
                 }
@@ -581,9 +582,9 @@ fun StatBox(modifier: Modifier = Modifier, title: String, subtitle: String) {
             modifier = Modifier.padding(vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo)
+            SmartText(title, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo) // FIXED
             Spacer(modifier = Modifier.height(4.dp))
-            Text(subtitle, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = NeutralMuted, letterSpacing = 1.sp)
+            SmartText(subtitle, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = NeutralMuted, letterSpacing = 1.sp) // FIXED
         }
     }
 }

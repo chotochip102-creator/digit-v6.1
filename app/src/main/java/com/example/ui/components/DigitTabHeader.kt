@@ -1,4 +1,5 @@
 package com.example.ui.components
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -73,7 +74,7 @@ fun DigitTabHeader(
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(
+                        SmartText( // FIXED
                             text = "Digit",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Black,

@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +22,7 @@ fun AnnouncementScreen(onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("ঘোষণা", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp) },
+                title = { SmartText("ঘোষণা", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp) }, // FIXED
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") }
                 },
@@ -31,12 +32,12 @@ fun AnnouncementScreen(onNavigateBack: () -> Unit) {
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues).padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             item {
-                Text("Send an Announcement", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                SmartText("Send an Announcement", fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
                 Spacer(modifier = Modifier.height(16.dp))
                 OutlinedTextField(
                     value = title,
                     onValueChange = { title = it },
-                    label = { Text("Announcement Title") },
+                    label = { SmartText("Announcement Title") }, // FIXED
                     modifier = Modifier.fillMaxWidth()
                 )
             }
@@ -44,7 +45,7 @@ fun AnnouncementScreen(onNavigateBack: () -> Unit) {
                 OutlinedTextField(
                     value = content,
                     onValueChange = { content = it },
-                    label = { Text("Content") },
+                    label = { SmartText("Content") }, // FIXED
                     modifier = Modifier.fillMaxWidth().height(200.dp),
                     maxLines = 10
                 )
@@ -57,7 +58,7 @@ fun AnnouncementScreen(onNavigateBack: () -> Unit) {
                 ) {
                     Icon(Icons.Default.Send, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Post Announcement (ঘোষণা দিন)", fontWeight = FontWeight.Bold)
+                    SmartText("Post Announcement (ঘোষণা দিন)", fontWeight = FontWeight.Bold) // FIXED
                 }
             }
         }

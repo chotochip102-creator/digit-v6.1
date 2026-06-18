@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -42,7 +43,7 @@ fun WeeklyChallengeSection() {
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(
+                SmartText( // FIXED
                     text = "Weekly challenge",
                     color = headerTextColor,
                     fontWeight = FontWeight.SemiBold,
@@ -58,7 +59,7 @@ fun WeeklyChallengeSection() {
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(
+                SmartText( // FIXED
                     text = "2d left",
                     color = orangeColor,
                     fontWeight = FontWeight.Bold,
@@ -82,13 +83,13 @@ fun WeeklyChallengeSection() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
+                    SmartText( // FIXED
                         text = "Science sprint — win 50 XP",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
-                    Text(
+                    SmartText( // FIXED
                         text = "3 of 5 done",
                         color = Color.White.copy(alpha = 0.8f),
                         fontSize = 12.sp,
@@ -124,7 +125,7 @@ fun WeeklyChallengeSection() {
                             shape = CircleShape,
                             modifier = Modifier.fillMaxWidth().height(56.dp)
                         ) {
-                            Text(
+                            SmartText( // FIXED
                                 "Continue challenge",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
@@ -199,7 +200,7 @@ fun ChallengeTaskItem(index: String, title: String, subtitle: String, status: Ta
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.weight(1f)) {
-            Text(
+            SmartText( // FIXED
                 text = index,
                 color = indexColor,
                 fontWeight = FontWeight.Black,
@@ -208,13 +209,13 @@ fun ChallengeTaskItem(index: String, title: String, subtitle: String, status: Ta
             )
             Spacer(modifier = Modifier.width(8.dp))
             Column {
-                Text(
+                SmartText( // FIXED
                     text = title,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 15.sp,
                     color = titleColor
                 )
-                Text(
+                SmartText( // FIXED
                     text = subtitle,
                     fontSize = 13.sp,
                     color = subtitleColor
@@ -226,7 +227,7 @@ fun ChallengeTaskItem(index: String, title: String, subtitle: String, status: Ta
             color = badgeBg,
             shape = CircleShape
         ) {
-            Text(
+            SmartText( // FIXED
                 text = badgeString,
                 color = badgeText,
                 fontWeight = FontWeight.Bold,

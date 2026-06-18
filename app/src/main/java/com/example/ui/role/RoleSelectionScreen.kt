@@ -1,4 +1,5 @@
 package com.example.ui.role
+import com.example.ui.components.SmartText
 
 import com.example.ui.theme.isAppInDarkTheme as isSystemInDarkTheme
 import androidx.compose.animation.core.animateFloatAsState
@@ -93,7 +94,7 @@ fun RoleSelectionScreen(
                             .clip(RoundedCornerShape(10.dp))
                     )
                     Spacer(modifier = Modifier.width(12.dp))
-                    Text(
+                    SmartText( // FIXED
                         text = "Digit",
                         fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
@@ -110,14 +111,14 @@ fun RoleSelectionScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
+                SmartText( // FIXED
                     "স্বাগতম!",
                     fontSize = 36.sp,
                     fontWeight = FontWeight.Bold,
                     color = textHeadline
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(
+                SmartText( // FIXED
                     "এগিয়ে যেতে আপনার রোল নির্বাচন করুন",
                     fontSize = 18.sp,
                     color = textMuted
@@ -226,14 +227,14 @@ fun RoleCard(
             
             // Text Content
             Column(modifier = Modifier.weight(1f)) {
-                Text(
+                SmartText( // FIXED
                     text = title,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = textHeadline
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(
+                SmartText( // FIXED
                     text = subtitle,
                     fontSize = 14.sp,
                     color = textMuted,
@@ -261,4 +262,3 @@ fun RoleCard(
         }
     }
 }
-

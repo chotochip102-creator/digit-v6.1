@@ -1,4 +1,5 @@
 package com.example.ui.quiz.fillblank
+import com.example.ui.components.SmartText
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
@@ -108,7 +109,7 @@ fun GameContent(
                     modifier = Modifier.size(24.dp)
                 )
             }
-            Text(
+            SmartText( // FIXED
                 text = if (uiState.lang == Lang.BN) "শূন্যস্থান পূরণ" else "Fill in the Blanks",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
@@ -215,7 +216,7 @@ fun GameContent(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             enabled = !uiState.checked
         ) {
-            Text(
+            SmartText( // FIXED
                 text = if (uiState.lang == Lang.BN) "উত্তর দেখো" else "See Answer",
                 color = currentTitleColor,
                 fontSize = 16.sp
@@ -248,7 +249,7 @@ fun GameContent(
                 Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                     Icon(icon as androidx.compose.ui.graphics.vector.ImageVector, contentDescription = null, tint = iconColor as Color)
                     Spacer(modifier = Modifier.width(12.dp))
-                    Text(if (uiState.lang == Lang.BN) msgBn as String else msgEn as String, fontWeight = FontWeight.Bold, color = textColor)
+                    SmartText(if (uiState.lang == Lang.BN) msgBn as String else msgEn as String, fontWeight = FontWeight.Bold, color = textColor) // FIXED
                 }
             }
         }
@@ -274,7 +275,7 @@ fun StatChip(icon: androidx.compose.ui.graphics.vector.ImageVector, iconColor: C
             modifier = Modifier.size(16.dp)
         )
         Spacer(modifier = Modifier.width(6.dp))
-        Text(text, fontSize = 13.sp, color = textColor, fontWeight = FontWeight.Medium)
+        SmartText(text, fontSize = 13.sp, color = textColor, fontWeight = FontWeight.Medium) // FIXED
     }
 }
 
@@ -311,7 +312,7 @@ fun ActionPill(
                 modifier = Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
+            SmartText( // FIXED
                 text = text,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
@@ -397,7 +398,7 @@ fun PillTextField(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(
+                SmartText( // FIXED
                     placeholder,
                     color = pCol,
                     fontSize = 18.sp,
@@ -439,7 +440,7 @@ fun QuestionCard(uiState: GameUiState, viewModel: FillBlankViewModel) {
                      .background(CardPillColor, RoundedCornerShape(12.dp))
                      .padding(horizontal = 12.dp, vertical = 6.dp)
              ) {
-                 Text(
+                 SmartText( // FIXED
                      if (uiState.lang == Lang.BN) "QUESTION ${toBengaliNumber(uiState.questionIndex + 1)}" else "QUESTION ${uiState.questionIndex + 1}",
                      color = Color.White,
                      fontWeight = FontWeight.SemiBold,
@@ -465,7 +466,7 @@ fun QuestionCard(uiState: GameUiState, viewModel: FillBlankViewModel) {
                                      modifier = Modifier.height(44.dp),
                                      contentAlignment = Alignment.Center
                                  ) {
-                                     Text(
+                                     SmartText( // FIXED
                                          text = segment.text,
                                          fontSize = 22.sp,
                                          fontWeight = FontWeight.Bold,
@@ -509,7 +510,7 @@ fun SummaryScreen(uiState: GameUiState, onReplay: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         val totalQ = QuestionData.questions[uiState.topic]?.size ?: 0
-        Text(
+        SmartText( // FIXED
             if (uiState.lang == Lang.BN) "রাউন্ড শেষ!" else "Round complete!",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
@@ -534,7 +535,7 @@ fun SummaryScreen(uiState: GameUiState, onReplay: () -> Unit) {
             modifier = Modifier.fillMaxWidth().height(56.dp),
             shape = RoundedCornerShape(16.dp)
         ) {
-            Text(if (uiState.lang == Lang.BN) "আবার খেলো" else "Play again", fontSize = 18.sp)
+            SmartText(if (uiState.lang == Lang.BN) "আবার খেলো" else "Play again", fontSize = 18.sp) // FIXED
         }
     }
 }
@@ -555,9 +556,9 @@ fun StatCard(label: String, value: String, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(value, fontSize = 32.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color(0xFF75AADB) else Color(0xFF3B82F6))
+            SmartText(value, fontSize = 32.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color(0xFF75AADB) else Color(0xFF3B82F6)) // FIXED
             Spacer(modifier = Modifier.height(8.dp))
-            Text(label, fontSize = 14.sp, color = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280))
+            SmartText(label, fontSize = 14.sp, color = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)) // FIXED
         }
     }
 }

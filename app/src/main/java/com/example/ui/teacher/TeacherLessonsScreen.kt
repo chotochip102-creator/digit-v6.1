@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -37,7 +38,7 @@ fun TeacherLessonsScreen(
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues).fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Teacher Lessons")
+            SmartText("Teacher Lessons") // FIXED
         }
     }
 }

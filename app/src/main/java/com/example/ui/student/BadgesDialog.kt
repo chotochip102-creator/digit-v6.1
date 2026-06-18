@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -70,7 +71,7 @@ fun BadgesDialog(onDismiss: () -> Unit) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
+                    SmartText( // FIXED
                         text = "All Badges",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Medium,
@@ -106,7 +107,7 @@ fun BadgesDialog(onDismiss: () -> Unit) {
                                 }
                             }
                             Spacer(modifier = Modifier.height(8.dp))
-                            Text(
+                            SmartText( // FIXED
                                 badge.title,
                                 fontSize = 12.sp,
                                 color = textPrimary,

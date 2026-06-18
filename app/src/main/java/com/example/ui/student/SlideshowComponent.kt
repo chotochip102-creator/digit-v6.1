@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -126,7 +127,7 @@ fun DidYouKnowCard() {
                 shape = CircleShape,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
             ) {
-                Text(
+                SmartText( // FIXED
                     "DID YOU KNOW",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -150,7 +151,7 @@ fun DidYouKnowCard() {
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Text(
+        SmartText( // FIXED
             "শুক্র গ্রহের এক দিন পৃথিবীর এক\nবছরের চেয়ে বড়!",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
@@ -231,16 +232,16 @@ fun FlashcardOfTheDay() {
                 ) {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("FLASHCARD OF THE DAY", fontSize = 10.sp, letterSpacing = 2.sp, color = Color.White.copy(alpha = 0.9f))
+                            SmartText("FLASHCARD OF THE DAY", fontSize = 10.sp, letterSpacing = 2.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
                         }
                     }
                     
                     Spacer(modifier = Modifier.weight(1f))
                     
-                    Text("মহাকাশ", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White, textAlign = TextAlign.Center)
-                    Text("(Mohakash)", fontSize = 20.sp, fontWeight = FontWeight.Medium, color = Color.White.copy(alpha = 0.9f), textAlign = TextAlign.Center)
+                    SmartText("মহাকাশ", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color.White, textAlign = TextAlign.Center) // FIXED
+                    SmartText("(Mohakash)", fontSize = 20.sp, fontWeight = FontWeight.Medium, color = Color.White.copy(alpha = 0.9f), textAlign = TextAlign.Center) // FIXED
                     Spacer(modifier = Modifier.height(12.dp))
-                    Text("Space / Universe", fontSize = 16.sp, color = Color.White.copy(alpha = 0.8f))
+                    SmartText("Space / Universe", fontSize = 16.sp, color = Color.White.copy(alpha = 0.8f)) // FIXED
                     
                     Spacer(modifier = Modifier.weight(1f))
                     
@@ -256,7 +257,7 @@ fun FlashcardOfTheDay() {
                     ) {
                         Icon(Icons.Default.Autorenew, contentDescription = null, modifier = Modifier.size(18.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("উল্টে দেখুন", fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                        SmartText("উল্টে দেখুন", fontWeight = FontWeight.SemiBold, fontSize = 14.sp) // FIXED
                     }
                 }
             } else {
@@ -269,11 +270,11 @@ fun FlashcardOfTheDay() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text("Definition", fontSize = 12.sp, color = Color.White.copy(alpha = 0.7f))
+                    SmartText("Definition", fontSize = 12.sp, color = Color.White.copy(alpha = 0.7f)) // FIXED
                     Spacer(modifier = Modifier.height(16.dp))
-                    Text("তাত্ত্বিকভাবে পৃথিবীর বায়ুমণ্ডলের বাইরের অনন্ত স্থান;", fontSize = 18.sp, textAlign = TextAlign.Center, lineHeight = 24.sp, color = Color.White)
+                    SmartText("তাত্ত্বিকভাবে পৃথিবীর বায়ুমণ্ডলের বাইরের অনন্ত স্থান;", fontSize = 18.sp, textAlign = TextAlign.Center, lineHeight = 24.sp, color = Color.White) // FIXED
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text("The boundless three-dimensional extent in which objects and events have relative position and direction.", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f), textAlign = TextAlign.Center)
+                    SmartText("The boundless three-dimensional extent in which objects and events have relative position and direction.", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f), textAlign = TextAlign.Center) // FIXED
                     Spacer(modifier = Modifier.height(24.dp))
                     Button(
                         onClick = { flipped = !flipped },
@@ -287,7 +288,7 @@ fun FlashcardOfTheDay() {
                     ) {
                         Icon(Icons.Default.Autorenew, contentDescription = null, modifier = Modifier.size(16.dp))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("উল্টে দেখুন")
+                        SmartText("উল্টে দেখুন") // FIXED
                     }
                 }
             }
@@ -316,7 +317,7 @@ fun DailyChallengeCard() {
                 shape = CircleShape,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
             ) {
-                Text(
+                SmartText( // FIXED
                     "QUICK QUIZ",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -340,9 +341,9 @@ fun DailyChallengeCard() {
             }
         }
         Spacer(modifier = Modifier.weight(0.5f))
-        Text("বিপরীত শব্দ লিখুন: আকাশ", fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Color.White)
+        SmartText("বিপরীত শব্দ লিখুন: আকাশ", fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Color.White) // FIXED
         Spacer(modifier = Modifier.height(4.dp))
-        Text("(Write the opposite word: Sky)", fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f), textAlign = TextAlign.Center)
+        SmartText("(Write the opposite word: Sky)", fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f), textAlign = TextAlign.Center) // FIXED
         Spacer(modifier = Modifier.weight(1f))
         
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -364,7 +365,7 @@ fun DailyChallengeCard() {
         ) {
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(if (answered == true) "সঠিক উত্তর! (Correct!)" else "ভুল উত্তর! (Incorrect!)", color = if (answered == true) Color(0xFFC8E6C9) else Color(0xFFFFCDD2), fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                SmartText(if (answered == true) "সঠিক উত্তর! (Correct!)" else "ভুল উত্তর! (Incorrect!)", color = if (answered == true) Color(0xFFC8E6C9) else Color(0xFFFFCDD2), fontWeight = FontWeight.Bold, fontSize = 14.sp) // FIXED
             }
         }
     }
@@ -393,7 +394,7 @@ fun ChallengeOption(text: String, modifier: Modifier, answered: Boolean?, isSele
         border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.2f))
     ) {
         Box(contentAlignment = Alignment.Center) {
-            Text(text, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+            SmartText(text, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) // FIXED
         }
     }
 }
@@ -413,7 +414,7 @@ fun WordOfTheDayCard() {
                 shape = CircleShape,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
             ) {
-                Text(
+                SmartText( // FIXED
                     "WORD FLASH",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -437,8 +438,8 @@ fun WordOfTheDayCard() {
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Text("Learn", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color.White)
-        Text("শেখা • Verb", fontSize = 16.sp, color = Color.White.copy(alpha = 0.9f))
+        SmartText("Learn", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
+        SmartText("শেখা • Verb", fontSize = 16.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
         Spacer(modifier = Modifier.weight(1f))
         Surface(
             color = Color.White.copy(alpha = 0.1f),
@@ -447,9 +448,9 @@ fun WordOfTheDayCard() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp)) {
-                Text("I want to learn something new every day.", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White)
+                SmartText("I want to learn something new every day.", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White) // FIXED
                 Spacer(modifier = Modifier.height(6.dp))
-                Text("আমি প্রতিদিন নতুন কিছু শিখতে চাই।", fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f))
+                SmartText("আমি প্রতিদিন নতুন কিছু শিখতে চাই।", fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
             }
         }
     }
@@ -470,7 +471,7 @@ fun ReviewPreviousLessonCard(onNavigateToLesson: () -> Unit) {
                 shape = CircleShape,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
             ) {
-                Text(
+                SmartText( // FIXED
                     "REVIEW LESSON",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -497,9 +498,9 @@ fun ReviewPreviousLessonCard(onNavigateToLesson: () -> Unit) {
         Spacer(modifier = Modifier.weight(0.8f))
         
         Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
-            Text("বাংলা ব্যাকরণ", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f))
+            SmartText("বাংলা ব্যাকরণ", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f)) // FIXED
             Spacer(modifier = Modifier.height(4.dp))
-            Text("বিরাম চিহ্ন বা জ্যোতিচিহ্ন", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
+            SmartText("বিরাম চিহ্ন বা জ্যোতিচিহ্ন", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
         }
         
         Spacer(modifier = Modifier.weight(1.2f))
@@ -511,7 +512,7 @@ fun ReviewPreviousLessonCard(onNavigateToLesson: () -> Unit) {
             modifier = Modifier.fillMaxWidth().height(52.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("পড়া চালিয়ে যান", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+                SmartText("পড়া চালিয়ে যান", fontSize = 18.sp, fontWeight = FontWeight.SemiBold) // FIXED
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
             }

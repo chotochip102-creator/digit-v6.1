@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -119,7 +120,7 @@ fun CoreMetricsGrid() {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.BarChart, contentDescription = null, tint = Indigo, modifier = Modifier.size(24.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("My progress", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Indigo)
+                SmartText("My progress", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Indigo) // FIXED
             }
             Spacer(modifier = Modifier.height(24.dp))
             Row(modifier = Modifier.height(IntrinsicSize.Max), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -179,7 +180,7 @@ fun MetricCard(modifier: Modifier = Modifier, value: String, label: String, valu
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
+            SmartText( // FIXED
                 text = value.replace(" ", "\n"), 
                 fontSize = 36.sp, 
                 lineHeight = 38.sp,
@@ -188,7 +189,7 @@ fun MetricCard(modifier: Modifier = Modifier, value: String, label: String, valu
                 color = adjustedValueColor
             )
             Spacer(modifier = Modifier.height(8.dp))
-            Text(label, fontSize = 12.sp, color = ProgressSecondaryText, textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+            SmartText(label, fontSize = 12.sp, color = ProgressSecondaryText, textAlign = androidx.compose.ui.text.style.TextAlign.Center) // FIXED
         }
     }
 }
@@ -204,7 +205,7 @@ fun SubjectProgressSectionNew() {
         shadowElevation = if (isSystemInDarkTheme()) 0.dp else 1.dp
     ) {
         Column(modifier = Modifier.padding(24.dp)) {
-            Text("Subject Progress", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ProgressPrimaryText)
+            SmartText("Subject Progress", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ProgressPrimaryText) // FIXED
             Spacer(modifier = Modifier.height(24.dp))
             
             SubjectProgressItemNew(label = "Math", progress = 0.84f, percentage = "84%", trackColor = ProgressTrackColor, color = Teal)
@@ -230,8 +231,8 @@ fun SubjectProgressItemNew(label: String, progress: Float, percentage: String, t
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Text(label, fontWeight = FontWeight.Medium, fontSize = 16.sp, color = ProgressPrimaryText)
-            Text(percentage, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = adjustedColor)
+            SmartText(label, fontWeight = FontWeight.Medium, fontSize = 16.sp, color = ProgressPrimaryText) // FIXED
+            SmartText(percentage, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = adjustedColor) // FIXED
         }
         Spacer(modifier = Modifier.height(8.dp))
         CustomProgressBar(
@@ -258,8 +259,8 @@ fun RecentBadgesSection() {
     ) {
         Column(modifier = Modifier.padding(24.dp)) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                Text("Recent Badges", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ProgressPrimaryText)
-                Text(
+                SmartText("Recent Badges", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ProgressPrimaryText) // FIXED
+                SmartText( // FIXED
                     "See all",
                     fontSize = 14.sp,
                     color = if (isDark) Color(0xFFA9ADFF) else Indigo,
@@ -308,7 +309,7 @@ fun BadgeItem(icon: androidx.compose.ui.graphics.vector.ImageVector, label: Stri
             }
         }
         Spacer(modifier = Modifier.height(12.dp))
-        Text(label, fontSize = 12.sp, color = ProgressSecondaryText)
+        SmartText(label, fontSize = 12.sp, color = ProgressSecondaryText) // FIXED
     }
 }
 
@@ -324,7 +325,7 @@ fun ActivityChartSection() {
         shadowElevation = if (isDark) 0.dp else 1.dp
     ) {
         Column(modifier = Modifier.padding(24.dp)) {
-            Text("Activity", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ProgressPrimaryText)
+            SmartText("Activity", fontWeight = FontWeight.Bold, fontSize = 20.sp, color = ProgressPrimaryText) // FIXED
             Spacer(modifier = Modifier.height(32.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom) {
                 ActivityBar("M", 0.4f, false)
@@ -355,6 +356,6 @@ fun ActivityBar(day: String, ratio: Float, isActive: Boolean) {
             color = color
         ) {}
         Spacer(modifier = Modifier.height(16.dp))
-        Text(day, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = ProgressSecondaryText)
+        SmartText(day, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = ProgressSecondaryText) // FIXED
     }
 }

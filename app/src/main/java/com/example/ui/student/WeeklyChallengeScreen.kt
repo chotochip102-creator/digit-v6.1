@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -68,7 +69,7 @@ fun WeeklyChallengeScreen(
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(
+                        SmartText( // FIXED
                             text = "Weekly Challenge",
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontSize = 20.sp),
                             color = primary
@@ -96,12 +97,12 @@ fun WeeklyChallengeScreen(
                 verticalAlignment = Alignment.Bottom
             ) {
                 Column {
-                    Text(
+                    SmartText( // FIXED
                         text = "$timeLeft",
                         style = MaterialTheme.typography.headlineLarge.copy(fontSize = 48.sp, lineHeight = 48.sp),
                         color = error
                     )
-                    Text(
+                    SmartText( // FIXED
                         text = "SECONDS REMAINING",
                         style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 1.sp),
                         color = onSurfaceVariant
@@ -149,12 +150,12 @@ fun WeeklyChallengeScreen(
                 Column(
                     modifier = Modifier.padding(24.dp)
                 ) {
-                    Text(
+                    SmartText( // FIXED
                         text = "What is the SI unit of electric current?",
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 16.sp, color = onSurface)
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(
+                    SmartText( // FIXED
                         text = "বিদ্যুৎ প্রবাহের SI একক কী?",
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 20.sp,
@@ -191,7 +192,7 @@ fun WeeklyChallengeScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(
+                        SmartText( // FIXED
                             text = option,
                             style = MaterialTheme.typography.titleMedium.copy(
                                 color = if (isSelected) primary else onSurface,

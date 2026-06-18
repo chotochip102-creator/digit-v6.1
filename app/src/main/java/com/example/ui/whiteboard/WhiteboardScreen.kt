@@ -1,4 +1,5 @@
 package com.example.ui.whiteboard
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -297,20 +298,20 @@ fun WhiteboardScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(modifier = Modifier.width(4.dp).height(16.dp).background(PrimaryIndigo, RoundedCornerShape(2.dp)))
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("QUADRATIC THEOREM", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, letterSpacing = 1.sp)
+                        SmartText("QUADRATIC THEOREM", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, letterSpacing = 1.sp) // FIXED
                         Spacer(modifier = Modifier.width(48.dp))
                         Icon(Icons.Default.MoreHoriz, null, tint = Color.Gray, modifier = Modifier.size(16.dp))
                     }
                     Spacer(modifier = Modifier.height(24.dp))
-                    Text("x = (-b ± √(b² - 4ac)) / 2a", fontSize = 24.sp, fontWeight = FontWeight.Medium, fontStyle = androidx.compose.ui.text.font.FontStyle.Italic)
+                    SmartText("x = (-b ± √(b² - 4ac)) / 2a", fontSize = 24.sp, fontWeight = FontWeight.Medium, fontStyle = androidx.compose.ui.text.font.FontStyle.Italic) // FIXED
                     Spacer(modifier = Modifier.height(24.dp))
                     Row {
                         Surface(color = SecondaryEmerald.copy(alpha = 0.2f), shape = RoundedCornerShape(percent = 50)) {
-                            Text("Algebra II", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF047857), modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
+                            SmartText("Algebra II", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF047857), modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) // FIXED
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Surface(color = Color(0xFFD97706).copy(alpha = 0.2f), shape = RoundedCornerShape(percent = 50)) {
-                            Text("Core Concept", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFB45309), modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
+                            SmartText("Core Concept", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFB45309), modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)) // FIXED
                         }
                     }
                 }
@@ -336,7 +337,7 @@ fun WhiteboardScreen(
                     }
                     Box(modifier = Modifier.width(1.dp).height(24.dp).background(Color(0xFFE5E7EB)))
                     Spacer(modifier = Modifier.width(16.dp))
-                    Text("Math Lesson 3.2", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.Black)
+                    SmartText("Math Lesson 3.2", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.Black) // FIXED
                     Spacer(modifier = Modifier.weight(1f))
                     Box {
                         IconButton(onClick = { showMobileMenu = true }) {
@@ -355,7 +356,7 @@ fun WhiteboardScreen(
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text("Tools", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1F2937)) // Dark Gray
+                                    SmartText("Tools", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1F2937)) // Dark Gray // FIXED
                                     IconButton(
                                         onClick = { showMobileMenu = false },
                                         modifier = Modifier.size(24.dp)
@@ -381,7 +382,7 @@ fun WhiteboardScreen(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Icon(icon, contentDescription = text, tint = Color(0xFF4B5563), modifier = Modifier.size(22.dp))
-                                        Text(
+                                        SmartText( // FIXED
                                             text = text, 
                                             fontWeight = FontWeight.Bold, 
                                             color = Color(0xFF374151), 
@@ -402,7 +403,7 @@ fun WhiteboardScreen(
                                         .padding(vertical = 12.dp),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    Text("Lumina Canvas v2.4", fontSize = 12.sp, color = Color.Gray, fontWeight = FontWeight.Medium)
+                                    SmartText("Lumina Canvas v2.4", fontSize = 12.sp, color = Color.Gray, fontWeight = FontWeight.Medium) // FIXED
                                 }
                             }
                         }
@@ -578,11 +579,11 @@ fun WhiteboardScreen(
                 ) {
                     IconButton(onClick = onNavigateBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") }
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Math lesson 3.2", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.DarkGray)
+                    SmartText("Math lesson 3.2", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color.DarkGray) // FIXED
                     Spacer(modifier = Modifier.width(16.dp))
-                    Text(">", color = Color.LightGray)
+                    SmartText(">", color = Color.LightGray) // FIXED
                     Spacer(modifier = Modifier.width(16.dp))
-                    Text("Geometry Session", fontSize = 16.sp, color = Color.Gray)
+                    SmartText("Geometry Session", fontSize = 16.sp, color = Color.Gray) // FIXED
                     
                     Spacer(modifier = Modifier.weight(1f))
                     
@@ -590,7 +591,7 @@ fun WhiteboardScreen(
                         TextButton(onClick = {}) {
                             Icon(Icons.Default.Save, "Save", modifier = Modifier.size(18.dp), tint = Color.DarkGray)
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("Save", color = Color.DarkGray, fontWeight = FontWeight.Medium)
+                            SmartText("Save", color = Color.DarkGray, fontWeight = FontWeight.Medium) // FIXED
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         IconButton(onClick = {}) { Icon(Icons.Default.Settings, "Settings", tint = Color.DarkGray) }
@@ -706,7 +707,7 @@ fun WhiteboardScreen(
                     }
                     
                     Spacer(modifier = Modifier.width(16.dp))
-                    Text("Medium", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium)
+                    SmartText("Medium", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium) // FIXED
                 }
             }
 
@@ -912,8 +913,8 @@ fun PencilSettingsContent(
         // Size Slider
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                Text("Size", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium)
-                Text("${selectedStrokeWidth.toInt()}px", fontSize = 14.sp, color = Color.Gray)
+                SmartText("Size", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium) // FIXED
+                SmartText("${selectedStrokeWidth.toInt()}px", fontSize = 14.sp, color = Color.Gray) // FIXED
             }
             Slider(
                 value = selectedStrokeWidth,
@@ -931,7 +932,7 @@ fun PencilSettingsContent(
         
         // Colors
         Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("Color", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium)
+            SmartText("Color", fontSize = 14.sp, color = Color.DarkGray, fontWeight = FontWeight.Medium) // FIXED
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween, 
                 modifier = Modifier.fillMaxWidth()
@@ -1062,7 +1063,7 @@ fun CalculatorWidget(
                                     .clickable { mode = CalculatorMode.STANDARD }
                                     .padding(horizontal = 20.dp, vertical = 10.dp)
                             ) {
-                                Text("Standard", color = if (mode == CalculatorMode.STANDARD) Color.White else Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                SmartText("Standard", color = if (mode == CalculatorMode.STANDARD) Color.White else Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) // FIXED
                             }
                             Box(
                                 modifier = Modifier
@@ -1071,7 +1072,7 @@ fun CalculatorWidget(
                                     .clickable { mode = CalculatorMode.SCIENTIFIC }
                                     .padding(horizontal = 20.dp, vertical = 10.dp)
                             ) {
-                                Text("Scientific", color = if (mode == CalculatorMode.SCIENTIFIC) Color.White else Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.SemiBold)
+                                SmartText("Scientific", color = if (mode == CalculatorMode.SCIENTIFIC) Color.White else Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) // FIXED
                             }
                         }
                     } else {
@@ -1157,12 +1158,12 @@ fun CalculatorBottomNav(selectedIdx: Int, onTabSelected: (Int) -> Unit) {
                     when (idx) {
                         0 -> Icon(Icons.Outlined.Calculate, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(24.dp))
                         1 -> Icon(Icons.Outlined.History, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(24.dp))
-                        2 -> Text("fx", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray)
-                        3 -> Text("{ }", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray)
+                        2 -> SmartText("fx", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray) // FIXED
+                        3 -> SmartText("{ }", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray) // FIXED
                     }
                 }
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(title, fontSize = 10.sp, color = if (isSelected) PrimaryIndigo else Color.DarkGray, fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium)
+                SmartText(title, fontSize = 10.sp, color = if (isSelected) PrimaryIndigo else Color.DarkGray, fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium) // FIXED
             }
         }
     }
@@ -1173,25 +1174,25 @@ fun CalculatorHistoryView() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         Icon(Icons.Outlined.History, contentDescription = null, tint = Color.LightGray, modifier = Modifier.size(64.dp))
         Spacer(modifier = Modifier.height(16.dp))
-        Text("No History Yet", color = Color.Gray, fontSize = 18.sp)
+        SmartText("No History Yet", color = Color.Gray, fontSize = 18.sp) // FIXED
     }
 }
 
 @Composable
 fun CalculatorVariablesView() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Text("fx", color = Color.LightGray, fontSize = 64.sp, fontWeight = FontWeight.Bold)
+        SmartText("fx", color = Color.LightGray, fontSize = 64.sp, fontWeight = FontWeight.Bold) // FIXED
         Spacer(modifier = Modifier.height(16.dp))
-        Text("No Variables Defined", color = Color.Gray, fontSize = 18.sp)
+        SmartText("No Variables Defined", color = Color.Gray, fontSize = 18.sp) // FIXED
     }
 }
 
 @Composable
 fun CalculatorConstantsView() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Text("{ }", color = Color.LightGray, fontSize = 64.sp, fontWeight = FontWeight.Bold)
+        SmartText("{ }", color = Color.LightGray, fontSize = 64.sp, fontWeight = FontWeight.Bold) // FIXED
         Spacer(modifier = Modifier.height(16.dp))
-        Text("No Constants Available", color = Color.Gray, fontSize = 18.sp)
+        SmartText("No Constants Available", color = Color.Gray, fontSize = 18.sp) // FIXED
     }
 }
 
@@ -1213,7 +1214,7 @@ fun StdKey(
             modifier = Modifier.fillMaxSize().clickable { onClick() },
             contentAlignment = Alignment.Center
         ) {
-            Text(text, color = fg, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            SmartText(text, color = fg, fontSize = 20.sp, fontWeight = FontWeight.Bold) // FIXED
         }
     }
 }
@@ -1237,10 +1238,10 @@ fun StandardCalculatorLayout(
             ) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
                     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        Text("SHIFT", color = Color(0xFFF59E0B), fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                        Text("ALPHA", color = Color(0xFF14B8A6), fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                        Text("RAD", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                        Text("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        SmartText("SHIFT", color = Color(0xFFF59E0B), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
+                        SmartText("ALPHA", color = Color(0xFF14B8A6), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
+                        SmartText("RAD", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
+                        SmartText("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))
@@ -1248,21 +1249,21 @@ fun StandardCalculatorLayout(
                     if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") {
                         // Display the integral from the design image directly for aesthetics when empty
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("∫", fontSize = 48.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Light)
+                            SmartText("∫", fontSize = 48.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Light) // FIXED
                             Column(modifier = Modifier.padding(start = 2.dp, end = 8.dp)) {
-                                Text("π/2", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium)
+                                SmartText("π/2", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
                                 Spacer(modifier = Modifier.height(16.dp))
-                                Text("0", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium)
+                                SmartText("0", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
                             }
-                            Text("cos(x) dx", fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal)
+                            SmartText("cos(x) dx", fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
                         }
                     } else {
-                        Text(currentInput, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal)
+                        SmartText(currentInput, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 val displayResult = if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") "1.00000000" else result
-                Text(displayResult.ifEmpty { " " }, fontSize = 46.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1)
+                SmartText(displayResult.ifEmpty { " " }, fontSize = 46.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1) // FIXED
             }
         }
         
@@ -1307,7 +1308,7 @@ fun SciCalcHistorySidebar(modifier: Modifier = Modifier) {
         .padding(16.dp)
     ) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            Text("History", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF1F2937))
+            SmartText("History", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF1F2937)) // FIXED
             Icon(Icons.Default.DeleteOutline, contentDescription = "Clear", tint = Color(0xFF9B1C1C), modifier = Modifier.size(18.dp))
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -1321,9 +1322,9 @@ fun SciCalcHistorySidebar(modifier: Modifier = Modifier) {
         
         history.forEach { (eq, res) ->
             Column(modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp), horizontalAlignment = Alignment.End) {
-                Text(eq, fontSize = 13.sp, color = Color.Gray)
+                SmartText(eq, fontSize = 13.sp, color = Color.Gray) // FIXED
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(res, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo)
+                SmartText(res, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo) // FIXED
             }
             HorizontalDivider(color = Color(0xFFE5E7EB))
         }
@@ -1376,10 +1377,10 @@ fun ScientificCalculatorLayout(
             ) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
                     Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        Text(if (isShiftActive) "SHIFT" else " ", color = Color(0xFFF59E0B), fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                        Text(if (isAlphaActive) "ALPHA" else " ", color = Color(0xFF14B8A6), fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                        Text(angleMode.name, color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                        Text("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        SmartText(if (isShiftActive) "SHIFT" else " ", color = Color(0xFFF59E0B), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
+                        SmartText(if (isAlphaActive) "ALPHA" else " ", color = Color(0xFF14B8A6), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
+                        SmartText(angleMode.name, color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
+                        SmartText("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))
@@ -1387,21 +1388,21 @@ fun ScientificCalculatorLayout(
                     if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") {
                         // Display the integral from the design image directly for aesthetics when empty
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("∫", fontSize = 48.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Light)
+                            SmartText("∫", fontSize = 48.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Light) // FIXED
                             Column(modifier = Modifier.padding(start = 2.dp, end = 8.dp)) {
-                                Text("π/2", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium)
+                                SmartText("π/2", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
                                 Spacer(modifier = Modifier.height(16.dp))
-                                Text("0", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium)
+                                SmartText("0", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
                             }
-                            Text("cos(x) dx", fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal)
+                            SmartText("cos(x) dx", fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
                         }
                     } else {
-                        Text(currentInput, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal)
+                        SmartText(currentInput, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
                 val displayResult = if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") "1.00000000" else result
-                Text(displayResult.ifEmpty { " " }, fontSize = 46.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1)
+                SmartText(displayResult.ifEmpty { " " }, fontSize = 46.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1) // FIXED
             }
         }
         
@@ -1483,11 +1484,11 @@ fun SciFunctionKey(
             verticalArrangement = Arrangement.Center
         ) {
             Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(shift, color = Color(0xFFF59E0B), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Amber
-                Text(alpha, color = Color(0xFF14B8A6), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Teal
+                SmartText(shift, color = Color(0xFFF59E0B), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Amber // FIXED
+                SmartText(alpha, color = Color(0xFF14B8A6), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Teal // FIXED
             }
             Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(2f)) {
-                Text(text, color = fg, fontSize = 13.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                SmartText(text, color = fg, fontSize = 13.sp, fontWeight = FontWeight.Bold, maxLines = 1) // FIXED
             }
         }
     }
@@ -1515,11 +1516,11 @@ fun SciNumKey(
             verticalArrangement = Arrangement.Center
         ) {
             Row(modifier = Modifier.fillMaxWidth().weight(0.8f), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(shift, color = Color(0xFFF59E0B), fontSize = 8.sp, fontWeight = FontWeight.Bold)
-                Text(alpha, color = Color(0xFF14B8A6), fontSize = 8.sp, fontWeight = FontWeight.Bold)
+                SmartText(shift, color = Color(0xFFF59E0B), fontSize = 8.sp, fontWeight = FontWeight.Bold) // FIXED
+                SmartText(alpha, color = Color(0xFF14B8A6), fontSize = 8.sp, fontWeight = FontWeight.Bold) // FIXED
             }
             Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(2f)) {
-                Text(text, color = fg, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                SmartText(text, color = fg, fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
             }
         }
     }
@@ -1540,7 +1541,7 @@ fun CalcBtn(
         shadowElevation = 2.dp
     ) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize().clickable {}) {
-            Text(text, fontSize = 22.sp, fontWeight = FontWeight.Medium, color = fg)
+            SmartText(text, fontSize = 22.sp, fontWeight = FontWeight.Medium, color = fg) // FIXED
         }
     }
 }
@@ -1563,4 +1564,3 @@ fun CalcBtnIcon(
         }
     }
 }
-

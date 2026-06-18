@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -49,9 +50,9 @@ fun TeacherAlertsScreen(
         ) {
             item {
                 Column(modifier = Modifier.padding(horizontal = 24.dp)) {
-                    Text("Alerts", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Primary, lineHeight = 40.sp)
+                    SmartText("Alerts", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Primary, lineHeight = 40.sp) // FIXED
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text("Stay updated with your classes.", fontSize = 14.sp, color = OnSurfaceVariant)
+                    SmartText("Stay updated with your classes.", fontSize = 14.sp, color = OnSurfaceVariant) // FIXED
                 }
             }
 
@@ -104,12 +105,12 @@ fun AlertCard(title: String, message: String, time: String, icon: ImageVector, i
             Spacer(modifier = Modifier.width(16.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                    Text(title, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = OnSurface)
+                    SmartText(title, fontWeight = FontWeight.Bold, fontSize = 16.sp, color = OnSurface) // FIXED
                 }
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(message, fontSize = 13.sp, color = OnSurfaceVariant, lineHeight = 18.sp)
+                SmartText(message, fontSize = 13.sp, color = OnSurfaceVariant, lineHeight = 18.sp) // FIXED
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(time, fontSize = 11.sp, color = Primary, fontWeight = FontWeight.Medium)
+                SmartText(time, fontSize = 11.sp, color = Primary, fontWeight = FontWeight.Medium) // FIXED
             }
         }
     }

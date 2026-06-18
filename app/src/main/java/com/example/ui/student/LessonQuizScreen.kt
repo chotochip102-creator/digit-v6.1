@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,8 +31,8 @@ fun LessonQuizScreen(onNavigateBack: () -> Unit) {
                 TopAppBar(
                     title = {
                         Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.fillMaxWidth()) {
-                            Text("পাঠের কুইজ", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-                            Text("LESSON QUIZ", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 2.sp)
+                            SmartText("পাঠের কুইজ", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface) // FIXED
+                            SmartText("LESSON QUIZ", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, letterSpacing = 2.sp) // FIXED
                         }
                     },
                     navigationIcon = {
@@ -58,7 +59,7 @@ fun LessonQuizScreen(onNavigateBack: () -> Unit) {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("পূর্ববর্তী | PREVIOUS", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f), fontWeight = FontWeight.Bold)
+                    SmartText("পূর্ববর্তী | PREVIOUS", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f), fontWeight = FontWeight.Bold) // FIXED
                     
                     ElevatedButton(
                         onClick = { 
@@ -80,8 +81,8 @@ fun LessonQuizScreen(onNavigateBack: () -> Unit) {
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Column(horizontalAlignment = Alignment.Start) {
-                            Text("পরবর্তী", fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                            Text("NEXT", fontSize = 10.sp)
+                            SmartText("পরবর্তী", fontWeight = FontWeight.Bold, fontSize = 14.sp) // FIXED
+                            SmartText("NEXT", fontSize = 10.sp) // FIXED
                         }
                         Spacer(modifier = Modifier.width(4.dp))
                         Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
@@ -99,7 +100,7 @@ fun LessonQuizScreen(onNavigateBack: () -> Unit) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.Default.School, contentDescription = null, tint = MaterialTheme.colorScheme.primaryContainer, modifier = Modifier.size(20.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("প্রশ্ন ${currentQuestionIndex + 1} / ১০ | Question ${currentQuestionIndex + 1} of 10", color = MaterialTheme.colorScheme.primaryContainer, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                SmartText("প্রশ্ন ${currentQuestionIndex + 1} / ১০ | Question ${currentQuestionIndex + 1} of 10", color = MaterialTheme.colorScheme.primaryContainer, fontWeight = FontWeight.Bold, fontSize = 12.sp) // FIXED
             }
             Spacer(modifier = Modifier.height(24.dp))
             
@@ -111,7 +112,7 @@ fun LessonQuizScreen(onNavigateBack: () -> Unit) {
                 shadowElevation = 2.dp
             ) {
                 Column(modifier = Modifier.padding(24.dp)) {
-                    Text(
+                    SmartText( // FIXED
                         text = if (currentQuestionIndex == 0) "মসৃণ পৃষ্ঠে আলো পড়লে তাকে কী বলে?" else "আলোর প্রতিফলনের সূত্র কয়টি?",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
@@ -119,7 +120,7 @@ fun LessonQuizScreen(onNavigateBack: () -> Unit) {
                         lineHeight = 32.sp
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(
+                    SmartText( // FIXED
                         text = if (currentQuestionIndex == 0) "What is the reflection of light called when it hits a smooth surface?" else "How many laws of reflection of light are there?",
                         fontSize = 18.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -175,13 +176,13 @@ fun QuizOption(letter: String, bengali: String, english: String, isSelected: Boo
                         color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.2f),
                         shape = RoundedCornerShape(4.dp)
                     ) {
-                        Text(letter, color = MaterialTheme.colorScheme.primaryContainer, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp))
+                        SmartText(letter, color = MaterialTheme.colorScheme.primaryContainer, fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)) // FIXED
                     }
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(bengali, fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface)
+                    SmartText(bengali, fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurface) // FIXED
                 }
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(english, fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                SmartText(english, fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) // FIXED
             }
         }
     }

@@ -1,4 +1,5 @@
 package com.example.ui.quiz.shoppingmath
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -67,7 +68,7 @@ fun ShoppingMathBottomNav() {
             selected = false,
             onClick = { },
             icon = { Icon(Icons.Outlined.MenuBook, null) },
-            label = { Text("Learn") },
+            label = { SmartText("Learn") }, // FIXED
             colors = NavigationBarItemDefaults.colors(
                 unselectedIconColor = NeutralMuted,
                 unselectedTextColor = NeutralMuted
@@ -77,7 +78,7 @@ fun ShoppingMathBottomNav() {
             selected = false,
             onClick = { },
             icon = { Icon(Icons.Outlined.ShoppingCart, null) },
-            label = { Text("Shop") },
+            label = { SmartText("Shop") }, // FIXED
             colors = NavigationBarItemDefaults.colors(
                 unselectedIconColor = NeutralMuted,
                 unselectedTextColor = NeutralMuted
@@ -87,7 +88,7 @@ fun ShoppingMathBottomNav() {
             selected = true,
             onClick = { },
             icon = { Icon(Icons.Outlined.SportsEsports, null) },
-            label = { Text("Games") },
+            label = { SmartText("Games") }, // FIXED
             colors = NavigationBarItemDefaults.colors(
                 indicatorColor = AccentLavender,
                 selectedIconColor = PrimaryIndigo,
@@ -98,7 +99,7 @@ fun ShoppingMathBottomNav() {
             selected = false,
             onClick = { },
             icon = { Icon(Icons.Outlined.Person, null) },
-            label = { Text("Profile") },
+            label = { SmartText("Profile") }, // FIXED
             colors = NavigationBarItemDefaults.colors(
                 unselectedIconColor = NeutralMuted,
                 unselectedTextColor = NeutralMuted
@@ -162,7 +163,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
             Column(modifier = Modifier.background(SurfaceOffWhite)) {
                 TopAppBar(
                     title = {
-                        Text(
+                        SmartText( // FIXED
                             "বাজারের\nঅংক",
                             color = PrimaryIndigo,
                             fontWeight = FontWeight.Bold,
@@ -205,7 +206,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                             )
                         }
                     }
-                    Text(
+                    SmartText( // FIXED
                         "Score: $score/$totalQuestions",
                         color = NeutralMuted,
                         fontSize = 12.sp,
@@ -236,7 +237,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                     Column(
                         modifier = Modifier.padding(24.dp)
                     ) {
-                        Text(
+                        SmartText( // FIXED
                             "রাহেলার বাজার (RAHELA'S\nMARKET)",
                             fontSize = 16.sp,
                             color = NeutralMuted,
@@ -274,14 +275,14 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                     Column(
                         modifier = Modifier.padding(24.dp)
                     ) {
-                        Text(
+                        SmartText( // FIXED
                             "Question ${currentQuestionIndex + 1} of $totalQuestions",
                             fontSize = 12.sp,
                             color = NeutralMuted,
                             fontWeight = FontWeight.Medium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(
+                        SmartText( // FIXED
                             currentQuestion.prompt,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -295,7 +296,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                             color = AccentLavender.copy(alpha = 0.3f),
                             modifier = Modifier.padding(bottom = 16.dp)
                         ) {
-                            Text(
+                            SmartText( // FIXED
                                 "Total cost",
                                 fontSize = 12.sp,
                                 color = PrimaryIndigo,
@@ -320,7 +321,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                                     verticalAlignment = Alignment.CenterVertically,
                                     modifier = Modifier.padding(horizontal = 24.dp)
                                 ) {
-                                    Text("৳", fontSize = 20.sp, color = NeutralMuted)
+                                    SmartText("৳", fontSize = 20.sp, color = NeutralMuted) // FIXED
                                     Spacer(modifier = Modifier.width(16.dp))
                                     BasicTextField(
                                         value = userInput,
@@ -350,7 +351,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                                 ),
                                 enabled = userInput.isNotEmpty() && !isChecked
                             ) {
-                                Text("Check", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                                SmartText("Check", fontSize = 16.sp, fontWeight = FontWeight.Medium) // FIXED
                             }
                         }
                         
@@ -369,7 +370,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                                     ) {
                                         Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = SuccessGreen)
                                         Spacer(modifier = Modifier.width(8.dp))
-                                        Text(
+                                        SmartText( // FIXED
                                             "Correct! ${currentQuestion.calculation} = ৳${currentQuestion.answer}",
                                             color = SuccessGreen,
                                             fontWeight = FontWeight.Medium,
@@ -387,7 +388,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        Text(
+                                        SmartText( // FIXED
                                             "Incorrect. ${currentQuestion.calculation} = ৳${currentQuestion.answer}",
                                             color = Color(0xFFC62828),
                                             fontWeight = FontWeight.Medium,
@@ -399,7 +400,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                         }
                         
                         Spacer(modifier = Modifier.height(24.dp))
-                        Text(
+                        SmartText( // FIXED
                             "Show hint",
                             fontSize = 14.sp,
                             color = NeutralMuted,
@@ -428,7 +429,7 @@ fun ShoppingMathApp(onNavigateBack: () -> Unit) {
                             ),
                             enabled = isChecked
                         ) {
-                            Text(if (currentQuestionIndex < totalQuestions - 1) "Next question" else "Finish", fontSize = 16.sp, fontWeight = FontWeight.Medium)
+                            SmartText(if (currentQuestionIndex < totalQuestions - 1) "Next question" else "Finish", fontSize = 16.sp, fontWeight = FontWeight.Medium) // FIXED
                         }
                     }
                 }
@@ -458,21 +459,21 @@ fun MarketItemCard(modifier: Modifier = Modifier, item: InventoryItem, isEgg: Bo
             )
             Spacer(modifier = Modifier.height(12.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
+                SmartText( // FIXED
                     item.nameBn,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
                 if (isEgg) {
-                    Text(
+                    SmartText( // FIXED
                         " ×৬",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
                 }
-                Text(
+                SmartText( // FIXED
                     " (${item.nameEn}${if(isEgg) " ×6" else ""})",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
@@ -480,7 +481,7 @@ fun MarketItemCard(modifier: Modifier = Modifier, item: InventoryItem, isEgg: Bo
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
+            SmartText( // FIXED
                 "৳${item.price}",
                 fontSize = 16.sp,
                 color = NeutralMuted

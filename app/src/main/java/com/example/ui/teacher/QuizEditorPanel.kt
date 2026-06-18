@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -71,7 +72,7 @@ fun QuizEditorPanel(
             TopAppBar(
                 title = { 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        Text(
+                        SmartText( // FIXED
                             text = "সম্পাদনা: $bnTitle", 
                             fontWeight = FontWeight.Bold, 
                             color = primaryIndigo, 
@@ -162,7 +163,7 @@ fun QuizEditorPanel(
                                             .width(col.weight.dp)
                                             .padding(16.dp)
                                     ) {
-                                        Text(
+                                        SmartText( // FIXED
                                             text = col.title,
                                             fontWeight = FontWeight.Bold,
                                             color = tableHeaderFg,
@@ -171,7 +172,7 @@ fun QuizEditorPanel(
                                     }
                                 }
                                 Box(modifier = Modifier.width(100.dp).padding(16.dp), contentAlignment = Alignment.Center) {
-                                    Text("Actions", fontWeight = FontWeight.Bold, color = tableHeaderFg, fontSize = 15.sp)
+                                    SmartText("Actions", fontWeight = FontWeight.Bold, color = tableHeaderFg, fontSize = 15.sp) // FIXED
                                 }
                             }
 
@@ -256,7 +257,7 @@ fun EditorActionButton(
     ) {
         Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(20.dp))
         Spacer(modifier = Modifier.width(8.dp))
-        Text(text, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
+        SmartText(text, color = Color.White, fontSize = 15.sp, fontWeight = FontWeight.SemiBold) // FIXED
     }
 }
 

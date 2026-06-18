@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -116,7 +117,7 @@ private fun NavItem(
             modifier = Modifier.size(24.dp)
         )
         Spacer(modifier = Modifier.height(2.dp))
-        Text(
+        SmartText( // FIXED
             text = label,
             fontSize = 11.sp,
             fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,

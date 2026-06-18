@@ -1,4 +1,5 @@
 package com.example.ui.quiz.mathsolver
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -39,7 +40,7 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
+                    SmartText( // FIXED
                         "গণিত\nসমাধান",
                         color = PrimaryIndigo,
                         fontWeight = FontWeight.Bold,
@@ -54,7 +55,7 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
                 },
                 actions = {
                     TextButton(onClick = { }) {
-                        Text("Help", color = PrimaryIndigo, fontSize = 16.sp)
+                        SmartText("Help", color = PrimaryIndigo, fontSize = 16.sp) // FIXED
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = SurfaceOffWhite)
@@ -71,7 +72,7 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
                     colors = ButtonDefaults.buttonColors(containerColor = SecondaryTeal),
                     modifier = Modifier.fillMaxWidth().height(64.dp)
                 ) {
-                    Text("পরবর্তী সমস্যা", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    SmartText("পরবর্তী সমস্যা", fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
                     Spacer(modifier = Modifier.width(8.dp))
                     Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
                 }
@@ -96,13 +97,13 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
                     Column(
                         modifier = Modifier.padding(24.dp)
                     ) {
-                        Text(
+                        SmartText( // FIXED
                             "সমস্যা",
                             fontSize = 14.sp,
                             color = NeutralMuted
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(
+                        SmartText( // FIXED
                             "x এর মান বের করো: 3x + 7 = 22",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
@@ -121,10 +122,10 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
                             .border(1.dp, Color.LightGray, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("0", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                        SmartText("0", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black) // FIXED
                     }
                     Spacer(modifier = Modifier.width(12.dp))
-                    Text("সময়\nবাকি", fontSize = 14.sp, color = NeutralMuted, lineHeight = 18.sp)
+                    SmartText("সময়\nবাকি", fontSize = 14.sp, color = NeutralMuted, lineHeight = 18.sp) // FIXED
                 }
             }
 
@@ -135,7 +136,7 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
                     color = AlertRedBg,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
+                    SmartText( // FIXED
                         "সময় শেষ! উত্তর দেখুন এবং আবার চেষ্টা করুন।",
                         color = AlertRedText,
                         fontSize = 14.sp,
@@ -156,7 +157,7 @@ fun MathSolverScreen(onNavigateBack: () -> Unit) {
                     Spacer(modifier = Modifier.width(6.dp))
                     Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color.LightGray))
                     Spacer(modifier = Modifier.width(12.dp))
-                    Text("0/3", fontSize = 12.sp, color = NeutralMuted)
+                    SmartText("0/3", fontSize = 12.sp, color = NeutralMuted) // FIXED
                 }
             }
 
@@ -216,18 +217,18 @@ fun StepCard(number: String, title: String, instruction: String, calculation: St
                         .background(SurfaceOffWhite),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(number, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                    SmartText(number, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.Black) // FIXED
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
-                    Text(
+                    SmartText( // FIXED
                         title,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    Text(
+                    SmartText( // FIXED
                         instruction,
                         fontSize = 14.sp,
                         fontStyle = FontStyle.Italic,
@@ -247,7 +248,7 @@ fun StepCard(number: String, title: String, instruction: String, calculation: St
                 ) {
                     Icon(Icons.Outlined.Visibility, contentDescription = null, tint = AlertRedText, modifier = Modifier.size(16.dp))
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
+                    SmartText( // FIXED
                         calculation,
                         color = AlertRedText,
                         fontSize = 14.sp,

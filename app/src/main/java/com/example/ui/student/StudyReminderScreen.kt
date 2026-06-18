@@ -1,4 +1,5 @@
 package com.example.ui.student
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -26,7 +27,7 @@ fun StudyReminderScreen(onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("শিখন", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 24.sp) },
+                title = { SmartText("শিখন", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 24.sp) }, // FIXED
                 navigationIcon = {
                     Surface(
                         modifier = Modifier.padding(start = 16.dp).size(40.dp),
@@ -44,8 +45,8 @@ fun StudyReminderScreen(onNavigateBack: () -> Unit) {
         },
         bottomBar = {
             NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceContainer) {
-                NavigationBarItem(selected = false, onClick = onNavigateBack, icon = { Icon(Icons.AutoMirrored.Outlined.LibraryBooks, null) }, label = { Text("পাঠসমূহ\n(Lessons)") })
-                NavigationBarItem(selected = true, onClick = {}, icon = { Icon(Icons.Outlined.Style, null) }, label = { Text("ফ্ল্যাশকার্ড\n(Flashcards)") })
+                NavigationBarItem(selected = false, onClick = onNavigateBack, icon = { Icon(Icons.AutoMirrored.Outlined.LibraryBooks, null) }, label = { SmartText("পাঠসমূহ\n(Lessons)") }) // FIXED
+                NavigationBarItem(selected = true, onClick = {}, icon = { Icon(Icons.Outlined.Style, null) }, label = { SmartText("ফ্ল্যাশকার্ড\n(Flashcards)") }) // FIXED
             }
         }
     ) { paddingValues ->
@@ -69,8 +70,8 @@ fun StudyReminderScreen(onNavigateBack: () -> Unit) {
                         Icon(Icons.AutoMirrored.Filled.MenuBook, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer, modifier = Modifier.padding(28.dp))
                     }
                     Spacer(modifier = Modifier.height(32.dp))
-                    Text("পড়াশোনার সময় হয়েছে!", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primaryContainer)
-                    Text("Time to Study!", fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    SmartText("পড়াশোনার সময় হয়েছে!", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primaryContainer) // FIXED
+                    SmartText("Time to Study!", fontSize = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) // FIXED
                     
                     Spacer(modifier = Modifier.height(32.dp))
                     
@@ -81,11 +82,11 @@ fun StudyReminderScreen(onNavigateBack: () -> Unit) {
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("আজকের আলোর প্রতিফলন", fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface)
-                            Text("পাঠটি রিভিশন দাও।", fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface)
+                            SmartText("আজকের আলোর প্রতিফলন", fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface) // FIXED
+                            SmartText("পাঠটি রিভিশন দাও।", fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface) // FIXED
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text("Time to revise today's Reflection", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 16.sp)
-                            Text("of Light lesson.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 16.sp)
+                            SmartText("Time to revise today's Reflection", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 16.sp) // FIXED
+                            SmartText("of Light lesson.", color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 16.sp) // FIXED
                         }
                     }
                     
@@ -100,7 +101,7 @@ fun StudyReminderScreen(onNavigateBack: () -> Unit) {
                         ),
                         shape = RoundedCornerShape(24.dp)
                     ) {
-                        Text("Start Now", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                        SmartText("Start Now", fontWeight = FontWeight.Bold, fontSize = 18.sp) // FIXED
                         Spacer(modifier = Modifier.width(12.dp))
                         Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
                     }

@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import com.example.ui.theme.isAppInDarkTheme as isSystemInDarkTheme
@@ -108,11 +109,11 @@ fun TeacherDashboardScreen(
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Column {
-                        Text("লেসন ম্যাটেরিয়াল", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Primary)
-                        Text("Learning Materials", fontSize = 12.sp, color = OnSurfaceVariant)
+                        SmartText("লেসন ম্যাটেরিয়াল", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Primary) // FIXED
+                        SmartText("Learning Materials", fontSize = 12.sp, color = OnSurfaceVariant) // FIXED
                     }
                     TextButton(onClick = { }) { 
-                        Text("সব দেখ", fontWeight = FontWeight.SemiBold, color = Primary) 
+                        SmartText("সব দেখ", fontWeight = FontWeight.SemiBold, color = Primary)  // FIXED
                     }
                 }
             }
@@ -170,11 +171,11 @@ fun TeacherDashboardScreen(
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Column {
-                        Text("ছাত্র কার্যক্রম", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Primary)
-                        Text("Student Activity", fontSize = 12.sp, color = OnSurfaceVariant)
+                        SmartText("ছাত্র কার্যক্রম", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Primary) // FIXED
+                        SmartText("Student Activity", fontSize = 12.sp, color = OnSurfaceVariant) // FIXED
                     }
                     TextButton(onClick = { }) { 
-                        Text("সব দেখ", fontWeight = FontWeight.SemiBold, color = Primary) 
+                        SmartText("সব দেখ", fontWeight = FontWeight.SemiBold, color = Primary)  // FIXED
                     }
                 }
             }
@@ -191,12 +192,12 @@ fun TeacherDashboardScreen(
                         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                             Surface(shape = CircleShape, color = PrimaryContainer, modifier = Modifier.size(48.dp)) {
                                 Box(contentAlignment = Alignment.Center) {
-                                    Text("SR", color = PrimaryFixed, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    SmartText("SR", color = PrimaryFixed, fontWeight = FontWeight.Bold, fontSize = 16.sp) // FIXED
                                 }
                             }
                             Spacer(modifier = Modifier.width(16.dp))
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(
+                                SmartText( // FIXED
                                     buildAnnotatedString {
                                         withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = OnSurface)) { append("Saimur Rahman\n") }
                                         withStyle(SpanStyle(color = OnSurfaceVariant)) { append("completed ") }
@@ -205,9 +206,9 @@ fun TeacherDashboardScreen(
                                     fontSize = 14.sp
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
-                                Text("10 mins ago", fontSize = 11.sp, color = OnSurfaceVariant)
+                                SmartText("10 mins ago", fontSize = 11.sp, color = OnSurfaceVariant) // FIXED
                             }
-                            Text("95%", color = AchievementOrange, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                            SmartText("95%", color = AchievementOrange, fontWeight = FontWeight.Bold, fontSize = 20.sp) // FIXED
                         }
                     }
                     
@@ -222,12 +223,12 @@ fun TeacherDashboardScreen(
                         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                             Surface(shape = CircleShape, color = TertiaryContainer, modifier = Modifier.size(48.dp)) {
                                 Box(contentAlignment = Alignment.Center) {
-                                    Text("FA", color = if (isSystemInDarkTheme()) Color(0xFFF9E28B) else Color(0xFF4B3F00), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                    SmartText("FA", color = if (isSystemInDarkTheme()) Color(0xFFF9E28B) else Color(0xFF4B3F00), fontWeight = FontWeight.Bold, fontSize = 16.sp) // FIXED
                                 }
                             }
                             Spacer(modifier = Modifier.width(16.dp))
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(
+                                SmartText( // FIXED
                                     buildAnnotatedString {
                                         withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = OnSurface)) { append("Fariha Ahmed\n") }
                                         withStyle(SpanStyle(color = OnSurfaceVariant)) { append("submitted ") }
@@ -236,7 +237,7 @@ fun TeacherDashboardScreen(
                                     fontSize = 14.sp
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
-                                Text("1 hour ago", fontSize = 11.sp, color = OnSurfaceVariant)
+                                SmartText("1 hour ago", fontSize = 11.sp, color = OnSurfaceVariant) // FIXED
                             }
                         }
                     }
@@ -251,8 +252,8 @@ fun TeacherDashboardScreen(
                     verticalAlignment = Alignment.Bottom
                 ) {
                     Column {
-                        Text("অপেক্ষমান কাজ", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Primary)
-                        Text("Pending Actions", fontSize = 12.sp, color = OnSurfaceVariant)
+                        SmartText("অপেক্ষমান কাজ", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Primary) // FIXED
+                        SmartText("Pending Actions", fontSize = 12.sp, color = OnSurfaceVariant) // FIXED
                     }
                 }
             }
@@ -268,28 +269,28 @@ fun TeacherDashboardScreen(
                         Column(modifier = Modifier.padding(24.dp)) {
                             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                                 Column {
-                                    Text("Class 7 - Biology Project", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = OnSurface)
+                                    SmartText("Class 7 - Biology Project", fontWeight = FontWeight.Bold, fontSize = 18.sp, color = OnSurface) // FIXED
                                     Spacer(modifier = Modifier.height(4.dp))
-                                    Text("Needs review and grading", fontSize = 14.sp, color = OnSurfaceVariant)
+                                    SmartText("Needs review and grading", fontSize = 14.sp, color = OnSurfaceVariant) // FIXED
                                 }
                                 Surface(
                                     shape = CircleShape,
                                     color = AchievementOrange.copy(alpha = 0.1f)
                                 ) {
-                                    Text("High Priority", color = AchievementOrange, fontWeight = FontWeight.Bold, fontSize = 11.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp))
+                                    SmartText("High Priority", color = AchievementOrange, fontWeight = FontWeight.Bold, fontSize = 11.sp, modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)) // FIXED
                                 }
                             }
                             Spacer(modifier = Modifier.height(24.dp))
                             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                                 Row {
                                     Surface(shape = CircleShape, color = TertiaryContainer, border = androidx.compose.foundation.BorderStroke(2.dp, SurfaceCard), modifier = Modifier.size(36.dp)) {
-                                        Box(contentAlignment = Alignment.Center) { Text("+3", color = if (isSystemInDarkTheme()) Color(0xFFF9E28B) else Color(0xFF4B3F00), fontWeight = FontWeight.Bold, fontSize = 12.sp) }
+                                        Box(contentAlignment = Alignment.Center) { SmartText("+3", color = if (isSystemInDarkTheme()) Color(0xFFF9E28B) else Color(0xFF4B3F00), fontWeight = FontWeight.Bold, fontSize = 12.sp) } // FIXED
                                     }
                                     Surface(shape = CircleShape, color = SecondaryContainer, border = androidx.compose.foundation.BorderStroke(2.dp, SurfaceCard), modifier = Modifier.size(36.dp).offset(x = (-8).dp)) {
-                                        Box(contentAlignment = Alignment.Center) { Text("R", color = Primary, fontWeight = FontWeight.Bold, fontSize = 12.sp) }
+                                        Box(contentAlignment = Alignment.Center) { SmartText("R", color = Primary, fontWeight = FontWeight.Bold, fontSize = 12.sp) } // FIXED
                                     }
                                     Surface(shape = CircleShape, color = PrimaryContainer, border = androidx.compose.foundation.BorderStroke(2.dp, SurfaceCard), modifier = Modifier.size(36.dp).offset(x = (-16).dp)) {
-                                        Box(contentAlignment = Alignment.Center) { Text("J", color = PrimaryFixed, fontWeight = FontWeight.Bold, fontSize = 12.sp) }
+                                        Box(contentAlignment = Alignment.Center) { SmartText("J", color = PrimaryFixed, fontWeight = FontWeight.Bold, fontSize = 12.sp) } // FIXED
                                     }
                                 }
                                 Button(
@@ -297,7 +298,7 @@ fun TeacherDashboardScreen(
                                     colors = ButtonDefaults.buttonColors(containerColor = Primary),
                                     shape = CircleShape
                                 ) {
-                                    Text("রিভিউ করুন", fontWeight = FontWeight.Bold)
+                                    SmartText("রিভিউ করুন", fontWeight = FontWeight.Bold) // FIXED
                                 }
                             }
                         }
@@ -336,7 +337,7 @@ fun ManageMaterialCard(title: String, icon: ImageVector, iconCol: Color, iconTin
                     Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.padding(14.dp))
                 }
                 Spacer(modifier = Modifier.height(24.dp))
-                Text(title, color = Primary, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                SmartText(title, color = Primary, fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
                 Spacer(modifier = Modifier.weight(1f))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Surface(
@@ -348,7 +349,7 @@ fun ManageMaterialCard(title: String, icon: ImageVector, iconCol: Color, iconTin
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                             Icon(Icons.Outlined.Edit, contentDescription = null, tint = OnSurfaceVariant, modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("এডিট", color = OnSurfaceVariant, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            SmartText("এডিট", color = OnSurfaceVariant, fontSize = 12.sp, fontWeight = FontWeight.Bold) // FIXED
                         }
                     }
                     Surface(
@@ -360,7 +361,7 @@ fun ManageMaterialCard(title: String, icon: ImageVector, iconCol: Color, iconTin
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                             Icon(Icons.Default.Delete, contentDescription = null, tint = Color(0xFFBA1A1A), modifier = Modifier.size(16.dp))
                             Spacer(modifier = Modifier.width(4.dp))
-                            Text("মুছে ফেলুন", color = Color(0xFFBA1A1A), fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                            SmartText("মুছে ফেলুন", color = Color(0xFFBA1A1A), fontSize = 12.sp, fontWeight = FontWeight.Bold) // FIXED
                         }
                     }
                 }
@@ -395,7 +396,7 @@ fun DashboardStatCard(title: String, value: String, subtitle: String, icon: Imag
                         color = SurfaceContainerLow,
                         shape = CircleShape
                     ) {
-                        Text(
+                        SmartText( // FIXED
                             text = "View",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -405,11 +406,10 @@ fun DashboardStatCard(title: String, value: String, subtitle: String, icon: Imag
                     }
                 }
                 Spacer(modifier = Modifier.height(24.dp))
-                Text(title, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = OnSurfaceVariant)
-                Text(value, fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Primary)
-                Text(subtitle, fontSize = 13.sp, color = OnSurfaceVariant)
+                SmartText(title, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = OnSurfaceVariant) // FIXED
+                SmartText(value, fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Primary) // FIXED
+                SmartText(subtitle, fontSize = 13.sp, color = OnSurfaceVariant) // FIXED
             }
         }
     }
 }
-

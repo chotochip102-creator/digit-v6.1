@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +23,7 @@ fun LessonUploadScreen(onNavigateBack: () -> Unit) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("নতুন পাঠ", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp) },
+                title = { SmartText("নতুন পাঠ", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 20.sp) }, // FIXED
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back") }
                 },
@@ -32,20 +33,20 @@ fun LessonUploadScreen(onNavigateBack: () -> Unit) {
     ) { paddingValues ->
         LazyColumn(modifier = Modifier.padding(paddingValues).padding(24.dp).fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             item {
-                OutlinedTextField(value = title, onValueChange = { title = it }, label = { Text("Title (Bengali)") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(value = title, onValueChange = { title = it }, label = { SmartText("Title (Bengali)") }, modifier = Modifier.fillMaxWidth()) // FIXED
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { Text("Subject (e.g. Math)") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(value = subject, onValueChange = { subject = it }, label = { SmartText("Subject (e.g. Math)") }, modifier = Modifier.fillMaxWidth()) // FIXED
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(value = classLevel, onValueChange = { classLevel = it }, label = { Text("Class Level") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(value = classLevel, onValueChange = { classLevel = it }, label = { SmartText("Class Level") }, modifier = Modifier.fillMaxWidth()) // FIXED
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(value = link, onValueChange = { link = it }, label = { Text("Google Drive Link") }, modifier = Modifier.fillMaxWidth())
+                OutlinedTextField(value = link, onValueChange = { link = it }, label = { SmartText("Google Drive Link") }, modifier = Modifier.fillMaxWidth()) // FIXED
                 Spacer(modifier = Modifier.height(32.dp))
                 Button(
                     onClick = { onNavigateBack() }, 
                     modifier = Modifier.fillMaxWidth().height(56.dp),
                     enabled = title.isNotBlank() && subject.isNotBlank()
                 ) {
-                    Text("Save Lesson")
+                    SmartText("Save Lesson") // FIXED
                 }
             }
         }

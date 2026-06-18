@@ -1,4 +1,5 @@
 package com.example.ui.teacher
+import com.example.ui.components.SmartText
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -51,7 +52,7 @@ fun TeacherProfileScreen(
             TopAppBar(
                 title = { 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        Text("প্রোফাইল (শিক্ষক)", fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.padding(end = 48.dp))
+                        SmartText("প্রোফাইল (শিক্ষক)", fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.padding(end = 48.dp)) // FIXED
                     }
                 },
                 navigationIcon = {
@@ -91,8 +92,8 @@ fun TeacherProfileScreen(
                             }
                             Spacer(modifier = Modifier.width(16.dp))
                             Column {
-                                Text("মুস্তাফিজুর রহমান", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textPrimary)
-                                Text("সিনিয়র গণিত শিক্ষক", fontSize = 14.sp, color = textSecondary)
+                                SmartText("মুস্তাফিজুর রহমান", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textPrimary) // FIXED
+                                SmartText("সিনিয়র গণিত শিক্ষক", fontSize = 14.sp, color = textSecondary) // FIXED
                             }
                         }
                         
@@ -108,16 +109,16 @@ fun TeacherProfileScreen(
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text("পরিচালিত ক্লাস:", fontSize = 12.sp, color = textSecondary)
+                                SmartText("পরিচালিত ক্লাস:", fontSize = 12.sp, color = textSecondary) // FIXED
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                     Icon(Icons.Default.Class, contentDescription = null, tint = PrimaryIndigo, modifier = Modifier.size(20.dp))
-                                    Text("৪টি", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = textPrimary)
+                                    SmartText("৪টি", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = textPrimary) // FIXED
                                 }
                             }
                             
                             Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.clickable { /* See classes */ }) {
-                                Text("সবগুলো দেখুন", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.Medium)
+                                SmartText("সবগুলো দেখুন", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.Medium) // FIXED
                                 Icon(Icons.Default.ChevronRight, contentDescription = null, tint = PrimaryIndigo, modifier = Modifier.size(16.dp))
                             }
                         }
@@ -151,11 +152,11 @@ fun TeacherProfileScreen(
                                 }
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Column(verticalArrangement = Arrangement.Center) {
-                                    Text("আপলোডকৃত লেসন", fontSize = 14.sp, color = PrimaryIndigo, fontWeight = FontWeight.Bold)
-                                    Text("৬৫টি লেসন", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textPrimary)
+                                    SmartText("আপলোডকৃত লেসন", fontSize = 14.sp, color = PrimaryIndigo, fontWeight = FontWeight.Bold) // FIXED
+                                    SmartText("৬৫টি লেসন", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textPrimary) // FIXED
                                 }
                             }
-                            Text("৬৫ / ৮০ রিভিউড", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.SemiBold)
+                            SmartText("৬৫ / ৮০ রিভিউড", fontSize = 12.sp, color = PrimaryIndigo, fontWeight = FontWeight.SemiBold) // FIXED
                         }
                         
                         Spacer(modifier = Modifier.height(16.dp))
@@ -181,8 +182,8 @@ fun TeacherProfileScreen(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text("৮১% সম্পন্ন", fontSize = 12.sp, color = textSecondary)
-                            Text("পেন্ডিং কাজ: ১৫টি", fontSize = 12.sp, color = SecondaryTeal)
+                            SmartText("৮১% সম্পন্ন", fontSize = 12.sp, color = textSecondary) // FIXED
+                            SmartText("পেন্ডিং কাজ: ১৫টি", fontSize = 12.sp, color = SecondaryTeal) // FIXED
                         }
                     }
                 }
