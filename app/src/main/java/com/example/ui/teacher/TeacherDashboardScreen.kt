@@ -124,38 +124,11 @@ fun TeacherDashboardScreen(
                 ) {
                     item { 
                         ManageMaterialCard(
-                            title = "জানা অজানা", 
-                            icon = Icons.Default.Lightbulb, 
+                            title = "স্লাইডশো এডিটর", 
+                            icon = Icons.Default.Edit, 
                             iconCol = PrimaryContainer, 
                             iconTint = PrimaryFixed,
-                            onEditClick = { editingMaterial = "Did You Know" }
-                        ) 
-                    }
-                    item { 
-                        ManageMaterialCard(
-                            title = "কুইক কুইজ", 
-                            icon = Icons.Outlined.Quiz, 
-                            iconCol = TertiaryContainer, 
-                            iconTint = if (isSystemInDarkTheme()) Color(0xFFF9E28B) else Color(0xFF4B3F00),
-                            onEditClick = { editingMaterial = "Quick Quiz" }
-                        ) 
-                    }
-                    item { 
-                        ManageMaterialCard(
-                            title = "শব্দার্থ", 
-                            icon = Icons.Default.SortByAlpha, 
-                            iconCol = SecondaryContainer, 
-                            iconTint = Primary,
-                            onEditClick = { editingMaterial = "Word Meaning" }
-                        ) 
-                    }
-                    item { 
-                        ManageMaterialCard(
-                            title = "ফ্ল্যাশকার্ড", 
-                            icon = Icons.Default.Style, 
-                            iconCol = PrimaryContainer, 
-                            iconTint = PrimaryFixed,
-                            onEditClick = { editingMaterial = "Flashcards" }
+                            onEditClick = { editingMaterial = "Slideshow" }
                         ) 
                     }
                 }
