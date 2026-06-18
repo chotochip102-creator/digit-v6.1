@@ -1,3 +1,7 @@
+import java.net.URL
+import java.io.FileOutputStream
+import java.io.File
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.compose)
@@ -64,6 +68,35 @@ android {
 secrets {
   propertiesFileName = ".env"
   defaultPropertiesFileName = ".env.example"
+}
+
+tasks.register("downloadFonts") {
+    doLast {
+        val destDir = file("src/main/res/font")
+        destDir.mkdirs()
+        
+        val fonts = mapOf(
+            "poppins_regular.ttf" to "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Regular.ttf",
+            "poppins_medium.ttf" to "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Medium.ttf",
+            "poppins_semibold.ttf" to "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-SemiBold.ttf",
+            "poppins_bold.ttf" to "https://github.com/google/fonts/raw/main/ofl/poppins/Poppins-Bold.ttf",
+            "hind_siliguri_regular.ttf" to "https://github.com/google/fonts/raw/main/ofl/hindsiliguri/HindSiliguri-Regular.ttf",
+            "hind_siliguri_medium.ttf" to "https://github.com/google/fonts/raw/main/ofl/hindsiliguri/HindSiliguri-Medium.ttf",
+            "hind_siliguri_semibold.ttf" to "https://github.com/google/fonts/raw/main/ofl/hindsiliguri/HindSiliguri-SemiBold.ttf",
+            "hind_siliguri_bold.ttf" to "https://github.com/google/fonts/raw/main/ofl/hindsiliguri/HindSiliguri-Bold.ttf"
+        )
+        for ((name, urlStr) in fonts) {
+            val f = file("src/main/res/font/$name")
+            if (!f.exists()) {
+                val url = URL(urlStr)
+                url.openStream().use { input ->
+                    FileOutputStream(f).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Some unused dependencies are commented out below instead of being removed.
