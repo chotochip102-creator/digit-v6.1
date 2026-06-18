@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.MyApplication" parent="android:Theme.DeviceDefault.NoActionBar">
-        <item name="android:fontFamily">@font/hind_siliguri</item> <!-- FIXED -->
+        <!-- Fonts are handled by SmartText composable --> <!-- FIXED -->
+        <!-- See: ui/components/SmartText.kt --> <!-- FIXED -->
     </style>
 </resources>

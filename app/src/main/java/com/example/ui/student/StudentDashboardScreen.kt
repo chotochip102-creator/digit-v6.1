@@ -57,14 +57,6 @@ val OnSurfaceVariant: Color
 
 @Composable
 fun SharedStudentHeaderActions(onNavigateToProfile: () -> Unit) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(Icons.Default.LocalFireDepartment, contentDescription = null, tint = AchievementOrange, modifier = Modifier.size(18.dp))
-        Spacer(modifier = Modifier.width(4.dp))
-        SmartText("৫", fontWeight = FontWeight.Bold, color = AchievementOrange, fontSize = 14.sp) // FIXED
-    }
-    Spacer(modifier = Modifier.width(16.dp))
     Box(contentAlignment = Alignment.TopEnd) {
         IconButton(onClick = { /* TODO */ }, modifier = Modifier.size(40.dp)) {
             Icon(Icons.Outlined.Notifications, contentDescription = "Notifications", tint = Primary, modifier = Modifier.size(24.dp))
@@ -132,11 +124,6 @@ fun StudentDashboardScreen(
                 DailyActivitySlideshow(onNavigateToLesson)
             }
             
-            // Weekly Challenge
-            item {
-                WeeklyChallengeSection()
-            }
-
             // Daily Goal
             item {
                 Surface(

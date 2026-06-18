@@ -305,7 +305,7 @@ fun DailyChallengeCard() {
     val correctOption = 0
 
     SlideshowCardBase(
-        gradientBrush = Brush.linearGradient(listOf(Color(0xFF1E5374), Color(0xFF4E4D8A)))
+        gradientBrush = Brush.linearGradient(listOf(Color(0xFF00B4DB), Color(0xFF0083B0)))
     ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
@@ -340,10 +340,8 @@ fun DailyChallengeCard() {
                 )
             }
         }
-        Spacer(modifier = Modifier.weight(0.5f))
+        Spacer(modifier = Modifier.weight(1f))
         SmartText("বিপরীত শব্দ লিখুন: আকাশ", fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Color.White) // FIXED
-        Spacer(modifier = Modifier.height(4.dp))
-        SmartText("(Write the opposite word: Sky)", fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f), textAlign = TextAlign.Center) // FIXED
         Spacer(modifier = Modifier.weight(1f))
         
         Column(modifier = Modifier.fillMaxWidth()) {

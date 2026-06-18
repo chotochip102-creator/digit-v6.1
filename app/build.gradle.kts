@@ -70,28 +70,6 @@ secrets {
 
 // Some unused dependencies are commented out below instead of being removed.
 
-tasks.register("fixImports") {
-    doLast {
-        val uiDir = file("src/main/java/com/example/ui")
-        val extension = "kt"
-        uiDir.walkTopDown().filter { it.isFile && it.extension == extension }.forEach { file ->
-            var content = file.readText()
-            if (content.contains("import com.example.ui.components.SmartText\npackage ")) {
-                content = content.replace("import com.example.ui.components.SmartText\npackage ", "package ")
-                file.writeText(content)
-                val lines = file.readLines().toMutableList()
-                val pkgIndex = lines.indexOfFirst { it.startsWith("package ") }
-                if (pkgIndex != -1) {
-                    lines.add(pkgIndex + 1, "import com.example.ui.components.SmartText")
-                    file.writeText(lines.joinToString("\n"))
-                    println("Fixed import in ${file.name}")
-                }
-            }
-        }
-    }
-}
-
-
 // This makes it easy to add them back in the future if needed.
 dependencies {
   implementation(platform(libs.androidx.compose.bom))

@@ -87,6 +87,30 @@ fun StudentQuizzesScreen(
             }
             
             item {
+                Spacer(modifier = Modifier.height(8.dp))
+                SmartText(
+                    text = "Weekly Challenge Game Options",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = NavyBlue
+                )
+            }
+            
+            item {
+                WeeklyChallengeCard(onClick = onNavigateToWeeklyChallenge)
+            }
+            
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                SmartText(
+                    text = "Practice & More",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = NavyBlue
+                )
+            }
+            
+            item {
                 GameCard(
                     titleBn = "পাঠ ভিত্তিক কুইজ",
                     titleEn = "Lesson Quizzes",
@@ -190,10 +214,6 @@ fun StudentQuizzesScreen(
                     onClick = onNavigateToMathSolver
                 )
             }
-            
-            item {
-                WeeklyChallengeCard(onClick = onNavigateToWeeklyChallenge)
-            }
         }
     }
 }
@@ -254,29 +274,6 @@ fun HeroGoalSection() {
                         .clip(CircleShape)
                         .background(SoftYellow)
                 )
-            }
-            
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            Box(
-                modifier = Modifier
-                    .size(100.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Box(
-                    modifier = Modifier.size(100.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.05f))
-                )
-                Box(
-                    modifier = Modifier.size(72.dp).clip(CircleShape).background(Color.White.copy(alpha = 0.1f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        Icons.Outlined.LocalFireDepartment,
-                        contentDescription = "Streak",
-                        tint = SoftYellow,
-                        modifier = Modifier.size(36.dp)
-                    )
-                }
             }
         }
         }

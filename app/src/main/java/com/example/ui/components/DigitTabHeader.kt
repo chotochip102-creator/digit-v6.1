@@ -77,22 +77,13 @@ fun DigitTabHeader(
                         SmartText( // FIXED
                             text = "Digit",
                             fontSize = 22.sp,
-                            fontWeight = FontWeight.Black,
+                            fontWeight = FontWeight.Medium,
                             color = brandColor,
                             letterSpacing = (-0.5).sp
                         )
                     }
                     
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        // Divider
-                        Box(
-                            modifier = Modifier
-                                .height(24.dp)
-                                .width(1.dp)
-                                .background(dividerColor)
-                        )
-                        
-                        Spacer(modifier = Modifier.width(16.dp))
                         
                         // Trailing section
                         actions()

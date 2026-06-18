@@ -17,6 +17,22 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.foundation.text.InlineTextContent
+import com.example.ui.theme.AppFonts
+
+/*
+ * FONT RULE FOR THIS PROJECT: // FIXED
+ * ----------------------------------------------- // FIXED
+ * ALWAYS use SmartText() instead of Text() // FIXED
+ * SmartText automatically applies: // FIXED
+ *   - Poppins      → for English text // FIXED
+ *   - Hind Siliguri → for Bengali text // FIXED
+ * // FIXED
+ * DO NOT use Text() directly anywhere in this project. // FIXED
+ * DO NOT hardcode fontFamily in any Text() or TextStyle. // FIXED
+ * DO NOT add fontFamily to themes.xml. // FIXED
+ * All font logic lives in: AppFonts (Type.kt) // FIXED
+ * ----------------------------------------------- // FIXED
+ */ // FIXED
 
 @Composable
 fun SmartText(
@@ -37,14 +53,28 @@ fun SmartText(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current
 ) {
+    val fontFamily = AppFonts.forText(text) // FIXED
+    val resolvedWeight = fontWeight ?: style.fontWeight ?: FontWeight.Normal // FIXED
+    val finalWeight = if (fontFamily == AppFonts.poppins) { // FIXED
+        when (resolvedWeight) { // FIXED
+            FontWeight.Light -> FontWeight.Normal // FIXED
+            FontWeight.Normal -> FontWeight.Medium // FIXED
+            FontWeight.Medium -> FontWeight.SemiBold // FIXED
+            FontWeight.SemiBold -> FontWeight.Bold // FIXED
+            else -> resolvedWeight // FIXED
+        } // FIXED
+    } else { // FIXED
+        fontWeight // FIXED
+    } // FIXED
+    
     Text(
         text = text,
         modifier = modifier,
-        fontFamily = getFontFamily(text),
+        fontFamily = fontFamily, // FIXED
         color = color,
         fontSize = fontSize,
         fontStyle = fontStyle,
-        fontWeight = fontWeight,
+        fontWeight = finalWeight, // FIXED
         letterSpacing = letterSpacing,
         textDecoration = textDecoration,
         textAlign = textAlign,
@@ -54,7 +84,7 @@ fun SmartText(
         maxLines = maxLines,
         minLines = minLines,
         onTextLayout = onTextLayout,
-        style = style.copy(fontFamily = getFontFamily(text))
+        style = style.copy(fontFamily = fontFamily) // FIXED
     )
 }
 
@@ -78,14 +108,28 @@ fun SmartText(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current
 ) {
+    val fontFamily = AppFonts.forText(text.text) // FIXED
+    val resolvedWeight = fontWeight ?: style.fontWeight ?: FontWeight.Normal // FIXED
+    val finalWeight = if (fontFamily == AppFonts.poppins) { // FIXED
+        when (resolvedWeight) { // FIXED
+            FontWeight.Light -> FontWeight.Normal // FIXED
+            FontWeight.Normal -> FontWeight.Medium // FIXED
+            FontWeight.Medium -> FontWeight.SemiBold // FIXED
+            FontWeight.SemiBold -> FontWeight.Bold // FIXED
+            else -> resolvedWeight // FIXED
+        } // FIXED
+    } else { // FIXED
+        fontWeight // FIXED
+    } // FIXED
+
     Text(
         text = text,
         modifier = modifier,
-        fontFamily = getFontFamily(text.text), // Use text.text for family
+        fontFamily = fontFamily, // FIXED
         color = color,
         fontSize = fontSize,
         fontStyle = fontStyle,
-        fontWeight = fontWeight,
+        fontWeight = finalWeight, // FIXED
         letterSpacing = letterSpacing,
         textDecoration = textDecoration,
         textAlign = textAlign,
@@ -96,6 +140,6 @@ fun SmartText(
         minLines = minLines,
         inlineContent = inlineContent,
         onTextLayout = onTextLayout,
-        style = style.copy(fontFamily = getFontFamily(text.text))
+        style = style.copy(fontFamily = fontFamily) // FIXED
     )
 }
