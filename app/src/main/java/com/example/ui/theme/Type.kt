@@ -5,32 +5,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.googlefonts.GoogleFont
-import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.font.Font
 import com.example.R
 
-val provider = GoogleFont.Provider(
-    providerAuthority = "com.google.android.gms.fonts",
-    providerPackage = "com.google.android.gms",
-    certificates = R.array.com_google_android_gms_fonts_certs
+val hindSiliguri = FontFamily(
+    Font(R.font.hind_siliguri) // FIXED
 )
 
-val poppinsFontName = GoogleFont("Poppins")
-val hindSiliguriFontName = GoogleFont("Hind Siliguri")
+val AppFontFamily = hindSiliguri // FIXED
 
-val AppFontFamily = FontFamily(
-    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.Normal),
-    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Normal),
-    
-    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.Medium),
-    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Medium),
-    
-    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.SemiBold),
-    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.SemiBold),
-    
-    Font(googleFont = poppinsFontName, fontProvider = provider, weight = FontWeight.Bold),
-    Font(googleFont = hindSiliguriFontName, fontProvider = provider, weight = FontWeight.Bold)
-)
 
 val Typography = Typography(
     displayLarge = TextStyle(fontFamily = AppFontFamily, fontWeight = FontWeight.Normal, fontSize = 57.sp, lineHeight = 64.sp, letterSpacing = (-0.25).sp),
