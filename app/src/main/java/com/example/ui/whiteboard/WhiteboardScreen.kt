@@ -965,25 +965,11 @@ fun PencilSettingsContent(
     }
 }
 
-enum class CalculatorMode {
-    STANDARD, SCIENTIFIC
-}
-
-data class SciKeyData(
-    val text: String,
-    val shift: String = "",
-    val alpha: String = "",
-    val bg: Color? = null,
-    val fg: Color? = null,
-    val action: String = text
-)
-
 @Composable
 fun CalculatorWidget(
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var mode by remember { mutableStateOf(CalculatorMode.SCIENTIFIC) }
     var angleMode by remember { mutableStateOf(AngleMode.DEG) }
     var currentInput by remember { mutableStateOf("") }
     var result by remember { mutableStateOf("") }
@@ -1043,41 +1029,25 @@ fun CalculatorWidget(
             shape = if (isTabletBox) RectangleShape else RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
             color = Color(0xFFF9FAFB),
         ) {
-            Column(modifier = Modifier.fillMaxSize().navigationBarsPadding().padding(top = 16.dp, start = 16.dp, end = 16.dp, bottom = 0.dp)) {
+            Column(modifier = Modifier.fillMaxSize().statusBarsPadding()) {
                 // Header
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if (selectedBottomTab == 0) {
-                        Row(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(24.dp))
-                                .background(Color.Transparent)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(24.dp))
-                                    .background(if (mode == CalculatorMode.STANDARD) PrimaryIndigo else Color.Transparent)
-                                    .clickable { mode = CalculatorMode.STANDARD }
-                                    .padding(horizontal = 20.dp, vertical = 10.dp)
-                            ) {
-                                SmartText("Standard", color = if (mode == CalculatorMode.STANDARD) Color.White else Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) // FIXED
-                            }
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(24.dp))
-                                    .background(if (mode == CalculatorMode.SCIENTIFIC) PrimaryIndigo else Color.Transparent)
-                                    .clickable { mode = CalculatorMode.SCIENTIFIC }
-                                    .padding(horizontal = 20.dp, vertical = 10.dp)
-                            ) {
-                                SmartText("Scientific", color = if (mode == CalculatorMode.SCIENTIFIC) Color.White else Color.DarkGray, fontSize = 13.sp, fontWeight = FontWeight.SemiBold) // FIXED
-                            }
-                        }
-                    } else {
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
+                    SmartText(
+                        when (selectedBottomTab) {
+                            0 -> "Calculator"
+                            1 -> "History"
+                            2 -> "Variables"
+                            3 -> "Constants"
+                            else -> "Calculator"
+                        },
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.DarkGray
+                    )
                     
                     IconButton(onClick = onClose, modifier = Modifier.size(32.dp)) {
                         Icon(Icons.Default.Close, contentDescription = "Close", tint = Color.Gray, modifier = Modifier.size(20.dp))
@@ -1085,24 +1055,9 @@ fun CalculatorWidget(
                 }
 
                 // Main Content Area
-                Box(modifier = Modifier.weight(1f, fill = true)) {
+                Box(modifier = Modifier.weight(1f, fill = true).padding(horizontal = 16.dp)) {
                     when (selectedBottomTab) {
-                        0 -> {
-                            if (mode == CalculatorMode.STANDARD) {
-                                StandardCalculatorLayout(currentInput, result, onAction)
-                            } else {
-                                if (isTabletBox) {
-                                    Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(24.dp)) {
-                                        SciCalcHistorySidebar(modifier = Modifier.weight(1f))
-                                        Box(modifier = Modifier.weight(2f)) {
-                                            ScientificCalculatorLayout(currentInput, result, angleMode, onAction)
-                                        }
-                                    }
-                                } else {
-                                    ScientificCalculatorLayout(currentInput, result, angleMode, onAction)
-                                }
-                            }
-                        }
+                        0 -> StandardCalculatorLayout(currentInput, result, onAction)
                         1 -> CalculatorHistoryView()
                         2 -> CalculatorVariablesView()
                         3 -> CalculatorConstantsView()
@@ -1111,14 +1066,15 @@ fun CalculatorWidget(
                 
                 // Bottom Navigation
                 Surface(
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
-                    shape = RoundedCornerShape(24.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RectangleShape,
                     color = Color.White,
-                    shadowElevation = 0.dp
+                    shadowElevation = 8.dp
                 ) {
                     CalculatorBottomNav(
                         selectedIdx = selectedBottomTab, 
-                        onTabSelected = { selectedBottomTab = it }
+                        onTabSelected = { selectedBottomTab = it },
+                        modifier = Modifier.navigationBarsPadding()
                     )
                 }
             }
@@ -1127,14 +1083,14 @@ fun CalculatorWidget(
 }
 
 @Composable
-fun CalculatorBottomNav(selectedIdx: Int, onTabSelected: (Int) -> Unit) {
+fun CalculatorBottomNav(modifier: Modifier = Modifier, selectedIdx: Int, onTabSelected: (Int) -> Unit) {
     val items = listOf("Calculate", "History", "Variables", "Constants")
     
     // Using icons mimicking the layout described
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp),
+            .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -1150,19 +1106,19 @@ fun CalculatorBottomNav(selectedIdx: Int, onTabSelected: (Int) -> Unit) {
             ) {
                 Box(
                     modifier = Modifier
-                        .size(44.dp)
+                        .size(36.dp)
                         .clip(RoundedCornerShape(12.dp))
                         .background(if (isSelected) PrimaryIndigo else Color.Transparent),
                     contentAlignment = Alignment.Center
                 ) {
                     when (idx) {
-                        0 -> Icon(Icons.Outlined.Calculate, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(24.dp))
-                        1 -> Icon(Icons.Outlined.History, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(24.dp))
-                        2 -> SmartText("fx", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray) // FIXED
-                        3 -> SmartText("{ }", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray) // FIXED
+                        0 -> Icon(Icons.Outlined.Calculate, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(20.dp))
+                        1 -> Icon(Icons.Outlined.History, contentDescription = null, tint = if (isSelected) Color.White else Color.DarkGray, modifier = Modifier.size(20.dp))
+                        2 -> SmartText("fx", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray) // FIXED
+                        3 -> SmartText("{ }", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (isSelected) Color.White else Color.DarkGray) // FIXED
                     }
                 }
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 SmartText(title, fontSize = 10.sp, color = if (isSelected) PrimaryIndigo else Color.DarkGray, fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium) // FIXED
             }
         }
@@ -1197,29 +1153,6 @@ fun CalculatorConstantsView() {
 }
 
 @Composable
-fun StdKey(
-    text: String,
-    bg: Color = Color.White,
-    fg: Color = Color(0xFF1F2937),
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
-        color = bg,
-        shadowElevation = 0.dp
-    ) {
-        Box(
-            modifier = Modifier.fillMaxSize().clickable { onClick() },
-            contentAlignment = Alignment.Center
-        ) {
-            SmartText(text, color = fg, fontSize = 20.sp, fontWeight = FontWeight.Bold) // FIXED
-        }
-    }
-}
-
-@Composable
 fun StandardCalculatorLayout(
     currentInput: String,
     result: String,
@@ -1230,60 +1163,37 @@ fun StandardCalculatorLayout(
         Surface(
             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
             shape = RoundedCornerShape(16.dp),
-            color = Color.White,
-            shadowElevation = 0.dp // Match scientific
+            color = Color.Transparent,
+            shadowElevation = 0.dp
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 20.dp)
             ) {
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        SmartText("SHIFT", color = Color(0xFFF59E0B), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                        SmartText("ALPHA", color = Color(0xFF14B8A6), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                        SmartText("RAD", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                        SmartText("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                    }
-                }
                 Spacer(modifier = Modifier.height(24.dp))
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                    if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") {
-                        // Display the integral from the design image directly for aesthetics when empty
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            SmartText("∫", fontSize = 48.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Light) // FIXED
-                            Column(modifier = Modifier.padding(start = 2.dp, end = 8.dp)) {
-                                SmartText("π/2", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
-                                Spacer(modifier = Modifier.height(16.dp))
-                                SmartText("0", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
-                            }
-                            SmartText("cos(x) dx", fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
-                        }
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    if (currentInput.isEmpty()) {
+                        SmartText("0", fontSize = 36.sp, color = Color.Gray, fontWeight = FontWeight.Light, maxLines = 1)
                     } else {
-                        SmartText(currentInput, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
+                        SmartText(currentInput, fontSize = 36.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal, maxLines = 1)
                     }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                val displayResult = if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") "1.00000000" else result
-                SmartText(displayResult.ifEmpty { " " }, fontSize = 46.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1) // FIXED
+                SmartText(result.ifEmpty { " " }, fontSize = 48.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1)
             }
         }
         
         Column(modifier = Modifier.weight(1f)) {
-            // Emulate the func keys space
-            Spacer(modifier = Modifier.weight(0.5f))
-            
-            Spacer(modifier = Modifier.height(12.dp))
-            
             val numKeys = listOf(
-                listOf(SciKeyData("C", fg = Color(0xFFDC2626), bg = Color(0xFFF3F4F6)), SciKeyData("( )", bg = Color.White), SciKeyData("%", bg = Color.White), SciKeyData("÷", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6))),
-                listOf(SciKeyData("7"), SciKeyData("8"), SciKeyData("9"), SciKeyData("×", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6))),
-                listOf(SciKeyData("4"), SciKeyData("5"), SciKeyData("6"), SciKeyData("-", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6))),
-                listOf(SciKeyData("1"), SciKeyData("2"), SciKeyData("3"), SciKeyData("+", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6))),
-                listOf(SciKeyData("0", bg = Color.White), SciKeyData(".", bg = Color.White), SciKeyData("⌫", fg = Color(0xFFDC2626), bg = Color(0xFFF3F4F6)), SciKeyData("=", bg = PrimaryIndigo, fg = Color.White))
+                listOf(CalcKeyData("C", fg = Color(0xFFDC2626), bg = Color(0xFFF3F4F6), action = "AC"), CalcKeyData("( )", bg = Color.White), CalcKeyData("%", bg = Color.White), CalcKeyData("÷", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6), action = "/")),
+                listOf(CalcKeyData("7"), CalcKeyData("8"), CalcKeyData("9"), CalcKeyData("×", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6), action = "*")),
+                listOf(CalcKeyData("4"), CalcKeyData("5"), CalcKeyData("6"), CalcKeyData("-", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6))),
+                listOf(CalcKeyData("1"), CalcKeyData("2"), CalcKeyData("3"), CalcKeyData("+", fg = PrimaryIndigo, bg = Color(0xFFF3F4F6))),
+                listOf(CalcKeyData("0", bg = Color.White), CalcKeyData(".", bg = Color.White), CalcKeyData("⌫", fg = Color(0xFFDC2626), bg = Color(0xFFF3F4F6), action = "DEL"), CalcKeyData("=", bg = PrimaryIndigo, fg = Color.White))
             )
             
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.weight(0.5f)) {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxSize()) {
                 numKeys.forEach { rowVals ->
-                    Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         rowVals.forEach { key ->
                             StdKey(
                                 text = key.text,
@@ -1300,205 +1210,16 @@ fun StandardCalculatorLayout(
     }
 }
 
-@Composable
-fun SciCalcHistorySidebar(modifier: Modifier = Modifier) {
-    Column(modifier = modifier
-        .fillMaxHeight()
-        .background(Color(0xFFF1F3F4), RoundedCornerShape(12.dp))
-        .padding(16.dp)
-    ) {
-        Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            SmartText("History", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF1F2937)) // FIXED
-            Icon(Icons.Default.DeleteOutline, contentDescription = "Clear", tint = Color(0xFF9B1C1C), modifier = Modifier.size(18.dp))
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        
-        val history = listOf(
-            "∫(0→π) sin(x) dx" to "2",
-            "d/dx (x³ + 2x) @ x=2" to "14",
-            "log₂(1024)" to "10",
-            "√(144) + 5²" to "37"
-        )
-        
-        history.forEach { (eq, res) ->
-            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp), horizontalAlignment = Alignment.End) {
-                SmartText(eq, fontSize = 13.sp, color = Color.Gray) // FIXED
-                Spacer(modifier = Modifier.height(4.dp))
-                SmartText(res, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo) // FIXED
-            }
-            HorizontalDivider(color = Color(0xFFE5E7EB))
-        }
-    }
-}
+data class CalcKeyData(
+    val text: String,
+    val bg: Color? = null,
+    val fg: Color? = null,
+    val action: String = text
+)
 
 @Composable
-fun ScientificCalculatorLayout(
-    currentInput: String,
-    result: String,
-    angleMode: AngleMode,
-    onAction: (String) -> Unit
-) {
-    var isShiftActive by remember { mutableStateOf(false) }
-    var isAlphaActive by remember { mutableStateOf(false) }
-
-    val handleKeyClick: (SciKeyData) -> Unit = { key ->
-        when (key.text) {
-            "SHIFT" -> {
-                isShiftActive = !isShiftActive
-                isAlphaActive = false
-            }
-            "ALPHA" -> {
-                isAlphaActive = !isAlphaActive
-                isShiftActive = false
-            }
-            else -> {
-                val finalAction = when {
-                    isShiftActive && key.shift.isNotEmpty() -> key.shift
-                    isAlphaActive && key.alpha.isNotEmpty() -> key.alpha
-                    else -> key.action
-                }
-                isShiftActive = false
-                isAlphaActive = false
-                onAction(finalAction)
-            }
-        }
-    }
-
-    Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
-        // Display Area
-        Surface(
-            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
-            shape = RoundedCornerShape(16.dp),
-            color = Color.White,
-            shadowElevation = 0.dp // The image has no shadow, just white card on light grey background
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 20.dp)
-            ) {
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        SmartText(if (isShiftActive) "SHIFT" else " ", color = Color(0xFFF59E0B), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                        SmartText(if (isAlphaActive) "ALPHA" else " ", color = Color(0xFF14B8A6), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                        SmartText(angleMode.name, color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                        SmartText("MATH", color = Color(0xFF1F2937), fontSize = 11.sp, fontWeight = FontWeight.Bold) // FIXED
-                    }
-                }
-                Spacer(modifier = Modifier.height(24.dp))
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
-                    if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") {
-                        // Display the integral from the design image directly for aesthetics when empty
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            SmartText("∫", fontSize = 48.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Light) // FIXED
-                            Column(modifier = Modifier.padding(start = 2.dp, end = 8.dp)) {
-                                SmartText("π/2", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
-                                Spacer(modifier = Modifier.height(16.dp))
-                                SmartText("0", fontSize = 12.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Medium) // FIXED
-                            }
-                            SmartText("cos(x) dx", fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
-                        }
-                    } else {
-                        SmartText(currentInput, fontSize = 28.sp, color = Color(0xFF1F2937), fontWeight = FontWeight.Normal) // FIXED
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                val displayResult = if (currentInput.isEmpty() || currentInput == "∫₀^π/2 cos(x) dx") "1.00000000" else result
-                SmartText(displayResult.ifEmpty { " " }, fontSize = 46.sp, fontWeight = FontWeight.Bold, color = PrimaryIndigo, modifier = Modifier.align(Alignment.End), maxLines = 1) // FIXED
-            }
-        }
-        
-        Column(modifier = Modifier.weight(1f)) {
-            // grids
-            val funcKeys = listOf(
-                listOf(SciKeyData("SHIFT", fg = Color(0xFFF59E0B)), SciKeyData("ALPHA", fg = Color(0xFF14B8A6)), SciKeyData("◀"), SciKeyData("▲"), SciKeyData("▼"), SciKeyData("▶")),
-                listOf(SciKeyData("CALC", "SOLVE", "="), SciKeyData("∫", "d/dx", ":"), SciKeyData("x⁻¹", "x!"), SciKeyData("logₐb", "Σ"), SciKeyData("MODE"), SciKeyData("ON")),
-                listOf(SciKeyData("a/b", "d/c"), SciKeyData("√", "³√"), SciKeyData("x²", "x³"), SciKeyData("xⁿ", "ˣ√"), SciKeyData("log", "10ˣ"), SciKeyData("ln", "eˣ")),
-                listOf(SciKeyData("(-)", "∠", "A"), SciKeyData("° ' \"", "←", "B"), SciKeyData("hyp", alpha = "C"), SciKeyData("sin", "sin⁻¹", "D"), SciKeyData("cos", "cos⁻¹", "E"), SciKeyData("tan", "tan⁻¹", "F")),
-                listOf(SciKeyData("RCL", "STO"), SciKeyData("ENG", "←", "i"), SciKeyData("(", "%"), SciKeyData(")", ",", "X"), SciKeyData("S⇔D", "a b/c", "Y"), SciKeyData("M+", "M-", "M"))
-            )
-            
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.weight(0.5f)) {
-                funcKeys.forEach { rowVals ->
-                    Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        rowVals.forEach { key ->
-                            SciFunctionKey(
-                                text = key.text,
-                                shift = key.shift,
-                                alpha = key.alpha,
-                                fg = key.fg ?: Color(0xFF1F2937),
-                                modifier = Modifier.weight(1f).fillMaxHeight(),
-                                onClick = { handleKeyClick(key) }
-                            )
-                        }
-                    }
-                }
-            }
-            
-            Spacer(modifier = Modifier.height(12.dp))
-            
-            val numKeys = listOf(
-                listOf(SciKeyData("7", "CONST"), SciKeyData("8", "CONV"), SciKeyData("9", "CLR"), SciKeyData("DEL", "INS", "", Color(0xFFF3F4F6), Color(0xFFDC2626)), SciKeyData("AC", "OFF", "", Color(0xFFF3F4F6), Color(0xFFDC2626))),
-                listOf(SciKeyData("4", "MATRIX"), SciKeyData("5", "VECTOR"), SciKeyData("6", "STAT"), SciKeyData("×", "nPr", "", Color(0xFFF3F4F6)), SciKeyData("÷", "nCr", "", Color(0xFFF3F4F6))),
-                listOf(SciKeyData("1", "CMPLX"), SciKeyData("2", "BASE"), SciKeyData("3"), SciKeyData("+", "Pol", "", Color(0xFFF3F4F6)), SciKeyData("-", "Rec", "", Color(0xFFF3F4F6))),
-                listOf(SciKeyData("0", "Rnd"), SciKeyData(".", "Ran#", "RanInt"), SciKeyData("×10ˣ", "π", "e", Color(0xFFF3F4F6), action = "×10^("), SciKeyData("Ans", "DRG>", "", Color(0xFFF3F4F6)), SciKeyData("=", bg = PrimaryIndigo, fg = Color.White))
-            )
-            
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp), modifier = Modifier.weight(0.5f)) {
-                numKeys.forEach { rowVals ->
-                    Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                        rowVals.forEach { key ->
-                            SciNumKey(
-                                text = key.text,
-                                shift = key.shift,
-                                alpha = key.alpha,
-                                bg = key.bg ?: Color.White,
-                                fg = key.fg ?: Color(0xFF1F2937),
-                                modifier = Modifier.weight(1f).fillMaxHeight(),
-                                onClick = { handleKeyClick(key) }
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun SciFunctionKey(
+fun StdKey(
     text: String,
-    shift: String = "",
-    alpha: String = "",
-    fg: Color = Color(0xFF1F2937),
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
-) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        color = Color(0xFFF3F4F6), // Match image light grey flat background
-        shadowElevation = 0.dp
-    ) {
-        Column(
-            modifier = Modifier.padding(4.dp).fillMaxSize().clickable { onClick() },
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Row(modifier = Modifier.fillMaxWidth().weight(1f), horizontalArrangement = Arrangement.SpaceBetween) {
-                SmartText(shift, color = Color(0xFFF59E0B), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Amber // FIXED
-                SmartText(alpha, color = Color(0xFF14B8A6), fontSize = 8.sp, fontWeight = FontWeight.Bold) // Teal // FIXED
-            }
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(2f)) {
-                SmartText(text, color = fg, fontSize = 13.sp, fontWeight = FontWeight.Bold, maxLines = 1) // FIXED
-            }
-        }
-    }
-}
-
-@Composable
-fun SciNumKey(
-    text: String,
-    shift: String = "",
-    alpha: String = "",
     bg: Color = Color.White,
     fg: Color = Color(0xFF1F2937),
     modifier: Modifier = Modifier,
@@ -1506,22 +1227,15 @@ fun SciNumKey(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        color = bg, // White or F3F4F6 depending on the key
-        shadowElevation = 0.dp // No shadow for modern flat look
+        shape = RoundedCornerShape(24.dp),
+        color = bg,
+        shadowElevation = 0.dp
     ) {
-        Column(
-            modifier = Modifier.padding(6.dp).fillMaxSize().clickable { onClick() },
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        Box(
+            modifier = Modifier.fillMaxSize().clickable { onClick() },
+            contentAlignment = Alignment.Center
         ) {
-            Row(modifier = Modifier.fillMaxWidth().weight(0.8f), horizontalArrangement = Arrangement.SpaceBetween) {
-                SmartText(shift, color = Color(0xFFF59E0B), fontSize = 8.sp, fontWeight = FontWeight.Bold) // FIXED
-                SmartText(alpha, color = Color(0xFF14B8A6), fontSize = 8.sp, fontWeight = FontWeight.Bold) // FIXED
-            }
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.weight(2f)) {
-                SmartText(text, color = fg, fontSize = 18.sp, fontWeight = FontWeight.Bold) // FIXED
-            }
+            SmartText(text, color = fg, fontSize = 24.sp, fontWeight = FontWeight.Medium)
         }
     }
 }

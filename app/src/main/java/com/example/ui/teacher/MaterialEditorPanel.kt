@@ -94,76 +94,47 @@ fun MaterialEditorPanel(
     val primaryIndigo = Color(0xFF3C3F73)
 
     // Maintain independent editing rows state for each slideshow section
-    var quickQuizRows by remember {
-        mutableStateOf(
-            listOf(
-                listOf("বিপরীত শব্দ লিখুন: আকাশ", "পাতাল", "নদী", "মাটি", "বাতাস", "পাতাল"),
-                listOf("সমার্থক শব্দ লিখুন: আগুন", "অনল", "পানি", "বাতাস", "মাটি", "অনল"),
-                listOf("সমার্থক শব্দ লিখুন: জল", "বারি", "সূর্য", "চন্দ্র", "নক্ষত্র", "বারি")
-            )
-        )
-    }
-    var didYouKnowRows by remember {
-        mutableStateOf(
-            listOf(
-                listOf("আলোর প্রতিফলন কোনো পৃষ্ঠ থেকে আলোর দিক পরিবর্তন প্রক্রিয়া।"),
-                listOf("মরুভূমির মরিচিকা আলোর পূর্ণ অভ্যন্তরীণ প্রতিফলনের প্রাকৃতিক উদাহরণ।"),
-                listOf("শব্দ তরঙ্গের চলাচলের জন্য একটি জড় মাধ্যমের প্রয়োজন হয়।")
-            )
-        )
-    }
-    var wordMeaningRows by remember {
-        mutableStateOf(
-            listOf(
-                listOf("Reflection", "প্রতিফলন", "Noun", "The reflection of light is beautiful."),
-                listOf("Lens", "লেন্স", "Noun", "A camera pad uses a lens."),
-                listOf("Transparent", "স্বচ্ছ", "Adjective", "Glass is transparent to light.")
-            )
-        )
-    }
-    var flashcardsRows by remember {
-        mutableStateOf(
-            listOf(
-                listOf("প্রতিফলন / Reflection", "Reflection of Light", "আলো কোনো তলে বাধা পেয়ে ফিরে আসা।", "The bouncing back of light when it hits a surface."),
-                listOf("প্রতিসরণ / Refraction", "Refraction of Light", "আলোর দিক পরিবর্তন প্রক্রিয়া মাধ্যম পরিবর্তনের সময়।", "The bending of light as it passes between mediums."),
-                listOf("মরিচিকা / Mirage", "Optical Mirage", "পূর্ণ অভ্যন্তরীণ প্রতিফলনের কারণে তৈরি একটি অবাস্তব দৃষ্টিবিভ্রম।", "An optical illusion caused by total internal reflection in atmosphere.")
-            )
-        )
-    }
+    var quickQuizRows by com.example.ui.SlideshowDataStore.quickQuizRows
+    var didYouKnowRows by com.example.ui.SlideshowDataStore.didYouKnowRows
+    var wordMeaningRows by com.example.ui.SlideshowDataStore.wordMeaningRows
 
     // Determine initial selected tab from the clicked material's English title
     var selectedTab by remember {
         mutableStateOf(
             when (materialTitleEn) {
                 "Did You Know" -> "Did You Know"
-                "Quick Quiz" -> "Quick Quiz"
                 "Word Meaning" -> "Word Meaning"
-                "Flashcards", "Lesson Review" -> "Flashcards"
                 else -> "Quick Quiz"
             }
         )
     }
 
-    val tabs = listOf("Quick Quiz", "Did You Know?", "Word Meaning", "Lesson Review")
+    val tabs = listOf("Quick Quiz", "Did You Know?", "Word Meaning")
 
     val currentRows = when (selectedTab) {
         "Quick Quiz" -> quickQuizRows
         "Did You Know" -> didYouKnowRows
         "Word Meaning" -> wordMeaningRows
-        "Flashcards" -> flashcardsRows
         else -> quickQuizRows
     }
 
     val setRows: (List<List<String>>) -> Unit = { updated ->
+        val filtered = updated.filter { row -> row.any { it.isNotBlank() } }
         when (selectedTab) {
-            "Quick Quiz" -> quickQuizRows = updated
-            "Did You Know" -> didYouKnowRows = updated
-            "Word Meaning" -> wordMeaningRows = updated
-            "Flashcards" -> flashcardsRows = updated
+            "Quick Quiz" -> quickQuizRows = filtered
+            "Did You Know" -> didYouKnowRows = filtered
+            "Word Meaning" -> wordMeaningRows = filtered
         }
     }
 
     val cols = getColsForMaterial(selectedTab)
+
+    // Ensure display rows always has an empty row at the end
+    val displayRows = currentRows.toMutableList()
+    val emptyRowTemplate = List(cols.size) { "" }
+    if (displayRows.isEmpty() || displayRows.last().any { it.isNotEmpty() }) {
+        displayRows.add(emptyRowTemplate)
+    }
 
     // Bulk Paste template data
     val pasteQuickQuiz = listOf(
@@ -181,17 +152,10 @@ fun MaterialEditorPanel(
     )
 
     val pasteWordMeaning = listOf(
-        listOf("Reflection", "প্রতিফলন", "Noun", "The reflection of light in the lake was spectacular."),
-        listOf("Transparent", "স্বচ্ছ", "Adjective", "Glass is transparent to light rays."),
-        listOf("Refraction", "প্রতিসরণ", "Noun", "The refraction of light makes the straw look bent."),
-        listOf("Absorb", "শোষণ করা", "Verb", "Darker surfaces absorb more heat energy.")
-    )
-
-    val pasteFlashcards = listOf(
-        listOf("প্রতিফলন / Reflection", "Reflection of Light", "আলো কোনো তলে বাধা পেয়ে ফিরে আসা।", "The bouncing back of light when it hits a surface."),
-        listOf("প্রতিসরণ / Refraction", "Refraction of Light", "আলোর দিক পরিবর্তন প্রক্রিয়া মাধ্যম পরিবর্তনের সময়।", "The bending of light as it passes from one medium to another."),
-        listOf("মরিচিকা / Mirage", "Optical Mirage", "পূর্ণ অভ্যন্তরীণ প্রতিফলনের কারণে তৈরি একটি অবাস্তব দৃষ্টিবিভ্রম।", "An optical illusion caused by total internal reflection in atmosphere."),
-        listOf("প্রিজম / Prism", "Optical Prism", "আলো নিষ্কাশন এবং বিভক্ত করার উপযোগী একটি কাচেরখণ্ড।", "A transparent glass block used to disperse light into spectrum.")
+        listOf("Reflection", "প্রতিফলন", "Noun", "The reflection of light in the lake was spectacular.", "হ্রদে আলোর প্রতিফলন ছিল দর্শনীয়।"),
+        listOf("Transparent", "স্বচ্ছ", "Adjective", "Glass is transparent to light rays.", "কাঁচ আলোক রশ্মির জন্য স্বচ্ছ।"),
+        listOf("Refraction", "প্রতিসরণ", "Noun", "The refraction of light makes the straw look bent.", "আলোর প্রতিসরণের কারণে খড়কে বাঁকা দেখায়।"),
+        listOf("Absorb", "শোষণ করা", "Verb", "Darker surfaces absorb more heat energy.", "গাঢ় পৃষ্ঠতল বেশি তাপশক্তি শোষণ করে।")
     )
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -246,7 +210,6 @@ fun MaterialEditorPanel(
                             "Quick Quiz" -> selectedTab == "Quick Quiz"
                             "Did You Know?" -> selectedTab == "Did You Know"
                             "Word Meaning" -> selectedTab == "Word Meaning"
-                            "Lesson Review" -> selectedTab == "Flashcards"
                             else -> false
                         }
 
@@ -254,7 +217,6 @@ fun MaterialEditorPanel(
                             "Quick Quiz" -> "Quick Quiz"
                             "Did You Know?" -> "Did You Know"
                             "Word Meaning" -> "Word Meaning"
-                            "Lesson Review" -> "Flashcards"
                             else -> "Quick Quiz"
                         }
 
@@ -307,9 +269,6 @@ fun MaterialEditorPanel(
                             }
                             "Word Meaning" -> {
                                 wordMeaningRows = wordMeaningRows + pasteWordMeaning
-                            }
-                            "Flashcards" -> {
-                                flashcardsRows = flashcardsRows + pasteFlashcards
                             }
                         }
                         snackbarHostState.showSnackbar("নমুনা স্লাইড ডাটা যোগ করা হয়েছে! (Sample rows pasted successfully!)")
@@ -385,7 +344,7 @@ fun MaterialEditorPanel(
                     )
                 }
                 SmartText(
-                    text = "${currentRows.size} Rows",
+                    text = "${displayRows.size} Rows",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = primaryIndigo
@@ -465,8 +424,8 @@ fun MaterialEditorPanel(
                         LazyColumn(
                             modifier = Modifier.fillMaxHeight()
                         ) {
-                            items(currentRows.size) { r ->
-                                val rowData = currentRows[r]
+                            items(displayRows.size) { r ->
+                                val rowData = displayRows[r]
                                 Row(
                                     modifier = Modifier
                                         .background(if (r % 2 == 1) (if (isDark) Color(0xFF26282D) else Color(0xFFF9FAFB)) else Color.Transparent)
@@ -502,7 +461,7 @@ fun MaterialEditorPanel(
                                             BasicTextField(
                                                 value = cellValue,
                                                 onValueChange = { newVal ->
-                                                    val newRows = currentRows.toMutableList()
+                                                    val newRows = displayRows.toMutableList()
                                                     val newRow = if (r < newRows.size) newRows[r].toMutableList() else mutableListOf()
                                                     while (newRow.size <= c) {
                                                         newRow.add("")
@@ -540,7 +499,7 @@ fun MaterialEditorPanel(
                                     ) {
                                         IconButton(
                                             onClick = {
-                                                val newRows = currentRows.toMutableList()
+                                                val newRows = displayRows.toMutableList()
                                                 if (newRows.size > r) {
                                                     newRows.removeAt(r)
                                                     setRows(newRows)
@@ -586,7 +545,8 @@ fun getColsForMaterial(title: String): List<SheetColumn> {
             SheetColumn("Word", 150f),
             SheetColumn("Meaning", 150f),
             SheetColumn("Type (e.g. Verb)", 125f),
-            SheetColumn("Sentence", 320f)
+            SheetColumn("English Sentence", 320f),
+            SheetColumn("Bengali Sentence", 320f)
         )
         "Flashcards", "Lesson Review" -> listOf(
             SheetColumn("Topic Bn", 160f),

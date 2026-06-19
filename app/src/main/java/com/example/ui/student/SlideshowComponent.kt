@@ -31,6 +31,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Brush
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+
+import com.example.ui.SlideshowDataStore
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -39,12 +42,55 @@ fun DailyActivitySlideshow(onNavigateToLesson: () -> Unit) {
 
     LaunchedEffect(Unit) {
         while (true) {
-            delay(5000)
+            var waited = 0
+            while (waited < 5000) {
+                delay(100)
+                // Don't count waiting time if user is interacting/dragging
+                if (!pagerState.isScrollInProgress) {
+                    waited += 100
+                }
+            }
+
             val nextPage = (pagerState.currentPage + 1) % 4
-            pagerState.animateScrollToPage(
-                page = nextPage,
-                animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
-            )
+            
+            try {
+                pagerState.animateScrollToPage(
+                    page = nextPage,
+                    animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing)
+                )
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                if (!isActive) throw e
+            }
+            
+            // Safely update contents of pages that are now completely off-screen
+            val current = pagerState.currentPage
+            
+            if (current == 2) { // Page 0 (Quiz) is far off-screen
+                if (SlideshowDataStore.quickQuizNeedsUpdate.value) {
+                    val quizzesSize = SlideshowDataStore.quickQuizRows.value.count { it.any { cell -> cell.isNotBlank() } }
+                    if (quizzesSize > 0) {
+                        SlideshowDataStore.currentQuizIndex.intValue = (SlideshowDataStore.currentQuizIndex.intValue + 1) % quizzesSize
+                    }
+                    SlideshowDataStore.quickQuizNeedsUpdate.value = false
+                    SlideshowDataStore.quickQuizAnswered.value = null
+                    SlideshowDataStore.quickQuizSelected.value = null
+                }
+            }
+            
+            if (current == 3) { // Page 1 (Did You Know) is off-screen
+                SlideshowDataStore.slideshowCycleCount.intValue++
+                if (SlideshowDataStore.slideshowCycleCount.intValue % 3 == 0) {
+                    val factsSize = SlideshowDataStore.didYouKnowRows.value.count { it.any { cell -> cell.isNotBlank() } }
+                    if (factsSize > 0) SlideshowDataStore.currentFactIndex.intValue = (SlideshowDataStore.currentFactIndex.intValue + 1) % factsSize
+                }
+            }
+            
+            if (current == 1) { // Page 3 (Word Meaning) is off-screen
+                if (SlideshowDataStore.slideshowCycleCount.intValue % 5 == 0) {
+                    val wordsSize = SlideshowDataStore.wordMeaningRows.value.count { it.any { cell -> cell.isNotBlank() } }
+                    if (wordsSize > 0) SlideshowDataStore.currentWordIndex.intValue = (SlideshowDataStore.currentWordIndex.intValue + 1) % wordsSize
+                }
+            }
         }
     }
 
@@ -114,6 +160,11 @@ fun DailyActivitySlideshow(onNavigateToLesson: () -> Unit) {
 
 @Composable
 fun DidYouKnowCard() {
+    val didYouKnowRows by SlideshowDataStore.didYouKnowRows
+    val facts = didYouKnowRows.filter { it.any { cell -> cell.isNotBlank() } }
+    val activeRow = facts.getOrNull(SlideshowDataStore.currentFactIndex.intValue % maxOf(1, facts.size)) ?: facts.firstOrNull()
+    val fact = activeRow?.getOrNull(0)?.takeIf { it.isNotBlank() } ?: "শুক্র গ্রহের এক দিন পৃথিবীর এক বছরের চেয়ে বড়!"
+
     SlideshowCardBase(
         gradientBrush = Brush.linearGradient(listOf(Color(0xFFFF8008), Color(0xFFFFC837)))
     ) {
@@ -152,7 +203,7 @@ fun DidYouKnowCard() {
         }
         Spacer(modifier = Modifier.weight(1f))
         SmartText( // FIXED
-            "শুক্র গ্রহের এক দিন পৃথিবীর এক\nবছরের চেয়ে বড়!",
+            fact,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -298,11 +349,24 @@ fun FlashcardOfTheDay() {
 
 @Composable
 fun DailyChallengeCard() {
-    var answered by remember { mutableStateOf<Boolean?>(null) }
-    var selectedOption by remember { mutableStateOf<Int?>(null) }
+    var answered by SlideshowDataStore.quickQuizAnswered
+    var selectedOption by SlideshowDataStore.quickQuizSelected
     
-    val options = listOf("পাতাল", "নদী", "মাটি", "বাতাস")
-    val correctOption = 0
+    val currentRows by SlideshowDataStore.quickQuizRows
+    val quizzes = currentRows.filter { it.any { cell -> cell.isNotBlank() } }
+    
+    val activeRow = quizzes.getOrNull(SlideshowDataStore.currentQuizIndex.intValue % maxOf(1, quizzes.size)) ?: quizzes.firstOrNull()
+    
+    val questionText = activeRow?.getOrNull(0)?.takeIf { it.isNotBlank() } ?: "বিপরীত শব্দ লিখুন: আকাশ"
+    
+    val options = listOf(
+        activeRow?.getOrNull(1)?.takeIf { it.isNotBlank() } ?: "পাতাল",
+        activeRow?.getOrNull(2)?.takeIf { it.isNotBlank() } ?: "নদী",
+        activeRow?.getOrNull(3)?.takeIf { it.isNotBlank() } ?: "মাটি",
+        activeRow?.getOrNull(4)?.takeIf { it.isNotBlank() } ?: "বাতাস"
+    )
+    val answerText = activeRow?.getOrNull(5)?.takeIf { it.isNotBlank() } ?: "পাতাল"
+    val correctOption = options.indexOf(answerText).takeIf { it >= 0 } ?: 0
 
     SlideshowCardBase(
         gradientBrush = Brush.linearGradient(listOf(Color(0xFF00B4DB), Color(0xFF0083B0)))
@@ -341,18 +405,18 @@ fun DailyChallengeCard() {
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        SmartText("বিপরীত শব্দ লিখুন: আকাশ", fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Color.White) // FIXED
+        SmartText(questionText, fontSize = 22.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center, color = Color.White) // FIXED
         Spacer(modifier = Modifier.weight(1f))
         
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                ChallengeOption(options[0], Modifier.weight(1f), answered, selectedOption == 0, 0 == correctOption) { if(answered == null) { selectedOption = 0; answered = (0 == correctOption) } }
-                ChallengeOption(options[1], Modifier.weight(1f), answered, selectedOption == 1, 1 == correctOption) { if(answered == null) { selectedOption = 1; answered = (1 == correctOption) } }
+                ChallengeOption(options[0], Modifier.weight(1f), answered, selectedOption == 0, 0 == correctOption) { if(answered == null) { selectedOption = 0; answered = (0 == correctOption); SlideshowDataStore.quickQuizNeedsUpdate.value = true } }
+                ChallengeOption(options[1], Modifier.weight(1f), answered, selectedOption == 1, 1 == correctOption) { if(answered == null) { selectedOption = 1; answered = (1 == correctOption); SlideshowDataStore.quickQuizNeedsUpdate.value = true } }
             }
             Spacer(modifier = Modifier.height(12.dp))
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                ChallengeOption(options[2], Modifier.weight(1f), answered, selectedOption == 2, 2 == correctOption) { if(answered == null) { selectedOption = 2; answered = (2 == correctOption) } }
-                ChallengeOption(options[3], Modifier.weight(1f), answered, selectedOption == 3, 3 == correctOption) { if(answered == null) { selectedOption = 3; answered = (3 == correctOption) } }
+                ChallengeOption(options[2], Modifier.weight(1f), answered, selectedOption == 2, 2 == correctOption) { if(answered == null) { selectedOption = 2; answered = (2 == correctOption); SlideshowDataStore.quickQuizNeedsUpdate.value = true } }
+                ChallengeOption(options[3], Modifier.weight(1f), answered, selectedOption == 3, 3 == correctOption) { if(answered == null) { selectedOption = 3; answered = (3 == correctOption); SlideshowDataStore.quickQuizNeedsUpdate.value = true } }
             }
         }
         
@@ -399,6 +463,16 @@ fun ChallengeOption(text: String, modifier: Modifier, answered: Boolean?, isSele
 
 @Composable
 fun WordOfTheDayCard() {
+    val currentRows by SlideshowDataStore.wordMeaningRows
+    val words = currentRows.filter { it.any { cell -> cell.isNotBlank() } }
+    val activeRow = words.getOrNull(SlideshowDataStore.currentWordIndex.intValue % maxOf(1, words.size)) ?: words.firstOrNull()
+
+    val wordEn = activeRow?.getOrNull(0)?.takeIf { it.isNotBlank() } ?: "Learn"
+    val wordBn = activeRow?.getOrNull(1)?.takeIf { it.isNotBlank() } ?: "শেখা"
+    val type = activeRow?.getOrNull(2)?.takeIf { it.isNotBlank() } ?: "Verb"
+    val sentenceEn = activeRow?.getOrNull(3)?.takeIf { it.isNotBlank() } ?: "I want to learn something new every day."
+    val sentenceBn = activeRow?.getOrNull(4)?.takeIf { it.isNotBlank() } ?: "আমি প্রতিদিন নতুন কিছু শিখতে চাই।"
+
     SlideshowCardBase(
         gradientBrush = Brush.linearGradient(listOf(Color(0xFF8E2DE2), Color(0xFF4A00E0)))
     ) {
@@ -436,8 +510,8 @@ fun WordOfTheDayCard() {
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        SmartText("Learn", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
-        SmartText("শেখা • Verb", fontSize = 16.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
+        SmartText(wordEn, fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
+        SmartText("$wordBn • $type", fontSize = 16.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
         Spacer(modifier = Modifier.weight(1f))
         Surface(
             color = Color.White.copy(alpha = 0.1f),
@@ -446,9 +520,9 @@ fun WordOfTheDayCard() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp)) {
-                SmartText("I want to learn something new every day.", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White) // FIXED
+                SmartText(sentenceEn, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color.White) // FIXED
                 Spacer(modifier = Modifier.height(6.dp))
-                SmartText("আমি প্রতিদিন নতুন কিছু শিখতে চাই।", fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
+                SmartText(sentenceBn, fontSize = 14.sp, color = Color.White.copy(alpha = 0.9f)) // FIXED
             }
         }
     }
@@ -469,7 +543,7 @@ fun ReviewPreviousLessonCard(onNavigateToLesson: () -> Unit) {
                 shape = CircleShape,
                 border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.1f))
             ) {
-                SmartText( // FIXED
+                SmartText(
                     "REVIEW LESSON",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -496,9 +570,9 @@ fun ReviewPreviousLessonCard(onNavigateToLesson: () -> Unit) {
         Spacer(modifier = Modifier.weight(0.8f))
         
         Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
-            SmartText("বাংলা ব্যাকরণ", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f)) // FIXED
+            SmartText("বাংলা ব্যাকরণ", fontSize = 14.sp, color = Color.White.copy(alpha = 0.8f))
             Spacer(modifier = Modifier.height(4.dp))
-            SmartText("বিরাম চিহ্ন বা জ্যোতিচিহ্ন", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White) // FIXED
+            SmartText("বিরাম চিহ্ন বা জ্যোতিচিহ্ন", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
         }
         
         Spacer(modifier = Modifier.weight(1.2f))
@@ -510,7 +584,7 @@ fun ReviewPreviousLessonCard(onNavigateToLesson: () -> Unit) {
             modifier = Modifier.fillMaxWidth().height(52.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                SmartText("পড়া চালিয়ে যান", fontSize = 18.sp, fontWeight = FontWeight.SemiBold) // FIXED
+                SmartText("পড়া চালিয়ে যান", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
             }
